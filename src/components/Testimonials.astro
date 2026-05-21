@@ -1,0 +1,73 @@
+---
+import TestimonialCard from "./Cards/TestimonialCard.astro";
+
+const testimonials = [
+  {
+    quote:
+      "Durch den CreaLog AI Voice Agent konnten wir unsere First Call Resolution um 34 % steigern – bei gleichzeitig deutlich reduzierten Bearbeitungszeiten. Die Integration in unser bestehendes CRM war reibungslos.",
+    name: "Anna Vogel",
+    title: "Head of Customer Experience",
+    company: "Deutsche Telekom",
+    initials: "AV",
+    avatarColor: "#004990",
+    rating: 5,
+  },
+  {
+    quote:
+      "CreaLog hat unsere IVR-Infrastruktur grundlegend modernisiert. Die Spracherkennung ist beeindruckend präzise – auch bei komplexen Anfragen. Unsere Agenten können sich jetzt auf die wirklich anspruchsvollen Fälle konzentrieren.",
+    name: "Markus Richter",
+    title: "CTO",
+    company: "R+V Versicherung",
+    initials: "MR",
+    avatarColor: "#1a5c2e",
+    rating: 5,
+  },
+  {
+    quote:
+      "Was uns überzeugt hat, war die On-Premise-Option. Datensicherheit ist für uns nicht verhandelbar. CreaLog liefert Enterprise-KI ohne Kompromisse bei Compliance und DSGVO.",
+    name: "Sandra Kühn",
+    title: "VP Operations",
+    company: "DZ BANK",
+    initials: "SK",
+    avatarColor: "#7c3d0f",
+    rating: 5,
+  },
+];
+---
+
+<section class="relative bg-white py-24 overflow-hidden">
+  <!-- Subtle top gradient from dark section above -->
+  <div class="pointer-events-none absolute top-0 left-0 right-0 h-px bg-gray-100"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+    <!-- Section header -->
+    <div class="flex flex-col gap-5 mb-14">
+      <!-- Label -->
+      <div class="flex items-center gap-3">
+        <div class="h-px w-8 bg-[rgb(252,176,64)]"></div>
+        <span class="text-[rgb(252,176,64)] text-[11px] font-semibold uppercase tracking-[0.28em]">
+          Kundenstimmen
+        </span>
+      </div>
+
+      <!-- Headline + subline side by side on desktop -->
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <h2
+          class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.1] tracking-[-0.02em] text-gray-900 max-w-[480px]"
+        >
+          Was unsere Kunden<br />
+          <span class="text-[#004990]">über uns sagen</span>
+        </h2>
+        <p class="text-[14px] text-gray-400 leading-relaxed max-w-[340px] lg:text-right">
+          Über 200 Unternehmen im DACH-Raum vertrauen auf CreaLog –
+          von Mittelstand bis DAX-Konzern.
+        </p>
+      </div>
+    </div>
+
+    <!-- Cards grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {testimonials.map((t, i) => <TestimonialCard {...t} index={i} />)}
+    </div>
+  </div>
+</section>

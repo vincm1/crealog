@@ -1,0 +1,82 @@
+---
+const stats = [
+  { value: "1996", label: "Gegründet" },
+  { value: "200+", label: "Unternehmenskunden" },
+  { value: "150+", label: "Mitarbeitende" },
+  { value: "München", label: "Hauptsitz" },
+];
+---
+
+<section class="bg-gray-50 border-y border-gray-100 py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <!-- Left: Logo + Gründungsjahr -->
+      <div class="flex flex-col gap-8">
+        <img
+          src="/crealog_logo.png"
+          alt="CreaLog"
+          class="h-14 w-auto object-contain object-left"
+        />
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+          {stats.map((s) => (
+            <div class="flex flex-col gap-1">
+              <span class="text-[1.5rem] font-bold tracking-tight text-[#004990]">
+                {s.value}
+              </span>
+              <span class="text-[12px] text-gray-400 uppercase tracking-[0.12em] font-medium">
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Right: Text content -->
+      <div class="flex flex-col gap-6">
+        <!-- Label -->
+        <div class="flex items-center gap-3">
+          <div class="h-px w-8 bg-[rgb(252,176,64)]"></div>
+          <span class="text-[rgb(252,176,64)] text-[11px] font-semibold uppercase tracking-[0.28em]">
+            Über CreaLog
+          </span>
+        </div>
+
+        <!-- Headline -->
+        <h2 class="text-[1.75rem] lg:text-[2rem] font-bold leading-[1.15] tracking-[-0.02em] text-gray-900">
+          Sprachkommunikation neu<br />
+          <span class="text-[#004990]">gedacht. Seit 1996.</span>
+        </h2>
+
+        <!-- Intro -->
+        <p class="text-[15px] text-gray-500 leading-relaxed">
+          CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen
+          für den professionellen Kundenkontakt. Mit über 25 Jahren Erfahrung
+          in der deutschen Telekommunikationsbranche entwickeln wir Plattformen,
+          die Unternehmen dabei helfen, Kundengespräche zu automatisieren,
+          zu analysieren und nachhaltig zu verbessern.
+        </p>
+
+        <p class="text-[15px] text-gray-500 leading-relaxed">
+          Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere
+          Lösungen laufen on-premise, in der Cloud oder hybrid — immer
+          DSGVO-konform und made in Germany.
+        </p>
+
+        <!-- CTA -->
+        <div class="pt-2">
+          <a
+            href="/about"
+            class="inline-flex items-center gap-2 text-[#004990] text-sm font-semibold hover:gap-3 transition-all duration-200"
+          >
+            Mehr über CreaLog
+            <span class="text-[rgb(252,176,64)]">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
