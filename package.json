@@ -12,6 +12,17 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.3.6"
+    "@astrojs/vue": "^6.0.1",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.3.6",
+    "tailwindcss": "^4.3.0",
+    "vue": "^3.5.34"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "daisyui": "^5.5.20",
+    "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3"
   }
 }

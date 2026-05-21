@@ -1,0 +1,113 @@
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  .hero-root { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  .wave-bar {
+    animation: wavePulse 1.6s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  .wave-bar:nth-child(1) { animation-delay: 0.00s; height: 40%; }
+  .wave-bar:nth-child(2) { animation-delay: 0.15s; height: 80%; }
+  .wave-bar:nth-child(3) { animation-delay: 0.30s; height: 100%; }
+  .wave-bar:nth-child(4) { animation-delay: 0.10s; height: 60%; }
+  .wave-bar:nth-child(5) { animation-delay: 0.25s; height: 90%; }
+  .wave-bar:nth-child(6) { animation-delay: 0.05s; height: 50%; }
+  .wave-bar:nth-child(7) { animation-delay: 0.20s; height: 70%; }
+
+  @keyframes wavePulse {
+    0%, 100% { transform: scaleY(0.25); opacity: 0.35; }
+    50%       { transform: scaleY(1);    opacity: 1;    }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.10s; }
+  .fade-up:nth-child(2) { animation-delay: 0.28s; }
+  .fade-up:nth-child(3) { animation-delay: 0.44s; }
+  .fade-up:nth-child(4) { animation-delay: 0.58s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+
+  .cta-primary {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .cta-primary:hover {
+    box-shadow: 0 0 28px rgba(0, 73, 144, 0.5);
+    transform: translateY(-1px);
+  }
+</style>
+
+<section class="hero-root relative min-h-screen bg-[#050d1e] overflow-hidden flex items-center">
+
+  <!-- Bild: strikt rechte 58% -->
+  <div class="absolute right-0 top-0 w-[58%] h-full pointer-events-none">
+    <div
+      class="absolute inset-0 bg-cover bg-center"
+      style="background-image: url(/hero_graphic.png);"
+    ></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#050d1e] via-[#050d1e]/55 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-[#050d1e]/50 via-transparent to-[#050d1e]/60"></div>
+  </div>
+
+  <!-- Noise-Textur -->
+  <div class="absolute inset-0 opacity-[0.03]" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%221%22/></svg>');"></div>
+
+  <!-- Content — pt-20 für fixed Navbar -->
+  <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-20 py-24">
+    <div class="max-w-[520px] flex flex-col gap-7">
+
+      <!-- Label mit animierter Waveform -->
+      <div class="fade-up flex items-center gap-3">
+        <div class="flex items-end gap-[3px] h-[16px]">
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
+        </div>
+        <span class="text-[rgb(252,176,64)] text-[11px] font-semibold uppercase tracking-[0.28em]">
+          AI-Powered Voice Solutions
+        </span>
+      </div>
+
+      <!-- Headline: 2 Zeilen, kein Silbentrenner -->
+      <h1 class="fade-up text-[3.75rem] lg:text-[5rem] font-bold leading-[1.05] tracking-[-0.025em] text-white">
+        Die Zukunft des<br />
+        <span class="text-[rgb(252,176,64)]">Kundenkontakts</span>
+      </h1>
+
+      <!-- Subline -->
+      <p class="fade-up text-[15px] text-white/45 leading-relaxed max-w-[380px] font-normal">
+        Intelligente Sprachlösungen, die Kundengespräche automatisieren —
+        schneller, skalierbarer und natürlicher als je zuvor.
+      </p>
+
+      <!-- CTAs -->
+      <div class="fade-up flex items-center gap-7">
+        <a
+          href="/kontakt"
+          class="cta-primary px-8 py-[13px] bg-[rgb(0,73,144)] text-white font-semibold text-sm rounded-full"
+        >
+          Jetzt starten
+        </a>
+        <a
+          href="/loesungen"
+          class="group flex items-center gap-2 text-white/45 hover:text-white text-sm font-medium transition-colors duration-200"
+        >
+          Lösungen ansehen
+          <span class="text-[rgb(252,176,64)] group-hover:translate-x-1 transition-transform duration-200">→</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</section>

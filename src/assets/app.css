@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@plugin "daisyui/theme" {
+  name: "crealog";
+  default: true;
+
+  /* Brand Blue rgb(0,73,144) */
+  --color-primary: oklch(34% 0.14 264);
+  --color-primary-content: oklch(98% 0 0);
+
+  /* Brand Amber rgb(252,176,64) */
+  --color-secondary: oklch(78% 0.16 73);
+  --color-secondary-content: oklch(17% 0.03 264);
+
+  /* Base surfaces mit leichtem Blau-Unterton */
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97% 0.004 264);
+  --color-base-300: oklch(92% 0.008 264);
+
+  /* Textfarbe: dunkles Navy #0F1E30 */
+  --color-base-content: oklch(17% 0.03 264);
+}
+
+@theme {
+  /* Direkte Tailwind-Utilities: text-brand-blue, bg-brand-amber, etc. */
+  --color-brand-blue: rgb(0 73 144);
+  --color-brand-amber: rgb(252 176 64);
+}
