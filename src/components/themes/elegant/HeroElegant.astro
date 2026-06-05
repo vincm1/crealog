@@ -1,6 +1,12 @@
+---
+import VoiceNetwork from "../../VoiceNetwork.vue";
+---
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
   .hero-root { font-family: 'Plus Jakarta Sans', sans-serif; }
+
   .wave-bar { animation: wavePulse 1.6s ease-in-out infinite; transform-origin: bottom; }
   .wave-bar:nth-child(1) { animation-delay: 0.00s; height: 40%; }
   .wave-bar:nth-child(2) { animation-delay: 0.15s; height: 80%; }
@@ -9,87 +15,134 @@
   .wave-bar:nth-child(5) { animation-delay: 0.25s; height: 90%; }
   .wave-bar:nth-child(6) { animation-delay: 0.05s; height: 50%; }
   .wave-bar:nth-child(7) { animation-delay: 0.20s; height: 70%; }
+
   @keyframes wavePulse {
     0%, 100% { transform: scaleY(0.25); opacity: 0.35; }
     50%       { transform: scaleY(1);    opacity: 1;    }
   }
-  .fade-up { opacity: 0; animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .fade-up:nth-child(1) { animation-delay: 0.10s; }
-  .fade-up:nth-child(2) { animation-delay: 0.28s; }
-  .fade-up:nth-child(3) { animation-delay: 0.44s; }
-  .fade-up:nth-child(4) { animation-delay: 0.58s; }
+
+  .fade-up { opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .fade-up:nth-child(1) { animation-delay: 0.15s; }
+  .fade-up:nth-child(2) { animation-delay: 0.32s; }
+  .fade-up:nth-child(3) { animation-delay: 0.48s; }
+  .fade-up:nth-child(4) { animation-delay: 0.62s; }
+
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0);    }
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  .cta-primary { transition: box-shadow 0.2s ease, transform 0.2s ease; }
+
+  .cta-primary {
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+  }
   .cta-primary:hover {
-    box-shadow: 0 0 28px rgba(0,73,144,0.3);
-    transform: translateY(-1px);
+    box-shadow: 0 0 32px rgba(56,182,255,0.35);
+    transform: translateY(-2px);
+  }
+
+  /* Gradient that bleeds hero into the white Company section */
+  .bottom-fade {
+    background: linear-gradient(to bottom, transparent 60%, rgba(5,10,15,0.85) 100%);
   }
 </style>
 
-<section class="hero-root relative min-h-screen lg:h-screen bg-white overflow-hidden flex items-center border-b border-[#e8ecf4]">
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Hero — Elegant variant with 3D VoiceNetwork background
+     bg: #050a0f matches VoiceNetwork clear color exactly
+════════════════════════════════════════════════════════════════════════════ -->
+<section
+  class="hero-root relative min-h-screen lg:h-screen overflow-hidden flex items-center"
+  style="background: #050a0f;"
+>
 
-  <!-- Hero image — tinted, right side -->
-  <div class="absolute right-0 top-0 w-[58%] h-full pointer-events-none">
-    <div class="absolute inset-0 bg-cover bg-center opacity-15" style="background-image: url(/hero_graphic.png);"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+  <!-- 3D Network Canvas — full-bleed absolute ───────────────────────────── -->
+  <div class="absolute inset-0 z-0">
+    <VoiceNetwork client:load />
   </div>
 
-  <!-- Subtle blue radial glow -->
+  <!-- Vignette: darken edges so text pops without clashing with the network -->
   <div
-    class="pointer-events-none absolute bottom-0 right-0 w-[600px] h-[500px]"
-    style="background: radial-gradient(ellipse at bottom right, rgba(0,73,144,0.06) 0%, transparent 70%);"
+    class="absolute inset-0 z-10 pointer-events-none"
+    style="background: radial-gradient(ellipse 80% 90% at 50% 50%, transparent 30%, rgba(5,10,15,0.55) 100%);"
   ></div>
 
-  <!-- Top border accent -->
-  <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#004990] via-[#1d6bbf] to-transparent"></div>
+  <!-- Left gradient so the text block is always readable ──────────────────── -->
+  <div
+    class="absolute inset-0 z-10 pointer-events-none"
+    style="background: linear-gradient(to right, rgba(5,10,15,0.72) 0%, rgba(5,10,15,0.45) 38%, transparent 70%);"
+  ></div>
 
+  <!-- Bottom fade → seamless transition to white Company section ──────────── -->
+  <div class="absolute bottom-0 left-0 right-0 h-40 z-10 pointer-events-none bottom-fade"></div>
+
+  <!-- Top accent line ─────────────────────────────────────────────────────── -->
+  <div
+    class="absolute top-0 left-0 right-0 h-[2px] z-20 pointer-events-none"
+    style="background: linear-gradient(to right, rgba(48,168,255,0.6) 0%, rgba(29,107,191,0.3) 50%, transparent 100%);"
+  ></div>
+
+  <!-- Content ─────────────────────────────────────────────────────────────── -->
   <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-20 py-24">
-    <div class="max-w-[520px] flex flex-col gap-7 lg:gap-10">
+    <div class="max-w-[540px] flex flex-col gap-8 lg:gap-11">
 
+      <!-- Badge with animated waveform ────────────────────────────────────── -->
       <div class="fade-up flex items-center gap-3">
         <div class="flex items-end gap-[3px] h-[16px]">
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[#004990] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
+          <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
         </div>
-        <span class="text-[#004990] text-[11px] font-semibold uppercase tracking-[0.28em]">
+        <span class="text-[#38a8ff] text-[11px] font-semibold uppercase tracking-[0.28em]">
           AI-Powered Voice Solutions
         </span>
       </div>
 
-      <h1 class="fade-up text-[2rem] md:text-[2.25rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold leading-[1.05] tracking-[-0.025em] text-[#0a1628]">
+      <!-- Headline ─────────────────────────────────────────────────────────── -->
+      <h1
+        class="fade-up font-bold leading-[1.04] tracking-[-0.03em] text-white"
+        style="font-size: clamp(2rem, 4.5vw, 3.5rem);"
+      >
         Die Zukunft des<br />
-        <span class="text-[#1d6bbf]">Kundenkontakts</span>
+        <span
+          class="text-transparent bg-clip-text"
+          style="background-image: linear-gradient(135deg, #60b8ff 0%, #a5d8ff 60%, #c8e8ff 100%);"
+        >
+          Kundenkontakts
+        </span>
       </h1>
 
-      <p class="fade-up text-[15px] text-[#6b7280] leading-relaxed max-w-[380px] font-normal">
+      <!-- Sub-headline ─────────────────────────────────────────────────────── -->
+      <p class="fade-up text-[15px] leading-relaxed font-light max-w-[400px]" style="color: rgba(180,210,240,0.65);">
         Intelligente Sprachlösungen, die Kundengespräche automatisieren —
         schneller, skalierbarer und natürlicher als je zuvor.
       </p>
 
-      <div class="fade-up flex items-center gap-7">
+      <!-- CTAs ──────────────────────────────────────────────────────────────── -->
+      <div class="fade-up flex items-center gap-8">
         <a
           href="/kontakt"
-          class="cta-primary px-8 py-[13px] bg-[#004990] text-white font-semibold text-sm rounded-full"
+          class="cta-primary px-8 py-[14px] text-white font-semibold text-sm rounded-full"
+          style="background: rgba(0,73,144,0.9); border: 1px solid rgba(56,168,255,0.3);"
         >
           Jetzt starten
         </a>
         <a
           href="/loesungen"
-          class="group flex items-center gap-2 text-[#6b7280] hover:text-[#0a1628] text-sm font-medium transition-colors duration-200"
+          class="group flex items-center gap-2 text-sm font-medium transition-colors duration-200"
+          style="color: rgba(160,200,240,0.6);"
+          onmouseover="this.style.color='rgba(210,235,255,0.9)'"
+          onmouseout="this.style.color='rgba(160,200,240,0.6)'"
         >
           Lösungen ansehen
-          <span class="text-[#004990] group-hover:translate-x-1 transition-transform duration-200">→</span>
+          <span class="text-[#38a8ff] group-hover:translate-x-1 transition-transform duration-200">→</span>
         </a>
       </div>
 
     </div>
   </div>
+
 </section>
