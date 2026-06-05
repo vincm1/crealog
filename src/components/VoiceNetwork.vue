@@ -11,11 +11,11 @@ const props = withDefaults(defineProps<{
 const el = ref<HTMLDivElement | null>(null)
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-const N           = 38        // endpoints in the network
-const RADIUS      = 3.6
-const CONNECT_D   = 2.25      // max distance for an automatic link
+const N           = 58        // endpoints in the network
+const RADIUS      = 4.0
+const CONNECT_D   = 1.95      // max distance for an automatic link
 const MIN_LINKS   = 2         // guarantee every node is reachable (routing needs this)
-const PACKETS     = 30        // simultaneous signals travelling the network
+const PACKETS     = 42        // simultaneous signals travelling the network
 const PKT_SPEED   = [1.3, 2.4] // world units / second (min, max)
 const ORBIT_SPEED = 0.022     // rad/s — full rotation ≈ 4.8 min
 const MOUSE_TILT  = 0.15
@@ -123,6 +123,16 @@ onMounted(() => {
   group.position.set(props.offsetX, props.offsetY, 0)
   scene.add(group)
 
+  // ── Grounding glow ──────────────────────────────────────────────────────────
+  // A large, soft pool of light sitting behind the cluster so it reads as a
+  // deliberate, anchored object instead of floating in the void.
+  const groundGeo = new THREE.BufferGeometry()
+  groundGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array([0, 0, -2.5]), 3))
+  group.add(new THREE.Points(groundGeo, new THREE.PointsMaterial({
+    size: 13, map: glowTex(22, 70, 138, 256),
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
+  })))
+
   // ── Nodes ──────────────────────────────────────────────────────────────────
   const positions = fibSphere(N, RADIUS)
   meta = positions.map(base => ({
@@ -148,7 +158,7 @@ onMounted(() => {
   const haloGeo = new THREE.BufferGeometry()
   haloGeo.setAttribute('position', nodePos)
   group.add(new THREE.Points(haloGeo, new THREE.PointsMaterial({
-    size: 0.42, map: glowTex(40, 150, 235),
+    size: 0.36, map: glowTex(40, 150, 235),
     transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
   })))
 
