@@ -3,46 +3,102 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
 ---
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
 
-  .hero-root { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-  .wave-bar { animation: wavePulse 1.6s ease-in-out infinite; transform-origin: bottom; }
-  .wave-bar:nth-child(1) { animation-delay: 0.00s; height: 40%; }
-  .wave-bar:nth-child(2) { animation-delay: 0.15s; height: 80%; }
-  .wave-bar:nth-child(3) { animation-delay: 0.30s; height: 100%; }
-  .wave-bar:nth-child(4) { animation-delay: 0.10s; height: 60%; }
-  .wave-bar:nth-child(5) { animation-delay: 0.25s; height: 90%; }
-  .wave-bar:nth-child(6) { animation-delay: 0.05s; height: 50%; }
-  .wave-bar:nth-child(7) { animation-delay: 0.20s; height: 70%; }
-
-  @keyframes wavePulse {
-    0%, 100% { transform: scaleY(0.25); opacity: 0.35; }
-    50%       { transform: scaleY(1);    opacity: 1;    }
+  .hero-root {
+    font-family: "Plus Jakarta Sans", sans-serif;
   }
 
-  .fade-up { opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .fade-up:nth-child(1) { animation-delay: 0.15s; }
-  .fade-up:nth-child(2) { animation-delay: 0.32s; }
-  .fade-up:nth-child(3) { animation-delay: 0.48s; }
-  .fade-up:nth-child(4) { animation-delay: 0.62s; }
+  .wave-bar {
+    animation: wavePulse 1.6s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  .wave-bar:nth-child(1) {
+    animation-delay: 0s;
+    height: 40%;
+  }
+  .wave-bar:nth-child(2) {
+    animation-delay: 0.15s;
+    height: 80%;
+  }
+  .wave-bar:nth-child(3) {
+    animation-delay: 0.3s;
+    height: 100%;
+  }
+  .wave-bar:nth-child(4) {
+    animation-delay: 0.1s;
+    height: 60%;
+  }
+  .wave-bar:nth-child(5) {
+    animation-delay: 0.25s;
+    height: 90%;
+  }
+  .wave-bar:nth-child(6) {
+    animation-delay: 0.05s;
+    height: 50%;
+  }
+  .wave-bar:nth-child(7) {
+    animation-delay: 0.2s;
+    height: 70%;
+  }
+
+  @keyframes wavePulse {
+    0%,
+    100% {
+      transform: scaleY(0.25);
+      opacity: 0.35;
+    }
+    50% {
+      transform: scaleY(1);
+      opacity: 1;
+    }
+  }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .fade-up:nth-child(1) {
+    animation-delay: 0.15s;
+  }
+  .fade-up:nth-child(2) {
+    animation-delay: 0.32s;
+  }
+  .fade-up:nth-child(3) {
+    animation-delay: 0.48s;
+  }
+  .fade-up:nth-child(4) {
+    animation-delay: 0.62s;
+  }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(32px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(32px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .cta-primary {
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    transition:
+      box-shadow 0.25s ease,
+      transform 0.25s ease;
   }
   .cta-primary:hover {
-    box-shadow: 0 0 32px rgba(56,182,255,0.35);
+    box-shadow: 0 0 32px rgba(56, 182, 255, 0.35);
     transform: translateY(-2px);
   }
 
   /* Gradient that bleeds hero into the white Company section */
   .bottom-fade {
-    background: linear-gradient(to bottom, transparent 60%, rgba(5,10,15,0.85) 100%);
+    background: linear-gradient(
+      to bottom,
+      transparent 60%,
+      rgba(5, 10, 15, 0.85) 100%
+    );
   }
 </style>
 
@@ -54,37 +110,41 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
   class="hero-root relative min-h-screen lg:h-screen overflow-hidden flex items-center"
   style="background: #050a0f;"
 >
-
   <!-- 3D Network Canvas — full-bleed absolute, cluster shifted right ──────── -->
   <div class="absolute inset-0 z-0">
-    <VoiceNetwork client:load :offsetX="5.1" :offsetY="-0.2" />
+    <VoiceNetwork client:load offsetX={3.2} offsetY={-0.2} />
   </div>
 
   <!-- Vignette: darken edges so text pops without clashing with the network -->
   <div
     class="absolute inset-0 z-10 pointer-events-none"
     style="background: radial-gradient(ellipse 80% 90% at 50% 50%, transparent 30%, rgba(5,10,15,0.55) 100%);"
-  ></div>
+  >
+  </div>
 
   <!-- Left gradient — stronger on left (text area), fades toward the network -->
   <div
     class="absolute inset-0 z-10 pointer-events-none"
     style="background: linear-gradient(to right, rgba(5,10,15,0.88) 0%, rgba(5,10,15,0.60) 32%, rgba(5,10,15,0.18) 58%, transparent 75%);"
-  ></div>
+  >
+  </div>
 
   <!-- Bottom fade → seamless transition to white Company section ──────────── -->
-  <div class="absolute bottom-0 left-0 right-0 h-40 z-10 pointer-events-none bottom-fade"></div>
+  <div
+    class="absolute bottom-0 left-0 right-0 h-40 z-10 pointer-events-none bottom-fade"
+  >
+  </div>
 
   <!-- Top accent line ─────────────────────────────────────────────────────── -->
   <div
     class="absolute top-0 left-0 right-0 h-[2px] z-20 pointer-events-none"
     style="background: linear-gradient(to right, rgba(48,168,255,0.6) 0%, rgba(29,107,191,0.3) 50%, transparent 100%);"
-  ></div>
+  >
+  </div>
 
   <!-- Content ─────────────────────────────────────────────────────────────── -->
   <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-20 py-24">
     <div class="max-w-[540px] flex flex-col gap-8 lg:gap-11">
-
       <!-- Badge with animated waveform ────────────────────────────────────── -->
       <div class="fade-up flex items-center gap-3">
         <div class="flex items-end gap-[3px] h-[16px]">
@@ -96,7 +156,9 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
           <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
           <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
         </div>
-        <span class="text-[#38a8ff] text-[11px] font-semibold uppercase tracking-[0.28em]">
+        <span
+          class="text-[#38a8ff] text-[11px] font-semibold uppercase tracking-[0.28em]"
+        >
           AI-Powered Voice Solutions
         </span>
       </div>
@@ -116,7 +178,10 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
       </h1>
 
       <!-- Sub-headline ─────────────────────────────────────────────────────── -->
-      <p class="fade-up text-[15px] leading-relaxed font-light max-w-[400px]" style="color: rgba(180,210,240,0.65);">
+      <p
+        class="fade-up text-[15px] leading-relaxed font-light max-w-[400px]"
+        style="color: rgba(180,210,240,0.65);"
+      >
         Intelligente Sprachlösungen, die Kundengespräche automatisieren —
         schneller, skalierbarer und natürlicher als je zuvor.
       </p>
@@ -138,11 +203,12 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
           onmouseout="this.style.color='rgba(160,200,240,0.6)'"
         >
           Lösungen ansehen
-          <span class="text-[#38a8ff] group-hover:translate-x-1 transition-transform duration-200">→</span>
+          <span
+            class="text-[#38a8ff] group-hover:translate-x-1 transition-transform duration-200"
+            >→</span
+          >
         </a>
       </div>
-
     </div>
   </div>
-
 </section>
