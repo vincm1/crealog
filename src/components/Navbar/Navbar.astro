@@ -2,6 +2,12 @@
 import CXSolution from "./CXSolution.astro";
 import INSolution from "./INSolution.astro";
 import ProfessionalServices from "./ProfessionalServices.astro";
+
+const path = Astro.url.pathname.replace(/\/$/, "");
+const currentVariant =
+  path === "/index-classic" ? "classic"
+  : path === "/index-elegant" ? "elegant"
+  : "original";
 ---
 
 <div
@@ -120,8 +126,19 @@ import ProfessionalServices from "./ProfessionalServices.astro";
       >
     </nav>
 
-    <!-- CTA + Hamburger -->
+    <!-- CTA + Variant Switcher + Hamburger -->
     <div class="flex items-center gap-3 ml-auto">
+
+      <!-- Entwurf-Switcher -->
+      <select
+        id="variant-switcher"
+        class="select select-sm bg-white/8 border border-white/15 text-white/80 text-[12px] font-medium rounded-full px-3 focus:outline-none focus:border-white/30 cursor-pointer min-h-0 h-8 pr-7"
+      >
+        <option value="/" selected={currentVariant === "original"} class="bg-[#0a1a35] text-white">Original</option>
+        <option value="/index-classic" selected={currentVariant === "classic"} class="bg-[#0a1a35] text-white">Entwurf Classic</option>
+        <option value="/index-elegant" selected={currentVariant === "elegant"} class="bg-[#0a1a35] text-white">Entwurf Elegant</option>
+      </select>
+
       <a
         href="/kontakt"
         class="hidden lg:inline-flex items-center px-5 py-2.5 bg-[#004990] text-white text-sm font-semibold rounded-full hover:bg-[#003a73] transition-colors duration-150"
@@ -277,6 +294,10 @@ import ProfessionalServices from "./ProfessionalServices.astro";
 </div>
 
 <script>
+  document.getElementById("variant-switcher")?.addEventListener("change", (e) => {
+    window.location.href = (e.target as HTMLSelectElement).value;
+  });
+
   const btn = document.getElementById("mobile-menu-btn");
   const menu = document.getElementById("mobile-menu");
   const burger = document.getElementById("hamburger-icon");
