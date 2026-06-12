@@ -1,113 +1,277 @@
+---
+import HeroWave from "./HeroWave.vue";
+import CustomerLogos from "./CustomerLogos.astro";
+---
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
 
-  .hero-root { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-  .wave-bar {
-    animation: wavePulse 1.6s ease-in-out infinite;
-    transform-origin: bottom;
-  }
-  .wave-bar:nth-child(1) { animation-delay: 0.00s; height: 40%; }
-  .wave-bar:nth-child(2) { animation-delay: 0.15s; height: 80%; }
-  .wave-bar:nth-child(3) { animation-delay: 0.30s; height: 100%; }
-  .wave-bar:nth-child(4) { animation-delay: 0.10s; height: 60%; }
-  .wave-bar:nth-child(5) { animation-delay: 0.25s; height: 90%; }
-  .wave-bar:nth-child(6) { animation-delay: 0.05s; height: 50%; }
-  .wave-bar:nth-child(7) { animation-delay: 0.20s; height: 70%; }
-
-  @keyframes wavePulse {
-    0%, 100% { transform: scaleY(0.25); opacity: 0.35; }
-    50%       { transform: scaleY(1);    opacity: 1;    }
+  .h-wrap {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
   }
 
-  .fade-up {
+  .h-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 2.5rem 1.5rem 0;
+    gap: 1.6rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .h-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: #f4f4f5;
+    border: 1px solid #e4e4e7;
+    border-radius: 99px;
+    padding: 0.32rem 0.9rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #71717a;
     opacity: 0;
-    animation: fadeUp 0.75s cubic-bezier(0.22,1,0.36,1) forwards;
-  }
-  .fade-up:nth-child(1) { animation-delay: 0.10s; }
-  .fade-up:nth-child(2) { animation-delay: 0.28s; }
-  .fade-up:nth-child(3) { animation-delay: 0.44s; }
-  .fade-up:nth-child(4) { animation-delay: 0.58s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to   { opacity: 1; transform: translateY(0);    }
+    animation: upIn 0.7s 0.08s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  .cta-primary {
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  .h-title {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: clamp(2.6rem, 6.5vw, 4.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: #09090b;
+    font-weight: 800;
+    margin: 0;
+    opacity: 0;
+    animation: upIn 0.82s 0.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-  .cta-primary:hover {
-    box-shadow: 0 0 28px rgba(0, 73, 144, 0.5);
-    transform: translateY(-1px);
+
+  /* quieter top line so the blue word below carries the weight */
+  .h-title-top {
+    display: block;
+    font-size: 0.52em;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: #3f3f46;
+    margin-bottom: 0.18em;
+  }
+
+  .h-title-main {
+    color: #1d4ed8;
+  }
+
+  .h-sub {
+    max-width: 410px;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #71717a;
+    font-weight: 400;
+    margin: 0;
+    opacity: 0;
+    animation: upIn 0.82s 0.34s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .h-cta {
+    position: relative;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: #09090b;
+    color: #fff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.875rem 2rem;
+    border-radius: 99px;
+    text-decoration: none;
+    letter-spacing: 0.005em;
+    opacity: 0;
+    animation: upIn 0.82s 0.46s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transition:
+      background 0.25s ease,
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s ease;
+  }
+  /* light sheen sweeping across on hover */
+  .h-cta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.16) 50%,
+      transparent 70%
+    );
+    transform: translateX(-130%);
+  }
+  .h-cta:hover {
+    background: #18181b;
+    transform: translateY(-2px) scale(1.03);
+    box-shadow:
+      0 10px 32px rgba(29, 78, 216, 0.35),
+      0 4px 12px rgba(9, 9, 11, 0.25);
+  }
+  .h-cta:hover::after {
+    transition: transform 0.6s ease;
+    transform: translateX(130%);
+  }
+  .h-cta:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* mini voice waveform — frozen at rest, speaking on hover */
+  .h-cta-eq {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 16px;
+  }
+  .h-cta-eq i {
+    display: block;
+    width: 3px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .h-cta-eq i:nth-child(1) { height: 35%; }
+  .h-cta-eq i:nth-child(2) { height: 75%; }
+  .h-cta-eq i:nth-child(3) { height: 100%; }
+  .h-cta-eq i:nth-child(4) { height: 55%; }
+
+  .h-cta:hover .h-cta-eq i {
+    animation: eqSpeak 0.8s ease-in-out infinite;
+  }
+  .h-cta:hover .h-cta-eq i:nth-child(2) {
+    animation-duration: 0.65s;
+    animation-delay: -0.15s;
+  }
+  .h-cta:hover .h-cta-eq i:nth-child(3) {
+    animation-duration: 0.9s;
+    animation-delay: -0.3s;
+  }
+  .h-cta:hover .h-cta-eq i:nth-child(4) {
+    animation-duration: 0.7s;
+    animation-delay: -0.45s;
+  }
+
+  @keyframes eqSpeak {
+    0%, 100% { height: 25%; }
+    50% { height: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .h-cta:hover .h-cta-eq i {
+      animation: none;
+    }
+    .h-cta:hover::after {
+      transition: none;
+      transform: translateX(-130%);
+    }
+  }
+
+  .h-waves {
+    position: relative;
+    width: 100%;
+    height: clamp(280px, 44vh, 520px);
+    margin-top: -5rem;
+    flex-shrink: 0;
+  }
+
+  /* customer logos float over the lower wave area, like the reference */
+  .h-logos {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: clamp(0.5rem, 4vh, 2rem);
+    z-index: 2;
+    opacity: 0;
+    animation: upIn 0.82s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes upIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>
 
-<section class="hero-root relative min-h-screen lg:h-screen bg-[#050d1e] overflow-hidden flex items-center">
+<section class="h-wrap">
+  <div class="h-content">
+    <div class="h-badge">
+      <svg
+        class="h-badge-mic"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <defs>
+          <!-- bottom-anchored fill level, bouncing like a voice meter -->
+          <clipPath id="h-mic-fill">
+            <rect x="6" width="12" height="20">
+              <animate
+                attributeName="y"
+                values="13.5;5;10;3;11.5;6;12.5;4;9;13.5"
+                dur="2.2s"
+                repeatCount="indefinite"></animate>
+            </rect>
+          </clipPath>
+        </defs>
+        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+        <line x1="12" y1="19" x2="12" y2="23"></line>
+        <line x1="8" y1="23" x2="16" y2="23"></line>
+        <path
+          d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"
+          fill="#2563eb"
+          stroke="none"
+          clip-path="url(#h-mic-fill)"></path>
+      </svg>
+      AI-Powered Voice Solutions
+    </div>
 
-  <!-- Bild: strikt rechte 58% -->
-  <div class="absolute right-0 top-0 w-[58%] h-full pointer-events-none">
-    <div
-      class="absolute inset-0 bg-cover bg-center"
-      style="background-image: url(/hero_graphic.png);"
-    ></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-[#050d1e] via-[#050d1e]/55 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#050d1e]/50 via-transparent to-[#050d1e]/60"></div>
+    <h1 class="h-title">
+      <span class="h-title-top">Die Zukunft des</span>
+      <span class="h-title-main">Kundenkontakts</span>
+    </h1>
+
+    <p class="h-sub">
+      Intelligente Sprachlösungen, die Kundengespräche automatisieren —
+      schneller, skalierbarer und natürlicher als je zuvor.
+    </p>
+
+    <a href="/kontakt" class="h-cta">
+      <span class="h-cta-eq" aria-hidden="true">
+        <i></i><i></i><i></i><i></i>
+      </span>
+      Jetzt starten
+    </a>
   </div>
 
-  <!-- Noise-Textur -->
-  <div class="absolute inset-0 opacity-[0.03]" style="background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22 opacity=%221%22/></svg>');"></div>
-
-  <!-- Content — pt-20 für fixed Navbar -->
-  <div class="relative z-20 w-full max-w-7xl mx-auto px-6 lg:px-10 pt-20 py-24">
-    <div class="max-w-[520px] flex flex-col gap-7 lg:gap-10">
-
-      <!-- Label mit animierter Waveform -->
-      <div class="fade-up flex items-center gap-3">
-        <div class="flex items-end gap-[3px] h-[16px]">
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-          <div class="wave-bar w-[3px] bg-[rgb(252,176,64)] rounded-full"></div>
-        </div>
-        <span class="text-[rgb(252,176,64)] text-[11px] font-semibold uppercase tracking-[0.28em]">
-          AI-Powered Voice Solutions
-        </span>
-      </div>
-
-      <!-- Headline: 2 Zeilen, kein Silbentrenner -->
-      <h1 class="fade-up text-[2rem] md:text-[2.25rem] lg:text-[2.5rem] xl:text-[3rem] 2xl:text-[3.5rem] font-bold leading-[1.05] tracking-[-0.025em] text-white">
-        Die Zukunft des<br />
-        <span class="text-[rgb(252,176,64)]">Kundenkontakts</span>
-      </h1>
-
-      <!-- Subline -->
-      <p class="fade-up text-[15px] text-white/45 leading-relaxed max-w-[380px] font-normal">
-        Intelligente Sprachlösungen, die Kundengespräche automatisieren —
-        schneller, skalierbarer und natürlicher als je zuvor.
-      </p>
-
-      <!-- CTAs -->
-      <div class="fade-up flex items-center gap-7">
-        <a
-          href="/kontakt"
-          class="cta-primary px-8 py-[13px] bg-[rgb(0,73,144)] text-white font-semibold text-sm rounded-full"
-        >
-          Jetzt starten
-        </a>
-        <a
-          href="/loesungen"
-          class="group flex items-center gap-2 text-white/45 hover:text-white text-sm font-medium transition-colors duration-200"
-        >
-          Lösungen ansehen
-          <span class="text-[rgb(252,176,64)] group-hover:translate-x-1 transition-transform duration-200">→</span>
-        </a>
-      </div>
-
+  <div class="h-waves">
+    <HeroWave client:load />
+    <div class="h-logos">
+      <CustomerLogos />
     </div>
   </div>
-
 </section>

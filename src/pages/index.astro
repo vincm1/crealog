@@ -1,16 +1,32 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import "../assets/app.css";
+import Navbar from "../components/Navbar/Navbar.astro";
 import Hero from "../components/Hero.astro";
-import Testimonials from "../components/Testimonials.astro";
 import Company from "../components/Company.astro";
-import Solutions from "../components/Solutions.astro";
-import TestimonialsV2 from "../components/TestimonialsV2.astro";
+import SolutionsElegant from "../components/themes/elegant/SolutionsElegant.astro";
+import TestimonialsV2Elegant from "../components/themes/elegant/TestimonialsV2Elegant.astro";
+import FooterElegant from "../components/themes/elegant/FooterElegant.astro";
 ---
 
-<Layout>
-  <Hero />
-  <Company />
-  <Solutions />
-  <Testimonials />
-  <TestimonialsV2 />
-</Layout>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>AI-driven Platform for Enterprises & Telcos | CreaLog</title>
+  </head>
+  <body>
+    <Navbar />
+    <Hero />
+    <Company />
+    <SolutionsElegant />
+    <TestimonialsV2Elegant />
+    <FooterElegant />
+  </body>
+</html>
+
+<style>
+  html, body { margin: 0; width: 100%; height: 100%; }
+</style>

@@ -1,0 +1,41 @@
+---
+const logos = [
+  { src: "/customer_logos/telekom-logo-2013.svg", alt: "Deutsche Telekom", h: 36 },
+  // portrait logo (mark stacked above wordmark) gets a touch more height to stay legible
+  { src: "/customer_logos/logo-swisscom.svg", alt: "Swisscom", h: 44 },
+  { src: "/customer_logos/a1.svg", alt: "A1 Telekom Austria", h: 38 },
+];
+---
+
+<style>
+  .cl-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: clamp(3.5rem, 8vw, 7rem);
+    padding: 0 1.5rem;
+  }
+
+  .cl-row img {
+    width: auto;
+    /* uniform monochrome like the reference; brand colour returns on hover */
+    filter: brightness(0) opacity(0.5);
+    transition: filter 0.25s ease, transform 0.25s ease;
+  }
+
+  .cl-row img:hover {
+    filter: none;
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cl-row img:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<div class="cl-row">
+  {logos.map((l) => <img src={l.src} alt={l.alt} style={`height:${l.h}px`} loading="lazy" />)}
+</div>

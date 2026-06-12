@@ -25,3 +25,13 @@ pnpm-debug.log*
 
 # visual brainstorm sessions
 .superpowers/
+
+.claude/
+skills-lock.json
+.gitmodules
+.agents/
+.playwright-mcp/
+crealog.html
+title-resize.png
+
+AGENTS.md
