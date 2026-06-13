@@ -2,6 +2,7 @@
 import CXSolution from "./CXSolution.astro";
 import INSolution from "./INSolution.astro";
 import ProfessionalServices from "./ProfessionalServices.astro";
+import LangToggler from "../LangToggler.astro";
 ---
 
 <style>
@@ -67,15 +68,13 @@ import ProfessionalServices from "./ProfessionalServices.astro";
   }
 </style>
 
-<div class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100">
+<div
+  class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-100"
+>
   <div class="max-w-7xl mx-auto px-6 lg:px-10 flex items-center h-16">
     <!-- Logo -->
     <a href="/" class="flex-none">
-      <img
-        src="/crealog_logo.png"
-        alt="CreaLog"
-        class="h-8 w-auto"
-      />
+      <img src="/crealog_logo.png" alt="CreaLog" class="h-8 w-auto" />
     </a>
 
     <!-- Desktop Nav -->
@@ -100,7 +99,9 @@ import ProfessionalServices from "./ProfessionalServices.astro";
         <div
           class="absolute top-full left-1/2 -translate-x-1/2 pt-2 invisible pointer-events-none opacity-0 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 transition-all duration-150 z-50 w-[700px]"
         >
-          <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5">
+          <div
+            class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
+          >
             <CXSolution />
           </div>
         </div>
@@ -126,7 +127,9 @@ import ProfessionalServices from "./ProfessionalServices.astro";
         <div
           class="absolute top-full left-1/2 -translate-x-1/2 pt-2 invisible pointer-events-none opacity-0 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 transition-all duration-150 z-50 w-[500px]"
         >
-          <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5">
+          <div
+            class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
+          >
             <INSolution />
           </div>
         </div>
@@ -152,7 +155,9 @@ import ProfessionalServices from "./ProfessionalServices.astro";
         <div
           class="absolute top-full left-1/2 -translate-x-1/2 pt-2 invisible pointer-events-none opacity-0 group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 transition-all duration-150 z-50 w-[700px]"
         >
-          <div class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5">
+          <div
+            class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
+          >
             <ProfessionalServices />
           </div>
         </div>
@@ -164,16 +169,16 @@ import ProfessionalServices from "./ProfessionalServices.astro";
         >Über uns</a
       >
       <a
-        href="/kontakt"
-        class="relative px-3 py-2 text-[13.5px] font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-colors duration-150 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:rounded-full after:bg-[#1d4ed8] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left"
-        >Kontakt</a
-      >
-      <a
         href="/blog"
         class="relative px-3 py-2 text-[13.5px] font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-colors duration-150 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-[2px] after:rounded-full after:bg-[#1d4ed8] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-200 after:origin-left"
         >Blog</a
       >
     </nav>
+
+    <!-- Desktop language toggle -->
+    <div class="hidden lg:block flex-none mr-4">
+      <LangToggler />
+    </div>
 
     <!-- Desktop CTA -->
     <a href="/kontakt" class="nav-cta hidden lg:inline-flex flex-none">
@@ -255,10 +260,26 @@ import ProfessionalServices from "./ProfessionalServices.astro";
       </svg>
     </button>
     <div id="cx-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">AI Voice Agent</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Chat Assistant</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Omnichannel-Routing</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Speech Analytics</a>
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >AI Voice Agent</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Chat Assistant</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Omnichannel-Routing</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Speech Analytics</a
+      >
     </div>
 
     <!-- IN Solutions -->
@@ -280,9 +301,21 @@ import ProfessionalServices from "./ProfessionalServices.astro";
       </svg>
     </button>
     <div id="in-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">ASR / TTS</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">NLU-Engine</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">API & SDK</a>
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >ASR / TTS</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >NLU-Engine</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >API & SDK</a
+      >
     </div>
 
     <!-- Professional Services -->
@@ -304,16 +337,36 @@ import ProfessionalServices from "./ProfessionalServices.astro";
       </svg>
     </button>
     <div id="ps-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Consulting</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Integration</a>
-      <a href="#" class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Support</a>
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Consulting</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Integration</a
+      >
+      <a
+        href="#"
+        class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+        >Support</a
+      >
     </div>
 
-    <a href="/about" class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50">Über uns</a>
-    <a href="/kontakt" class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50">Kontakt</a>
-    <a href="/blog" class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50">Blog</a>
+    <a
+      href="/about"
+      class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+      >Über uns</a
+    >
+    <a
+      href="/blog"
+      class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50"
+      >Blog</a
+    >
 
     <div class="pt-3 mt-1 border-t border-gray-100">
+      @
       <a
         href="/kontakt"
         class="flex justify-center items-center py-2.5 bg-[#09090b] text-white text-sm font-semibold rounded-full hover:bg-[#18181b] transition-colors"

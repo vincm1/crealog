@@ -1,82 +1,301 @@
 ---
 const stats = [
-  { value: "1996", label: "Gegründet" },
-  { value: "200+", label: "Unternehmenskunden" },
-  { value: "150+", label: "Mitarbeitende" },
-  { value: "München", label: "Hauptsitz" },
+  { value: "1996", num: 1996, suffix: "", label: "Gegründet" },
+  { value: "200+", num: 200, suffix: "+", label: "Unternehmenskunden" },
+  { value: "150+", num: 150, suffix: "+", label: "Mitarbeitende" },
+  { value: "98%", num: 98, suffix: "%", label: "Kundenzufriedenheit" },
 ];
 ---
 
-<section class="bg-gray-50 border-y border-gray-100 py-20 overflow-hidden">
+<section class="about-section bg-white py-24 lg:py-28 overflow-hidden">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+    <!-- Centered header: blue eyebrow → fat black headline → text -->
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="reveal sec-eyebrow">Über CreaLog</span>
+      <h2 class="reveal sec-title">
+        Der verlässliche Partner für Sprachkommunikation
+      </h2>
+      <p class="reveal sec-sub">
+        CreaLog entwickelt seit 1996 KI-gestützte Sprachlösungen für
+        Telekommunikationsunternehmen und deren Enterprise-Kunden. Unsere
+        Plattformen laufen in den Netzen führender Carrier Europas.
+      </p>
+    </div>
 
-      <!-- Left: Logo + Gründungsjahr -->
-      <div class="flex flex-col gap-8">
-        <img
-          src="/crealog_logo.png"
-          alt="CreaLog"
-          class="h-14 w-auto object-contain object-left"
-        />
+    <!-- Subtle brand logo above the stat pills -->
+    <div class="reveal flex justify-center mt-16 lg:mt-20 mb-8">
+      <img src="/crealog_logo.png" alt="CreaLog" class="about-logo" />
+    </div>
 
-        <!-- Stats row -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-          {stats.map((s) => (
-            <div class="flex flex-col gap-1">
-              <span class="text-[1.5rem] font-bold tracking-tight text-[#004990]">
-                {s.value}
-              </span>
-              <span class="text-[12px] text-gray-400 uppercase tracking-[0.12em] font-medium">
-                {s.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+    <!-- All stats in one large rounded pill, with count-up -->
+    <div class="reveal stats-pill">
+      {
+        stats.map((s, i) => (
+          <div class:list={["stat-item", i > 0 && "stat-item--divider"]}>
+            <span class="stat-num" data-num={s.num} data-suffix={s.suffix}>
+              {s.value}
+            </span>
+            <span class="stat-label">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
 
-      <!-- Right: Text content -->
-      <div class="flex flex-col gap-6">
-        <!-- Label -->
-        <div class="flex items-center gap-3">
-          <div class="h-px w-8 bg-[#1d6bbf]"></div>
-          <span class="text-[#1d6bbf] text-[11px] font-semibold uppercase tracking-[0.28em]">
-            Über CreaLog
-          </span>
-        </div>
-
-        <!-- Headline -->
-        <h2 class="text-[1.75rem] lg:text-[2rem] font-bold leading-[1.15] tracking-[-0.02em] text-gray-900">
-          Sprachkommunikation neu<br />
-          <span class="text-[#004990]">gedacht. Seit 1996.</span>
-        </h2>
-
-        <!-- Intro -->
-        <p class="text-[15px] text-gray-500 leading-relaxed">
-          CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen
-          für den professionellen Kundenkontakt. Mit über 25 Jahren Erfahrung
-          in der deutschen Telekommunikationsbranche entwickeln wir Plattformen,
-          die Unternehmen dabei helfen, Kundengespräche zu automatisieren,
-          zu analysieren und nachhaltig zu verbessern.
-        </p>
-
-        <p class="text-[15px] text-gray-500 leading-relaxed">
-          Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere
-          Lösungen laufen on-premise, in der Cloud oder hybrid — immer
-          DSGVO-konform und made in Germany.
-        </p>
-
-        <!-- CTA -->
-        <div class="pt-2">
-          <a
-            href="/about"
-            class="inline-flex items-center gap-2 text-[#004990] text-sm font-semibold hover:gap-3 transition-all duration-200"
+    <!-- Closing paragraph + tertiary CTA -->
+    <div class="max-w-2xl mx-auto mt-14 text-center">
+      <p class="reveal text-[15px] leading-[1.75] text-[#5b6472]">
+        Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere
+        Lösungen laufen on-premise, in der Cloud oder hybrid — immer
+        DSGVO-konform und made in Germany.
+      </p>
+      <div class="reveal mt-7">
+        <a href="/about" class="about-cta">
+          Mehr über CreaLog
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           >
-            Mehr über CreaLog
-            <span class="text-[#1d6bbf]">→</span>
-          </a>
-        </div>
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
       </div>
-
     </div>
   </div>
 </section>
+
+<style>
+  .about-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  /* shared section-header pattern: blue keyword → fat black headline → text */
+  .sec-eyebrow {
+    display: inline-block;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
+  }
+  .sec-title {
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #09090b;
+    margin: 0;
+  }
+  .sec-sub {
+    margin-top: 1.1rem;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5b6472;
+  }
+
+  /* subtle brand mark above the stat pills */
+  .about-logo {
+    height: 32px;
+    width: auto;
+    opacity: 0.85;
+  }
+
+  /* one large rounded pill holding all stats — dark, elegant */
+  .stats-pill {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    gap: 1.75rem 0;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 1.75rem 1.25rem;
+    background: linear-gradient(135deg, #2f6bff 0%, #1d4ed8 55%, #1b46c2 100%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 2rem;
+    box-shadow:
+      0 26px 60px -24px rgba(29, 78, 216, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  @media (min-width: 1024px) {
+    .stats-pill {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 2rem 1.25rem;
+      border-radius: 9999px;
+    }
+  }
+
+  .stat-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1.25rem;
+    text-align: center;
+  }
+  /* elegant dividers that fade out top & bottom */
+  .stat-item--divider::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 62%;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba(255, 255, 255, 0.24),
+      transparent
+    );
+  }
+  /* mobile 2×2: divide only the right column instead */
+  @media (max-width: 1023px) {
+    .stat-item--divider::before {
+      display: none;
+    }
+    .stat-item:nth-child(even)::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 62%;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(255, 255, 255, 0.16),
+        transparent
+      );
+    }
+  }
+
+  .stat-num {
+    font-size: clamp(1.7rem, 2.3vw, 2.15rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+    background: linear-gradient(180deg, #ffffff 0%, #e3ecff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+  }
+
+  /* tertiary text link with navy arrow that nudges on hover */
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #004990;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: gap 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .about-cta:hover {
+    gap: 0.75rem;
+  }
+
+  /* scroll reveal — only armed once JS runs, so no-JS keeps content visible */
+  .about-section.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .about-section.reveal-ready .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-section.reveal-ready .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>(".about-section");
+  if (section) {
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // ── Scroll reveal ──────────────────────────────────────────────
+    section.classList.add("reveal-ready");
+    const els = section.querySelectorAll<HTMLElement>(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    els.forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+      io.observe(el);
+    });
+
+    // ── Count-up on the stat pills ─────────────────────────────────
+    const nums = section.querySelectorAll<HTMLElement>(".stat-num");
+    if (!reduce) {
+      nums.forEach((el) => {
+        el.textContent = "0" + (el.dataset.suffix || "");
+      });
+
+      const countUp = (el: HTMLElement) => {
+        const target = parseInt(el.dataset.num || "0", 10);
+        const suffix = el.dataset.suffix || "";
+        const duration = 1500;
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+          el.textContent = Math.round(eased * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        };
+        requestAnimationFrame(step);
+      };
+
+      const countObs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              countUp(e.target as HTMLElement);
+              countObs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      nums.forEach((el) => countObs.observe(el));
+    }
+  }
+</script>

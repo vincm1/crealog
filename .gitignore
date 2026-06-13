@@ -35,3 +35,7 @@ crealog.html
 title-resize.png
 
 AGENTS.md
+
+.vscode*
+
+docs*

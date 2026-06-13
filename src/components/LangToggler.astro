@@ -1,1 +1,104 @@
-@
+---
+// Subtle DE/EN language toggle. UI-only for now: persists the choice and sets
+// <html lang> + dispatches a "langchange" event, ready to wire to i18n later.
+// Pass `dark` when placing it on a dark background (e.g. the footer).
+interface Props {
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
+---
+
+<div
+  class:list={["lang-toggle", dark && "is-dark"]}
+  role="group"
+  aria-label="Sprache wählen"
+>
+  <button type="button" class="lang-opt is-active" data-lang="de">DE</button>
+  <span class="lang-sep" aria-hidden="true">/</span>
+  <button type="button" class="lang-opt" data-lang="en">EN</button>
+</div>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  .lang-opt {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #a1a1aa;
+    padding: 3px 6px;
+    border-radius: 7px;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+  .lang-opt:hover {
+    color: #18181b;
+  }
+  .lang-opt.is-active {
+    color: #18181b;
+    background: #f4f4f5;
+  }
+
+  .lang-sep {
+    color: #d4d4d8;
+    font-size: 11px;
+  }
+
+  /* dark variant — for dark backgrounds like the footer */
+  .lang-toggle.is-dark .lang-opt {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .lang-toggle.is-dark .lang-opt:hover {
+    color: #fff;
+  }
+  .lang-toggle.is-dark .lang-opt.is-active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .lang-toggle.is-dark .lang-sep {
+    color: rgba(255, 255, 255, 0.25);
+  }
+</style>
+
+<script>
+  const roots = Array.from(
+    document.querySelectorAll<HTMLElement>(".lang-toggle"),
+  );
+  if (roots.length) {
+    const allOpts = roots.flatMap((r) =>
+      Array.from(r.querySelectorAll<HTMLButtonElement>(".lang-opt")),
+    );
+
+    const apply = (lang: string) => {
+      allOpts.forEach((o) =>
+        o.classList.toggle("is-active", o.dataset.lang === lang),
+      );
+      document.documentElement.lang = lang;
+      try {
+        localStorage.setItem("lang", lang);
+      } catch {}
+      document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+    };
+
+    let stored = "de";
+    try {
+      stored = localStorage.getItem("lang") || "de";
+    } catch {}
+    apply(stored);
+
+    allOpts.forEach((o) =>
+      o.addEventListener("click", () => apply(o.dataset.lang || "de")),
+    );
+  }
+</script>

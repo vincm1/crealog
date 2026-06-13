@@ -1,41 +1,679 @@
 ---
-import SolutionsTabs from "./SolutionsTabs.vue";
+const ico = {
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"/></svg>',
+  chart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>',
+  route: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>',
+  shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>',
+};
+const bolt =
+  '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 1.046a1 1 0 01.7 1.215L10.06 9H16a1 1 0 01.78 1.625l-9 11A1 1 0 016 21l1.94-7H2a1 1 0 01-.78-1.625l9-11a1 1 0 01.08-.329z"/></svg>';
+const check =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
+
+const tabs = [
+  {
+    key: "mic",
+    name: "AI Voice Agent",
+    sub: "Vollautomatisierte Telefonie",
+    badge: "Rund um die Uhr verfügbar",
+    headline: "KI-Sprachassistenten, die wirklich verstehen",
+    desc: "Vollautomatisierte Telefonie, die Standardanfragen löst — natürlich, schnell und ohne Warteschleife.",
+    features: [
+      "Versteht natürliche Sprache & Dialekte zuverlässig",
+      "Nahtlose Übergabe an menschliche Agenten bei Bedarf",
+    ],
+  },
+  {
+    key: "chart",
+    name: "Speech Analytics",
+    sub: "100 % Gesprächsanalyse",
+    badge: "Vollständige Abdeckung",
+    headline: "Jedes Gespräch automatisch ausgewertet",
+    desc: "Analysieren Sie alle Calls auf Qualität, Stimmung und Compliance — nicht nur Stichproben.",
+    features: [
+      "Echtzeit-Sentiment & Keyword-Erkennung",
+      "Automatische Compliance- und Qualitätsprüfung",
+    ],
+  },
+  {
+    key: "route",
+    name: "Omnichannel-Routing",
+    sub: "Kanalübergreifend",
+    badge: "Alle Kanäle",
+    headline: "Immer zur richtigen Person, zur richtigen Zeit",
+    desc: "Intelligentes Routing über Telefon, Chat und E-Mail — kontextbasiert und regelgesteuert.",
+    features: [
+      "Skill-based Routing in Echtzeit",
+      "Einheitliche Kundenhistorie über alle Kanäle",
+    ],
+  },
+  {
+    key: "phone",
+    name: "SIP Trunking",
+    sub: "Carrier-Grade Voice",
+    badge: "Hochverfügbar",
+    headline: "Skalierbare Sprachanbindung für Ihr Contact Center",
+    desc: "Redundante, carrier-grade SIP-Trunks — skalierbar bis in den Millionen-Anruf-Bereich.",
+    features: [
+      "Georedundanz & automatisches Failover",
+      "Echtzeit-Monitoring der Sprachqualität",
+    ],
+  },
+  {
+    key: "shield",
+    name: "Fraud Detection",
+    sub: "Echtzeit-Schutz",
+    badge: "Echtzeit",
+    headline: "Schutz vor Telefonbetrug, bevor Schaden entsteht",
+    desc: "KI-basierte Erkennung von Toll-Fraud und Spoofing — proaktiv und automatisiert.",
+    features: [
+      "Anomalie-Erkennung in Echtzeit",
+      "Automatische Sperr- und Eskalationsregeln",
+    ],
+  },
+];
+
+// equalizer bars for the console mockup
+const N = 13;
+const eqBars = Array.from({ length: N }, (_, i) => {
+  const env = Math.sin((Math.PI * i) / (N - 1));
+  return {
+    h: Math.round(8 + env * 30),
+    dur: (0.7 + (i % 5) * 0.12).toFixed(2),
+    delay: (-((i * 0.16) % 1)).toFixed(2),
+  };
+});
 ---
 
-<section class="relative bg-[#050d1e] py-24 overflow-hidden">
-
-  <!-- Subtle top glow -->
-  <div
-    class="pointer-events-none absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"
-  ></div>
-
+<section class="sol-section">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
-
-    <!-- Section header -->
-    <div class="flex flex-col gap-5 mb-14">
-      <div class="flex items-center gap-3">
-        <div class="h-px w-8 bg-[rgb(252,176,64)]"></div>
-        <span class="text-[rgb(252,176,64)] text-[11px] font-semibold uppercase tracking-[0.28em]">
-          Unsere Lösungen
-        </span>
-      </div>
-
-      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-        <h2
-          class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.1] tracking-[-0.02em] text-white max-w-[480px]"
-        >
-          Alles, was moderner<br />
-          <span class="text-[rgb(252,176,64)]">Kundenkontakt braucht</span>
-        </h2>
-        <p class="text-[14px] text-white/35 leading-relaxed max-w-[340px] lg:text-right">
-          Wählen Sie die Lösungsgruppe, die zu Ihrer Infrastruktur passt —
-          von der KI-Schnittstelle bis zum fertigen Contact-Center.
-        </p>
-      </div>
+    <!-- Centered header -->
+    <div class="sol-head-wrap reveal">
+      <span class="sol-eyebrow">Unsere Lösungen</span>
+      <h2 class="sol-title">Alles, was moderner Kundenkontakt braucht</h2>
+      <p class="sol-sub">
+        Wählen Sie die Lösung, die zu Ihrer Infrastruktur passt — von der
+        KI-Schnittstelle bis zum fertigen Contact-Center.
+      </p>
     </div>
 
-    <!-- Interactive tabs + cards (Vue island) -->
-    <SolutionsTabs client:visible />
+    <!-- Panel -->
+    <div class="sol-panel reveal">
+      <!-- Tab bar -->
+      <div class="sol-tabs" role="tablist">
+        {
+          tabs.map((t, i) => (
+            <button
+              type="button"
+              class:list={["sol-tab", i === 0 && "is-active"]}
+              data-i={i}
+              role="tab"
+            >
+              <span class="sol-tab-icon" set:html={ico[t.key]} />
+              <span class="sol-tab-name">{t.name}</span>
+              <span class="sol-tab-sub">{t.sub}</span>
+            </button>
+          ))
+        }
+      </div>
 
+      <!-- Detail -->
+      <div class="sol-detail">
+        <div class="sol-left">
+          {
+            tabs.map((t, i) => (
+              <div class:list={["sol-pane", i === 0 && "is-active"]} data-i={i}>
+                <span class="sol-badge">
+                  <span class="sol-badge-ico" set:html={bolt} />
+                  {t.badge}
+                </span>
+                <h3 class="sol-pane-head">{t.headline}</h3>
+                <p class="sol-pane-desc">{t.desc}</p>
+                <ul class="sol-features">
+                  {t.features.map((f) => (
+                    <li>
+                      <span class="sol-check" set:html={check} />
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <a href="/kontakt" class="sol-cta">
+                  Mehr erfahren
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" /><path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            ))
+          }
+        </div>
+
+        <!-- Visual: voice console mockup -->
+        <div class="sol-visual" aria-hidden="true">
+          <div class="sol-window">
+            <div class="sol-winbar"><i></i><i></i><i></i></div>
+            <div class="sol-winbody">
+              <div class="sol-call">
+                <div class="sol-ava" set:html={ico.mic} />
+                <div class="sol-callmeta">
+                  <span class="sol-call-name">CreaLog Voice Agent</span>
+                  <span class="sol-live"><span class="sol-dot" />Live-Anruf</span>
+                </div>
+              </div>
+              <div class="sol-eq">
+                {
+                  eqBars.map((b) => (
+                    <span
+                      style={`height:${b.h}px;animation-duration:${b.dur}s;animation-delay:${b.delay}s`}
+                    />
+                  ))
+                }
+              </div>
+              <div class="sol-lines">
+                <span class="sol-line" style="width:88%"></span>
+                <span class="sol-line" style="width:64%"></span>
+                <span class="sol-line" style="width:74%"></span>
+              </div>
+              <div class="sol-winbtn">Transkript ansehen</div>
+            </div>
+          </div>
+          <div class="sol-float" set:html={ico.phone} />
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<style>
+  .sol-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #fff;
+    padding: 6rem 0;
+  }
+
+  /* header */
+  .sol-head-wrap {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+  .sol-eyebrow {
+    display: inline-block;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    margin-bottom: 1rem;
+  }
+  .sol-title {
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #09090b;
+    margin: 0;
+  }
+  .sol-sub {
+    margin: 1.1rem auto 0;
+    max-width: 480px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5b6472;
+  }
+
+  /* panel */
+  .sol-panel {
+    border: 1px solid #e6e8ec;
+    border-radius: 22px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 30px 60px -40px rgba(15, 23, 42, 0.25);
+  }
+
+  /* tab bar */
+  .sol-tabs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-bottom: 1px solid #eceef2;
+  }
+  .sol-tab {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 1.6rem 0.75rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+  }
+  .sol-tab::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: #1d4ed8;
+    transform: scaleX(0);
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sol-tab.is-active::after {
+    transform: scaleX(1);
+  }
+  .sol-tab-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #fff;
+    box-shadow: 0 6px 14px -6px rgba(37, 99, 235, 0.6);
+    transition:
+      transform 0.25s ease,
+      filter 0.25s ease;
+  }
+  .sol-tab-icon :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+  .sol-tab:not(.is-active) .sol-tab-icon {
+    filter: grayscale(0.5) opacity(0.7);
+  }
+  .sol-tab:hover .sol-tab-icon {
+    transform: translateY(-2px);
+  }
+  .sol-tab-name {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #3f3f46;
+    letter-spacing: -0.01em;
+  }
+  .sol-tab.is-active .sol-tab-name {
+    color: #09090b;
+  }
+  .sol-tab-sub {
+    font-size: 11.5px;
+    color: #9aa3af;
+  }
+
+  /* detail */
+  .sol-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: clamp(2rem, 3.5vw, 3.25rem);
+  }
+  @media (min-width: 1024px) {
+    .sol-detail {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+  }
+
+  .sol-left {
+    position: relative;
+  }
+  .sol-pane {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .sol-pane.is-active {
+    display: flex;
+    animation: solFade 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @keyframes solFade {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .sol-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #eff4ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0.35rem 0.8rem;
+    border-radius: 9999px;
+    margin-bottom: 1.25rem;
+  }
+  .sol-badge-ico {
+    width: 13px;
+    height: 13px;
+    display: inline-flex;
+  }
+  .sol-badge-ico :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+  .sol-pane-head {
+    margin: 0;
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: #09090b;
+    max-width: 16ch;
+  }
+  .sol-pane-desc {
+    margin: 1rem 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #5b6472;
+    max-width: 38ch;
+  }
+  .sol-features {
+    list-style: none;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .sol-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #3f3f46;
+  }
+  .sol-check {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: #eff4ff;
+    color: #1d4ed8;
+  }
+  .sol-check :global(svg) {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* CTA — signature black pill */
+  .sol-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    background: #09090b;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.8rem 1.6rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition:
+      background 0.25s ease,
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sol-cta svg {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sol-cta:hover {
+    background: #18181b;
+    transform: translateY(-2px);
+  }
+  .sol-cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* visual */
+  .sol-visual {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    background:
+      linear-gradient(160deg, #eaf1ff 0%, #d8e6ff 100%);
+  }
+  .sol-visual::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(29, 78, 216, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29, 78, 216, 0.07) 1px, transparent 1px);
+    background-size: 38px 38px;
+    mask-image: radial-gradient(circle at center, #000 40%, transparent 80%);
+  }
+  .sol-window {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 360px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 24px 50px -20px rgba(15, 23, 42, 0.3);
+    overflow: hidden;
+  }
+  .sol-winbar {
+    display: flex;
+    gap: 6px;
+    padding: 11px 14px;
+    border-bottom: 1px solid #f1f3f7;
+  }
+  .sol-winbar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 9999px;
+    background: #e2e6ec;
+  }
+  .sol-winbody {
+    padding: 1.25rem;
+  }
+  .sol-call {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .sol-ava {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #fff;
+  }
+  .sol-ava :global(svg) {
+    width: 19px;
+    height: 19px;
+  }
+  .sol-callmeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .sol-call-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0a1628;
+  }
+  .sol-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #16a34a;
+    font-weight: 600;
+  }
+  .sol-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: #16a34a;
+    animation: solPulse 1.4s ease-in-out infinite;
+  }
+  @keyframes solPulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+  }
+
+  .sol-eq {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    height: 44px;
+    margin: 1.1rem 0;
+  }
+  .sol-eq span {
+    flex: 1;
+    border-radius: 99px;
+    background: #1d4ed8;
+    transform-origin: center;
+    animation-name: solSpeak;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  @keyframes solSpeak {
+    0%,
+    100% {
+      transform: scaleY(0.4);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  .sol-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sol-line {
+    height: 8px;
+    border-radius: 99px;
+    background: #eef1f6;
+  }
+  .sol-winbtn {
+    margin-top: 1.1rem;
+    text-align: center;
+    background: #1d4ed8;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 0.6rem;
+    border-radius: 9px;
+  }
+
+  .sol-float {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.4rem;
+    z-index: 2;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #2f6bff 0%, #1d4ed8 100%);
+    color: #fff;
+    box-shadow: 0 16px 30px -10px rgba(29, 78, 216, 0.5);
+    transform: rotate(8deg);
+  }
+  .sol-float :global(svg) {
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1023px) {
+    .sol-tabs {
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      overflow-x: auto;
+    }
+    .sol-visual {
+      min-height: 280px;
+    }
+  }
+
+  /* scroll reveal */
+  .sol-section.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sol-section.reveal-ready .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sol-section.reveal-ready .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .sol-eq span,
+    .sol-dot {
+      animation: none;
+    }
+    .sol-pane.is-active {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>(".sol-section");
+  if (section) {
+    const tabs = Array.from(section.querySelectorAll<HTMLElement>(".sol-tab"));
+    const panes = Array.from(section.querySelectorAll<HTMLElement>(".sol-pane"));
+
+    tabs.forEach((tab, i) =>
+      tab.addEventListener("click", () => {
+        tabs.forEach((t, idx) => t.classList.toggle("is-active", idx === i));
+        panes.forEach((p, idx) => p.classList.toggle("is-active", idx === i));
+      }),
+    );
+
+    section.classList.add("reveal-ready");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.1 },
+    );
+    section.querySelectorAll<HTMLElement>(".reveal").forEach((el) => io.observe(el));
+  }
+</script>

@@ -1,0 +1,256 @@
+---
+// Animated voice equalizer — mirrors the mini waveform in the Hero's
+// "Jetzt starten" button, as if something is being spoken.
+const N = 23;
+const bars = Array.from({ length: N }, (_, i) => {
+  const t = N > 1 ? i / (N - 1) : 0.5;
+  const env = Math.sin(Math.PI * t); // 0 at the ends → 1 in the middle
+  const h = Math.round(28 + env * 112); // px height envelope (taller centre)
+  const dur = (0.7 + (i % 5) * 0.13).toFixed(2); // varied speed
+  const delay = (-((i * 0.17) % 1.1)).toFixed(2); // staggered start
+  const opacity = (0.4 + env * 0.5).toFixed(2);
+  return { h, dur, delay, opacity };
+});
+---
+
+<section class="cta-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="cta-banner reveal">
+      <div class="cta-eq" aria-hidden="true">
+        {
+          bars.map((b) => (
+            <span
+              style={`height:${b.h}px;opacity:${b.opacity};animation-duration:${b.dur}s;animation-delay:${b.delay}s`}
+            />
+          ))
+        }
+      </div>
+
+      <div class="cta-content">
+        <h2 class="cta-title">Bereit, Ihren Kundenkontakt zu transformieren?</h2>
+        <p class="cta-sub">
+          Sprechen Sie mit unseren Experten — oder erkunden Sie die Lösungen
+          selbst.
+        </p>
+        <div class="cta-actions">
+          <a href="/kontakt" class="cta-primary">
+            Demo anfragen
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5 12h14"></path>
+              <path d="M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a href="/kontakt" class="cta-secondary">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #fff;
+    padding: 2rem 0 4rem;
+  }
+
+  .cta-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    background: #1d4ed8;
+    padding: clamp(2.75rem, 5vw, 4.5rem);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* subtle dot grid */
+  .cta-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.14) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+
+  .cta-content {
+    position: relative;
+    z-index: 1;
+    order: 1;
+    flex-shrink: 0;
+    max-width: 540px;
+  }
+
+  .cta-title {
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: #fff;
+    margin: 0;
+  }
+
+  .cta-sub {
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 420px;
+  }
+
+  .cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  /* primary — white pill */
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: #fff;
+    color: #0a1628;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.85rem 1.8rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s ease;
+  }
+  .cta-primary svg {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(9, 9, 11, 0.22);
+  }
+  .cta-primary:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* secondary — white text link */
+  .cta-secondary {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+  }
+  .cta-secondary::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1.5px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-secondary:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* animated voice equalizer — centred in the second column */
+  .cta-eq {
+    position: relative;
+    z-index: 1;
+    order: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 150px;
+    pointer-events: none;
+  }
+  .cta-eq span {
+    display: block;
+    width: 8px;
+    border-radius: 99px;
+    background: #fff;
+    transform-origin: center;
+    animation-name: ctaSpeak;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  @keyframes ctaSpeak {
+    0%,
+    100% {
+      transform: scaleY(0.28);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .cta-eq {
+      display: none;
+    }
+  }
+
+  /* scroll reveal — armed by JS so no-JS keeps it visible */
+  .cta-section.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-section.reveal-ready .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-section.reveal-ready .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .cta-eq span {
+      animation: none;
+      transform: scaleY(0.85);
+    }
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>(".cta-section");
+  if (section) {
+    section.classList.add("reveal-ready");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    section.querySelectorAll<HTMLElement>(".reveal").forEach((el) => io.observe(el));
+  }
+</script>

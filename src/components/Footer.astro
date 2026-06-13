@@ -1,41 +1,179 @@
-<footer class="bg-[#050d1e] border-t border-white/10 font-['Plus_Jakarta_Sans',sans-serif]">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+---
+import LangToggler from "./LangToggler.astro";
+---
 
-      <!-- Logo + Tagline -->
+<footer
+  class="bg-[#09090b] border-t border-white/10 font-['Plus_Jakarta_Sans',sans-serif]"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14">
+    <!-- Newsletter signup -->
+    <div
+      class="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center border-b border-white/10 pb-10 mb-10"
+    >
+      <div>
+        <h6 class="text-white text-[15px] font-semibold">
+          Auf dem Laufenden bleiben
+        </h6>
+        <p class="text-[13px] text-white/45 mt-1 max-w-[360px] leading-relaxed">
+          Produktneuheiten und Insights rund um KI-Sprachlösungen — kein Spam,
+          jederzeit abbestellbar.
+        </p>
+      </div>
+      <form id="nl-form" class="flex flex-col sm:flex-row gap-3 lg:justify-end">
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Ihre E-Mail-Adresse"
+          aria-label="E-Mail-Adresse"
+          class="w-full sm:w-[280px] bg-white/5 border border-white/15 rounded-full px-5 py-2.5 text-[13px] text-white placeholder:text-white/35 focus:outline-none focus:border-white/40 transition-colors"
+        />
+        <button
+          type="submit"
+          class="flex-none bg-white text-[#09090b] rounded-full px-6 py-2.5 text-[13px] font-semibold hover:bg-white/90 transition-colors"
+        >
+          Anmelden
+        </button>
+      </form>
+      <p
+        id="nl-msg"
+        hidden
+        class="text-[13px] text-[#4ade80] lg:text-right lg:col-start-2"
+      >
+        Danke! Bitte bestätigen Sie die Anmeldung in Ihrem Postfach.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Logo + Tagline + Social -->
       <div class="col-span-2 lg:col-span-1 flex flex-col gap-4">
         <a href="/">
-          <img src="/crealog_logo.png" alt="CreaLog" class="h-8 w-auto brightness-0 invert" />
+          <img
+            src="/crealog_logo.png"
+            alt="CreaLog"
+            class="h-8 w-auto brightness-0 invert"
+          />
         </a>
         <p class="text-[13px] text-white/40 leading-relaxed max-w-[200px]">
           KI-gestützte Sprachlösungen für modernen Kundenkontakt.
         </p>
-        <p class="text-[12px] text-white/25 mt-auto">© 2025 CreaLog GmbH</p>
+
+        <!-- Social icons -->
+        <div class="flex items-center gap-2.5 mt-1">
+          <a
+            href="https://www.linkedin.com/company/crealog-munich"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CreaLog auf LinkedIn"
+            class="w-9 h-9 flex items-center justify-center rounded-full border border-white/15 text-white/55 hover:text-white hover:border-white/40 transition-colors duration-150"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://x.com/crealog"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="CreaLog auf X"
+            class="w-9 h-9 flex items-center justify-center rounded-full border border-white/15 text-white/55 hover:text-white hover:border-white/40 transition-colors duration-150"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+
+        <div class="mt-auto pt-4 flex flex-col gap-3">
+          <LangToggler dark />
+          <p class="text-[12px] text-white/25">© 2025 CreaLog GmbH</p>
+        </div>
       </div>
 
       <!-- Lösungen -->
       <nav class="flex flex-col gap-3">
-        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35">Lösungen</h6>
-        <a href="/cx-solutions" class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">CX Solutions</a>
-        <a href="/in-solutions" class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">IN Solutions</a>
+        <h6
+          class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35"
+        >
+          Lösungen
+        </h6>
+        <a
+          href="/cx-solutions"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >CX Solutions</a
+        >
+        <a
+          href="/in-solutions"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >IN Solutions</a
+        >
       </nav>
 
       <!-- Unternehmen -->
       <nav class="flex flex-col gap-3">
-        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35">Unternehmen</h6>
-        <a href="/about"   class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Über uns</a>
-        <a href="/kontakt" class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Kontakt</a>
-        <a href="/blog"    class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Blog</a>
+        <h6
+          class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35"
+        >
+          Unternehmen
+        </h6>
+        <a
+          href="/about"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Über uns</a
+        >
+        <a
+          href="/kontakt"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Kontakt</a
+        >
+        <a
+          href="/blog"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Blog</a
+        >
       </nav>
 
       <!-- Rechtliches -->
       <nav class="flex flex-col gap-3">
-        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35">Rechtliches</h6>
-        <a href="/datenschutz" class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Datenschutz</a>
-        <a href="/impressum"   class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Impressum</a>
-        <a href="/cookies"     class="text-[13px] text-white/55 hover:text-white transition-colors duration-150">Cookie-Richtlinie</a>
+        <h6
+          class="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/35"
+        >
+          Rechtliches
+        </h6>
+        <a
+          href="/datenschutz"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Datenschutz</a
+        >
+        <a
+          href="/impressum"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Impressum</a
+        >
+        <a
+          href="/cookies"
+          class="text-[13px] text-white/55 hover:text-white transition-colors duration-150"
+          >Cookie-Richtlinie</a
+        >
       </nav>
-
     </div>
   </div>
 </footer>
+
+<script>
+  const form = document.getElementById("nl-form") as HTMLFormElement | null;
+  const msg = document.getElementById("nl-msg");
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    form.hidden = true;
+    if (msg) msg.hidden = false;
+  });
+</script>
