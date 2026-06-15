@@ -1,25 +1,56 @@
 ---
-const stats = [
-  { value: "1996", num: 1996, suffix: "", label: "Gegründet" },
-  { value: "200+", num: 200, suffix: "+", label: "Unternehmenskunden" },
-  { value: "150+", num: 150, suffix: "+", label: "Mitarbeitende" },
-  { value: "98%", num: 98, suffix: "%", label: "Kundenzufriedenheit" },
+interface StatProp {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  bodyText?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  stats?: StatProp[];
+}
+
+const defaultStats: StatProp[] = [
+  { value: "1996", label: "Gegründet" },
+  { value: "200+", label: "Unternehmenskunden" },
+  { value: "150+", label: "Mitarbeitende" },
+  { value: "98%", label: "Kundenzufriedenheit" },
 ];
+
+function parseStat(s: StatProp) {
+  const match = s.value.match(/^(\d+)(.*)$/);
+  return {
+    value: s.value,
+    num: match ? parseInt(match[1]) : 0,
+    suffix: match ? match[2] : "",
+    label: s.label,
+  };
+}
+
+const {
+  eyebrow = "Über CreaLog",
+  title = "Der verlässliche Partner für Sprachkommunikation",
+  subtitle = "CreaLog entwickelt seit 1996 KI-gestützte Sprachlösungen für Telekommunikationsunternehmen und deren Enterprise-Kunden. Unsere Plattformen laufen in den Netzen führender Carrier Europas.",
+  bodyText = "Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere Lösungen laufen on-premise, in der Cloud oder hybrid — immer DSGVO-konform und made in Germany.",
+  ctaText = "Mehr über CreaLog",
+  ctaHref = "/about",
+  stats: rawStats = defaultStats,
+} = Astro.props;
+
+const stats = rawStats.map(parseStat);
 ---
 
 <section class="about-section bg-white py-24 lg:py-28 overflow-hidden">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
     <!-- Centered header: blue eyebrow → fat black headline → text -->
     <div class="max-w-3xl mx-auto text-center">
-      <span class="reveal sec-eyebrow">Über CreaLog</span>
-      <h2 class="reveal sec-title">
-        Der verlässliche Partner für Sprachkommunikation
-      </h2>
-      <p class="reveal sec-sub">
-        CreaLog entwickelt seit 1996 KI-gestützte Sprachlösungen für
-        Telekommunikationsunternehmen und deren Enterprise-Kunden. Unsere
-        Plattformen laufen in den Netzen führender Carrier Europas.
-      </p>
+      <span class="reveal sec-eyebrow">{eyebrow}</span>
+      <h2 class="reveal sec-title">{title}</h2>
+      <p class="reveal sec-sub">{subtitle}</p>
     </div>
 
     <!-- Subtle brand logo above the stat pills -->
@@ -43,14 +74,10 @@ const stats = [
 
     <!-- Closing paragraph + tertiary CTA -->
     <div class="max-w-2xl mx-auto mt-14 text-center">
-      <p class="reveal text-[15px] leading-[1.75] text-[#5b6472]">
-        Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere
-        Lösungen laufen on-premise, in der Cloud oder hybrid — immer
-        DSGVO-konform und made in Germany.
-      </p>
+      <p class="reveal text-[15px] leading-[1.75] text-[#5b6472]">{bodyText}</p>
       <div class="reveal mt-7">
-        <a href="/about" class="about-cta">
-          Mehr über CreaLog
+        <a href={ctaHref} class="about-cta">
+          {ctaText}
           <svg
             width="16"
             height="16"

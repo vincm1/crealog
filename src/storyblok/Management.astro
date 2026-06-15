@@ -1,0 +1,16 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import Management from "../components/Management.astro";
+
+const { blok } = Astro.props;
+---
+
+<div {...storyblokEditable(blok)}>
+  <Management
+    firstname={blok.firstname}
+    lastname={blok.lastname}
+    position={blok.position}
+    quote={blok.qoute}
+    image={blok.image?.filename}
+  />
+</div>

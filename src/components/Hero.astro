@@ -1,6 +1,25 @@
 ---
 import HeroWave from "./HeroWave.vue";
+import HeroTitle from "./HeroTitle.vue";
 import CustomerLogos from "./CustomerLogos.astro";
+
+interface Props {
+  badge?: string;
+  titleTop?: string;
+  titleMain?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaHref?: string;
+}
+
+const {
+  badge = "AI-Powered Voice Solutions",
+  titleTop = "Die Zukunft des",
+  titleMain = "Kundenkontakts",
+  subtitle = "Intelligente Sprachlösungen, die Kundengespräche automatisieren — schneller, skalierbarer und natürlicher als je zuvor.",
+  ctaText = "Jetzt starten",
+  ctaHref = "/kontakt",
+} = Astro.props;
 ---
 
 <style>
@@ -251,24 +270,21 @@ import CustomerLogos from "./CustomerLogos.astro";
           stroke="none"
           clip-path="url(#h-mic-fill)"></path>
       </svg>
-      AI-Powered Voice Solutions
+      {badge}
     </div>
 
     <h1 class="h-title">
-      <span class="h-title-top">Die Zukunft des</span>
-      <span class="h-title-main">Kundenkontakts</span>
+      <span class="h-title-top">{titleTop}</span>
+      <span class="h-title-main"><HeroTitle client:load /></span>
     </h1>
 
-    <p class="h-sub">
-      Intelligente Sprachlösungen, die Kundengespräche automatisieren —
-      schneller, skalierbarer und natürlicher als je zuvor.
-    </p>
+    <p class="h-sub">{subtitle}</p>
 
-    <a href="/kontakt" class="h-cta">
+    <a href={ctaHref} class="h-cta">
       <span class="h-cta-eq" aria-hidden="true">
         <i></i><i></i><i></i><i></i>
       </span>
-      Jetzt starten
+      {ctaText}
     </a>
   </div>
 
