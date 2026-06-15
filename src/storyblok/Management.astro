@@ -3,14 +3,15 @@ import { storyblokEditable } from "@storyblok/astro";
 import Management from "../components/Management.astro";
 
 const { blok } = Astro.props;
+
+const people = blok.management_people?.map((p: any) => ({
+  name: `${p.firstname} ${p.lastname}`,
+  position: p.position,
+  quote: p.quote,
+  image: p.image?.filename ?? p.image,
+}));
 ---
 
 <div {...storyblokEditable(blok)}>
-  <Management
-    firstname={blok.firstname}
-    lastname={blok.lastname}
-    position={blok.position}
-    quote={blok.qoute}
-    image={blok.image?.filename}
-  />
+  <Management people={people} />
 </div>

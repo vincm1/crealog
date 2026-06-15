@@ -1,10 +1,14 @@
 ---
 import ManagementReel from "./ManagementReel.vue";
+
+interface Person { name: string; position: string; quote: string; image: string; }
+interface Props { people?: Person[]; }
+const { people } = Astro.props;
 ---
 
 <section class="mgmt-section">
   <div class="mgmt-inner">
-    <ManagementReel client:load />
+    <ManagementReel client:load people={people} />
   </div>
 </section>
 

@@ -16,25 +16,29 @@ const SLIDE_MS = 800;
 const CHAR_STAGGER = 6;
 const EASE = "cubic-bezier(0.65,0,0.35,1)";
 
-const people: Person[] = [
+const DEFAULT_PEOPLE: Person[] = [
   {
     name: "Michael Kloos",
     position: "Geschäftsführer",
-    quote:
-      "Seit fast drei Jahrzehnten gestalten wir die Zukunft des Kundenkontakts — mit Technologie, die Menschen in den Mittelpunkt stellt.",
+    quote: "Seit fast drei Jahrzehnten gestalten wir die Zukunft des Kundenkontakts — mit Technologie, die Menschen in den Mittelpunkt stellt.",
     image: "/management/michael_kloos.jpg",
   },
   {
     name: "Bernd Plannerer",
     position: "Geschäftsführer",
-    quote:
-      "Unsere Stärke liegt in der Verbindung von tiefer Technologieexpertise und echtem Verständnis für die Bedürfnisse unserer Kunden.",
+    quote: "Unsere Stärke liegt in der Verbindung von tiefer Technologieexpertise und echtem Verständnis für die Bedürfnisse unserer Kunden.",
     image: "/management/bernd_plannerer.png",
   },
 ];
 
-const count = people.length;
-const centerIdx = (count - 1) / 2;
+const props = defineProps<{ people?: Person[] }>();
+
+const people = computed(() =>
+  props.people && props.people.length > 0 ? props.people : DEFAULT_PEOPLE
+);
+
+const count = computed(() => people.value.length);
+const centerIdx = computed(() => (count.value - 1) / 2);
 
 const index = ref(0);
 const displayIndex = ref(0);
@@ -43,21 +47,21 @@ const isMounted = ref(false);
 const animating = ref(false);
 const timers: number[] = [];
 
-const middleY = computed(() => (centerIdx - index.value) * STEP);
+const middleY = computed(() => (centerIdx.value - index.value) * STEP);
 const sideY = computed(() => -middleY.value);
 
 const middleItems = computed(() => {
   const items: Array<{ type: "cell" } | { type: "featured"; i: number }> = [];
   for (let i = 0; i < 3; i++) items.push({ type: "cell" });
-  people.forEach((_, i) => {
+  people.value.forEach((_, i) => {
     items.push({ type: "featured", i });
-    if (i < count - 1) items.push({ type: "cell" }, { type: "cell" });
+    if (i < count.value - 1) items.push({ type: "cell" }, { type: "cell" });
   });
   for (let i = 0; i < 3; i++) items.push({ type: "cell" });
   return items;
 });
 
-const sideCellCount = 4 + 2 * count;
+const sideCellCount = computed(() => 4 + 2 * count.value);
 
 function colStyle(y: number) {
   return {
@@ -69,7 +73,7 @@ function colStyle(y: number) {
 function paginate(dir: 1 | -1) {
   if (animating.value) return;
   const next = index.value + dir;
-  if (next < 0 || next >= count) return;
+  if (next < 0 || next >= count.value) return;
   animating.value = true;
   index.value = next;
   exiting.value = true;
@@ -86,9 +90,9 @@ function makeWords(text: string, startIdx: number) {
   });
 }
 
-const currentQuoteWords = computed(() => makeWords(people[displayIndex.value].quote, 0));
+const currentQuoteWords = computed(() => makeWords(people.value[displayIndex.value].quote, 0));
 const currentAuthorWords = computed(() =>
-  makeWords(people[displayIndex.value].name, people[displayIndex.value].quote.length + 6)
+  makeWords(people.value[displayIndex.value].name, people.value[displayIndex.value].quote.length + 6)
 );
 
 onMounted(() => {
@@ -195,7 +199,7 @@ onUnmounted(() => timers.forEach(clearTimeout));
         </button>
         <button
           type="button"
-          :disabled="index === count - 1"
+          :disabled="index === count.value - 1"
           aria-label="Nächste Person"
           class="reel-btn"
           @click="paginate(1)"
