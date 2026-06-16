@@ -1,0 +1,17 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import Icon from "../components/Icon.astro";
+const { blok } = Astro.props;
+---
+
+<div {...storyblokEditable(blok)} class="flex flex-col gap-3">
+  {blok.icon && (
+    <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center flex-none">
+      <Icon name={blok.icon} class="w-5 h-5 text-[#004990]" />
+    </div>
+  )}
+  <h3 class="text-[15px] font-semibold text-gray-900">{blok.title}</h3>
+  {blok.description && (
+    <p class="text-[14px] text-gray-500 leading-relaxed">{blok.description}</p>
+  )}
+</div>

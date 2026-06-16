@@ -1,0 +1,678 @@
+---
+import "../../assets/app.css";
+import Navbar from "../../components/Navbar/Navbar.astro";
+import FooterElegant from "../../components/themes/elegant/FooterElegant.astro";
+
+const features = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>`,
+    title: "Service Orchestration",
+    desc: "Flexible Dienstekomposition und -verkettung in Echtzeit. Serviceketten visuell konfigurieren — ohne Code-Änderungen an der Kernplattform.",
+    tags: ["Visual Builder", "Event-driven"],
+    accent: "#38a8ff",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 1.046a1 1 0 01.7 1.215L10.06 9H16a1 1 0 01.78 1.625l-9 11A1 1 0 016 21l1.94-7H2a1 1 0 01-.78-1.625l9-11a1 1 0 01.08-.329z"/></svg>`,
+    title: "Real-time Charging (OCS)",
+    desc: "Vollintegriertes Online Charging System für präzise Prepaid- und Postpaid-Abrechnung auf Session-Ebene mit Gy-Interface.",
+    tags: ["Gy Interface", "Diameter"],
+    accent: "#a78bfa",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>`,
+    title: "API Gateway",
+    desc: "Netzwerkfähigkeiten als REST-APIs für CPaaS-Szenarien, Partner-Portale und Self-Service-Anwendungen mit OpenAPI 3.0.",
+    tags: ["REST / OpenAPI 3.0", "Webhook"],
+    accent: "#34d399",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5"/></svg>`,
+    title: "Rufnummernmanagement",
+    desc: "Carrier-grade DID-Verwaltung, Rufnummernportierung (LNP/MNP) und intelligentes Routing für ganz Europa.",
+    tags: ["DID / DDI", "LNP · MNP"],
+    accent: "#fb923c",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>`,
+    title: "Fraud Protection",
+    desc: "KI-basierte Echtzeiterkennung von Toll-Fraud, Spoofing und anomalen Verkehrsmustern — proaktiv blockierend, nicht reaktiv.",
+    tags: ["ML-Modelle", "Auto-Blocking"],
+    accent: "#f472b6",
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>`,
+    title: "Live Analytics & CDR",
+    desc: "Vollständige CDR-Auswertung, Qualitäts-KPIs und Kapazitätsplanung in Echtzeit — kein Batch, keine Verzögerung.",
+    tags: ["Real-time CDR", "KPI Dashboard"],
+    accent: "#38a8ff",
+  },
+];
+
+const specs = [
+  { label: "Verfügbarkeit", value: "99.999 % SLA" },
+  { label: "Latenz", value: "< 5 ms Signalisierung" },
+  { label: "Kapazität", value: "1 Mio.+ simultane Sessions" },
+  { label: "Protokolle", value: "SIP · SIGTRAN · SS7 · RTP" },
+  { label: "APIs", value: "REST / OpenAPI 3.0 / Webhooks" },
+  { label: "Deployment", value: "On-Premise · Cloud · Hybrid" },
+  { label: "Clustering", value: "Active-Active, georedundant" },
+  { label: "Compliance", value: "ISO 27001 · DSGVO · TÜV" },
+];
+
+const layers = [
+  {
+    num: "01",
+    name: "Application Layer",
+    items: ["Partner API Portal", "Self-Service Console", "Analytics Dashboard", "Billing Export"],
+    color: "#38a8ff",
+  },
+  {
+    num: "02",
+    name: "Service Engine",
+    items: ["Service Orchestrator", "Online Charging (OCS)", "Number Registry", "Fraud Detection"],
+    color: "#a78bfa",
+  },
+  {
+    num: "03",
+    name: "Network Layer",
+    items: ["SIP / SIP-T", "SIGTRAN / SS7 / ISUP", "RTP / SRTP Media", "Carrier Interconnect"],
+    color: "#34d399",
+  },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Service Delivery Platform — Elegant | CreaLog</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="esdp-body">
+    <Navbar />
+
+    <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+    <section class="esdp-hero">
+      <div class="esdp-hero__grid" aria-hidden="true"></div>
+      <div class="esdp-orb esdp-orb--blue" aria-hidden="true"></div>
+      <div class="esdp-orb esdp-orb--purple" aria-hidden="true"></div>
+
+      <div class="esdp-container">
+        <div class="esdp-hero__inner">
+
+          <div class="esdp-hero__badge fade-up">
+            <div class="esdp-wave">
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+              <span class="esdp-wave__bar"></span>
+            </div>
+            <span>Carrier Infrastructure</span>
+          </div>
+
+          <nav class="esdp-hero__breadcrumb fade-up">
+            <a href="/">CreaLog</a>
+            <span>/</span>
+            <a href="/telco-solutions">Telco Solutions</a>
+            <span>/</span>
+            <span>Service Delivery Platform</span>
+          </nav>
+
+          <h1 class="esdp-hero__h1 fade-up">
+            <span class="esdp-hero__h1-grad">Service Delivery</span><br />
+            <span class="esdp-hero__h1-light">Platform</span>
+          </h1>
+
+          <p class="esdp-hero__sub fade-up">
+            Next-generation Middleware für moderne Carrier. Erstellen, verwalten und monetarisieren Sie Telco-Dienste mit carrier-grade Zuverlässigkeit — on-premise oder in der Cloud.
+          </p>
+
+          <div class="esdp-hero__ctas fade-up">
+            <a href="/kontakt" class="esdp-cta-primary">
+              Demo vereinbaren
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/kontakt" class="esdp-cta-ghost">Datenblatt →</a>
+          </div>
+
+          <div class="esdp-hero__stats fade-up">
+            {[
+              { v: "99.999 %", l: "Verfügbarkeit" },
+              { v: "< 5 ms", l: "Latenz" },
+              { v: "1 Mio.+", l: "Sessions" },
+              { v: "Made in DE", l: "DSGVO-konform" },
+            ].map((s, i) => (
+              <>
+                {i > 0 && <div class="esdp-stats-div" />}
+                <div class="esdp-stat">
+                  <span class="esdp-stat__val">{s.v}</span>
+                  <span class="esdp-stat__lbl">{s.l}</span>
+                </div>
+              </>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Features ──────────────────────────────────────────────────────── -->
+    <section class="esdp-section esdp-features">
+      <div class="esdp-container">
+        <div class="esdp-sec-head">
+          <span class="esdp-eyebrow">Funktionsumfang</span>
+          <h2 class="esdp-sec-title">Alles aus einer Plattform</h2>
+          <p class="esdp-sec-sub">Sechs integrierte Module — carrier-grade, skalierbar, API-first.</p>
+        </div>
+        <div class="esdp-feat-grid">
+          {features.map((f) => (
+            <div class="esdp-feat-card" style={`--accent: ${f.accent};`}>
+              <div class="esdp-feat-card__icon" set:html={f.icon} />
+              <h3 class="esdp-feat-card__title">{f.title}</h3>
+              <p class="esdp-feat-card__desc">{f.desc}</p>
+              <div class="esdp-feat-card__tags">
+                {f.tags.map((t) => <span class="esdp-tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Architecture ──────────────────────────────────────────────────── -->
+    <section class="esdp-section esdp-arch">
+      <div class="esdp-container">
+        <div class="esdp-sec-head">
+          <span class="esdp-eyebrow">Plattform-Architektur</span>
+          <h2 class="esdp-sec-title">Drei integrierte Schichten</h2>
+          <p class="esdp-sec-sub">Vom Netzwerk bis zur Applikation — eine kohärente, offene Plattform.</p>
+        </div>
+        <div class="esdp-arch-stack">
+          {layers.map((l) => (
+            <div class="esdp-arch-layer" style={`--layer-color: ${l.color};`}>
+              <div class="esdp-arch-layer__head">
+                <span class="esdp-arch-layer__num">{l.num}</span>
+                <span class="esdp-arch-layer__name">{l.name}</span>
+              </div>
+              <div class="esdp-arch-layer__items">
+                {l.items.map((item) => (
+                  <span class="esdp-arch-item">
+                    <svg class="esdp-arch-dot" viewBox="0 0 6 6"><circle cx="3" cy="3" r="3" fill="currentColor"/></svg>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Specs ─────────────────────────────────────────────────────────── -->
+    <section class="esdp-section esdp-specs">
+      <div class="esdp-container">
+        <div class="esdp-specs__inner">
+          <div class="esdp-specs__left">
+            <span class="esdp-eyebrow">Technische Spezifikationen</span>
+            <h2 class="esdp-sec-title esdp-specs__h2">Carrier-grade,<br />von Grund auf</h2>
+            <p class="esdp-specs__sub">
+              Entwickelt für den Betrieb in nationalen Telekommunikationsnetzen — mit den höchsten Anforderungen an Verfügbarkeit, Latenz und Skalierbarkeit.
+            </p>
+            <div class="esdp-cert-badges">
+              <span class="esdp-cert">ISO 27001</span>
+              <span class="esdp-cert">DSGVO</span>
+              <span class="esdp-cert">TÜV-geprüft</span>
+              <span class="esdp-cert">Made in Germany</span>
+            </div>
+          </div>
+          <div class="esdp-specs__right">
+            {specs.map((s) => (
+              <div class="esdp-spec-row">
+                <span class="esdp-spec-row__label">{s.label}</span>
+                <span class="esdp-spec-row__value">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────────────────── -->
+    <section class="esdp-section esdp-cta-section">
+      <div class="esdp-container">
+        <div class="esdp-cta-inner">
+          <div class="esdp-cta-glow" aria-hidden="true"></div>
+          <span class="esdp-eyebrow">Nächster Schritt</span>
+          <h2 class="esdp-cta-title">Bereit für den Einsatz?</h2>
+          <p class="esdp-cta-sub">
+            Sprechen Sie mit einem unserer Telco-Experten — oder fordern Sie das technische Datenblatt direkt an.
+          </p>
+          <div class="esdp-cta-btns">
+            <a href="/kontakt" class="esdp-cta-primary">Demo vereinbaren →</a>
+            <a href="/kontakt" class="esdp-cta-ghost">Datenblatt anfordern</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <FooterElegant />
+  </body>
+</html>
+
+<style>
+  .esdp-body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #050a0f;
+    margin: 0;
+    color: rgba(255,255,255,0.88);
+  }
+
+  .esdp-container {
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  @media (min-width: 1024px) { .esdp-container { padding: 0 2.5rem; } }
+
+  .esdp-section {
+    padding: 5.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .esdp-sec-head {
+    text-align: center;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .esdp-eyebrow {
+    display: inline-block;
+    color: #38a8ff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+  }
+
+  .esdp-sec-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+    margin: 0;
+  }
+
+  .esdp-sec-sub {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.45);
+    max-width: 440px;
+    margin: 0;
+  }
+
+  /* ── Hero ── */
+  .esdp-hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    background: #050a0f;
+    overflow: hidden;
+    padding: 8rem 0 5rem;
+  }
+
+  .esdp-hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56,168,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56,168,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
+  }
+
+  .esdp-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .esdp-orb--blue {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,73,144,0.28) 0%, transparent 70%);
+    top: -120px; right: -100px;
+  }
+  .esdp-orb--purple {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%);
+    bottom: 0; left: -80px;
+  }
+
+  .esdp-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 780px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .esdp-hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(56,168,255,0.08);
+    border: 1px solid rgba(56,168,255,0.2);
+    border-radius: 99px;
+    padding: 6px 16px 6px 10px;
+    width: fit-content;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #38a8ff;
+  }
+
+  .esdp-wave {
+    display: flex;
+    align-items: flex-end;
+    gap: 2.5px;
+    height: 14px;
+  }
+  .esdp-wave__bar {
+    display: block;
+    width: 2.5px;
+    background: #38a8ff;
+    border-radius: 2px;
+    animation: esdpWave 1.6s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+  .esdp-wave__bar:nth-child(1) { height: 40%; animation-delay: 0s; }
+  .esdp-wave__bar:nth-child(2) { height: 80%; animation-delay: 0.15s; }
+  .esdp-wave__bar:nth-child(3) { height: 100%; animation-delay: 0.3s; }
+  .esdp-wave__bar:nth-child(4) { height: 60%; animation-delay: 0.1s; }
+  .esdp-wave__bar:nth-child(5) { height: 90%; animation-delay: 0.25s; }
+  .esdp-wave__bar:nth-child(6) { height: 50%; animation-delay: 0.05s; }
+  .esdp-wave__bar:nth-child(7) { height: 70%; animation-delay: 0.2s; }
+
+  @keyframes esdpWave {
+    0%,100% { transform: scaleY(0.25); opacity: 0.35; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .esdp-hero__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: rgba(255,255,255,0.28);
+  }
+  .esdp-hero__breadcrumb a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  .esdp-hero__breadcrumb a:hover { color: #38a8ff; }
+
+  .esdp-hero__h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    margin: 0;
+  }
+  .esdp-hero__h1-grad {
+    background: linear-gradient(135deg, #ffffff 20%, #38a8ff 80%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .esdp-hero__h1-light { color: rgba(255,255,255,0.35); font-weight: 300; }
+
+  .esdp-hero__sub {
+    font-size: 16px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.52);
+    max-width: 540px;
+    margin: 0;
+  }
+
+  .esdp-hero__ctas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .esdp-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #004990;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.8rem 1.6rem;
+    border-radius: 99px;
+    text-decoration: none;
+    border: 1px solid rgba(56,168,255,0.3);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, background 0.2s;
+  }
+  .esdp-cta-primary:hover {
+    box-shadow: 0 0 32px rgba(56,168,255,0.3);
+    transform: translateY(-2px);
+    background: #005ab5;
+  }
+
+  .esdp-cta-ghost {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .esdp-cta-ghost:hover { color: #38a8ff; }
+
+  .esdp-hero__stats {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .esdp-stat { display: flex; flex-direction: column; gap: 3px; padding: 0 1.5rem 0 0; }
+  .esdp-stat:first-child { padding-left: 0; }
+  .esdp-stat__val { font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+  .esdp-stat__lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: rgba(255,255,255,0.3); }
+  .esdp-stats-div { width: 1px; height: 24px; background: rgba(255,255,255,0.1); margin: 0 1.5rem; }
+
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.25s; }
+  .fade-up:nth-child(3) { animation-delay: 0.4s; }
+  .fade-up:nth-child(4) { animation-delay: 0.55s; }
+  .fade-up:nth-child(5) { animation-delay: 0.68s; }
+  .fade-up:nth-child(6) { animation-delay: 0.8s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Features ── */
+  .esdp-features { background: #050a0f; }
+  .esdp-feat-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.07);
+  }
+  @media (min-width: 640px) { .esdp-feat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .esdp-feat-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .esdp-feat-card {
+    background: #080e17;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: background 0.2s ease;
+  }
+  .esdp-feat-card:hover { background: #0c1520; }
+  .esdp-feat-card__icon {
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--accent, #38a8ff);
+    flex-shrink: 0;
+  }
+  .esdp-feat-card__icon :global(svg) { width: 20px; height: 20px; }
+  .esdp-feat-card__title { font-size: 14.5px; font-weight: 700; color: #fff; margin: 0; }
+  .esdp-feat-card__desc { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.42); margin: 0; flex: 1; }
+  .esdp-feat-card__tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+  .esdp-tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2px 9px; border-radius: 99px;
+  }
+
+  /* ── Architecture ── */
+  .esdp-arch { background: #060c14; }
+  .esdp-arch-stack { display: flex; flex-direction: column; gap: 10px; }
+
+  .esdp-arch-layer {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-left: 2px solid var(--layer-color, #38a8ff);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .esdp-arch-layer:hover { background: rgba(255,255,255,0.05); }
+  .esdp-arch-layer__head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .esdp-arch-layer__num {
+    font-size: 10.5px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--layer-color, #38a8ff);
+  }
+  .esdp-arch-layer__name { font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.85); }
+  .esdp-arch-layer__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 1.1rem 1.5rem;
+  }
+  .esdp-arch-item {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13px; color: rgba(255,255,255,0.45);
+  }
+  .esdp-arch-dot { width: 6px; height: 6px; color: var(--layer-color, #38a8ff); flex-shrink: 0; }
+
+  /* ── Specs ── */
+  .esdp-specs { background: #050a0f; }
+  .esdp-specs__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .esdp-specs__inner { grid-template-columns: 1fr 1.5fr; gap: 5rem; align-items: center; }
+  }
+  .esdp-specs__h2 { text-align: left; margin-bottom: 0.75rem; }
+  .esdp-specs__sub {
+    font-size: 14px;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.4);
+    max-width: 320px;
+    margin: 0 0 1.5rem;
+  }
+  .esdp-cert-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+  .esdp-cert {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 4px 12px; border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.45);
+  }
+
+  .esdp-spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 13.5px;
+  }
+  .esdp-spec-row:first-child { border-top: 1px solid rgba(255,255,255,0.05); }
+  .esdp-spec-row__label { color: rgba(255,255,255,0.32); font-weight: 500; white-space: nowrap; }
+  .esdp-spec-row__value { color: rgba(255,255,255,0.82); font-weight: 600; text-align: right; }
+
+  /* ── CTA ── */
+  .esdp-cta-section { background: #060c14; }
+  .esdp-cta-inner {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .esdp-cta-glow {
+    position: absolute;
+    width: 400px; height: 300px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse, rgba(0,73,144,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .esdp-cta-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin: 0.25rem 0 0;
+    position: relative;
+  }
+  .esdp-cta-sub {
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.7;
+    max-width: 440px;
+    margin: 0.25rem 0 0.75rem;
+    position: relative;
+  }
+  .esdp-cta-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; position: relative; }
+
+  html, body { margin: 0; width: 100%; }
+</style>

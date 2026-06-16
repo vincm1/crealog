@@ -1,0 +1,26 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+const { blok } = Astro.props;
+
+const colClass: Record<string, string> = {
+  "2": "sm:grid-cols-2",
+  "3": "sm:grid-cols-2 lg:grid-cols-3",
+  "4": "sm:grid-cols-2 lg:grid-cols-4",
+};
+const cols = colClass[blok.columns] ?? "sm:grid-cols-2 lg:grid-cols-3";
+---
+
+<section {...storyblokEditable(blok)} class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    {(blok.title || blok.subtitle) && (
+      <div class="mb-10">
+        {blok.title && <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">{blok.title}</h2>}
+        {blok.subtitle && <p class="text-gray-500">{blok.subtitle}</p>}
+      </div>
+    )}
+    <div class={`grid grid-cols-1 ${cols} gap-4`}>
+      {blok.cards?.map((card: any) => <StoryblokComponent blok={card} />)}
+    </div>
+  </div>
+</section>

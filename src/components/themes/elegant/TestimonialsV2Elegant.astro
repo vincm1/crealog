@@ -1,0 +1,55 @@
+---
+import TestimonialCardV2Elegant from "./TestimonialCardV2Elegant.astro";
+
+const featured = {
+  quote: "Durch den CreaLog AI Voice Agent konnten wir unsere First Call Resolution um 34 % steigern — bei gleichzeitig deutlich reduzierten Bearbeitungszeiten. Was uns besonders überzeugt hat: Die Lösung war binnen sechs Wochen produktiv. Kein anderer Anbieter hat das geschafft.",
+  name: "Anna Vogel", title: "Head of Customer Experience", company: "Deutsche Telekom", initials: "AV", avatarColor: "#004990", rating: 5,
+};
+
+const compact = [
+  { quote: "Die Spracherkennung ist beeindruckend präzise — auch bei komplexen Fachbegriffen. Unsere Agenten konzentrieren sich jetzt auf die wirklich anspruchsvollen Fälle.", name: "Markus Richter", title: "CTO", company: "R+V Versicherung", initials: "MR", avatarColor: "#1a5c2e", rating: 5 },
+  { quote: "On-Premise, DSGVO-konform, made in Germany — genau das, was wir für unsere Compliance-Anforderungen brauchen. CreaLog hat keine Kompromisse gemacht.", name: "Sandra Kühn", title: "VP Operations", company: "DZ BANK", initials: "SK", avatarColor: "#7c3d0f", rating: 5 },
+  { quote: "Seit dem Rollout haben wir 40 % weniger Anrufe im First-Level — der Voice Agent löst Standardanfragen vollautomatisch. ROI nach vier Monaten erreicht.", name: "Thomas Berger", title: "Leiter Kundenservice", company: "Stadtwerke München", initials: "TB", avatarColor: "#5b21b6", rating: 5 },
+];
+---
+
+<section class="relative bg-white py-24 overflow-hidden font-['Plus_Jakarta_Sans',sans-serif]">
+  <div class="pointer-events-none absolute top-0 left-0 right-0 h-px bg-[#e2e8f0]"></div>
+  <div class="pointer-events-none absolute bottom-0 right-0 w-[600px] h-[500px]" style="background: radial-gradient(ellipse at bottom right, rgba(0,73,144,0.04) 0%, transparent 70%);"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-16">
+      <div class="flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-px w-8 bg-[#004990]"></div>
+          <span class="text-[#004990] text-[11px] font-semibold uppercase tracking-[0.28em]">Kundenstimmen</span>
+        </div>
+        <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.1] tracking-[-0.02em] text-[#0a1628] max-w-[440px]">
+          Was führende<br /><span class="text-[#1d6bbf]">Unternehmen sagen</span>
+        </h2>
+      </div>
+      <div class="flex items-center gap-8 lg:gap-10">
+        <div class="flex flex-col gap-1">
+          <span class="text-[1.75rem] font-bold text-[#0a1628] tracking-tight">200+</span>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#9ca3af]">Unternehmenskunden</span>
+        </div>
+        <div class="w-px h-10 bg-[#e2e8f0]"></div>
+        <div class="flex flex-col gap-1">
+          <span class="text-[1.75rem] font-bold text-[#0a1628] tracking-tight">4.9<span class="text-[#004990] text-[1.1rem]">★</span></span>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#9ca3af]">Ø Bewertung</span>
+        </div>
+        <div class="w-px h-10 bg-[#e2e8f0]"></div>
+        <div class="flex flex-col gap-1">
+          <span class="text-[1.75rem] font-bold text-[#0a1628] tracking-tight">98%</span>
+          <span class="text-[11px] uppercase tracking-[0.16em] text-[#9ca3af]">Verlängerungsrate</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8"><TestimonialCardV2Elegant {...featured} variant="featured" /></div>
+    <div class="h-px w-full bg-[#e2e8f0] mb-8"></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {compact.map((t, i) => <TestimonialCardV2Elegant {...t} variant="compact" index={i} />)}
+    </div>
+  </div>
+</section>

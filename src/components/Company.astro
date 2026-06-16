@@ -15,10 +15,9 @@ interface Props {
 }
 
 const defaultStats: StatProp[] = [
-  { value: "1996", label: "Gegründet" },
-  { value: "200+", label: "Unternehmenskunden" },
-  { value: "150+", label: "Mitarbeitende" },
-  { value: "98%", label: "Kundenzufriedenheit" },
+  { value: "1993", label: "Gegründet" },
+  { value: "100+", label: "Unternehmenskunden" },
+  { value: "50+", label: "Mitarbeitende" },
 ];
 
 function parseStat(s: StatProp) {
@@ -35,7 +34,7 @@ const {
   eyebrow = "Über CreaLog",
   title = "Der verlässliche Partner für Sprachkommunikation",
   subtitle = "CreaLog entwickelt seit 1996 KI-gestützte Sprachlösungen für Telekommunikationsunternehmen und deren Enterprise-Kunden. Unsere Plattformen laufen in den Netzen führender Carrier Europas.",
-  bodyText = "Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere Lösungen laufen on-premise, in der Cloud oder hybrid — immer DSGVO-konform und made in Germany.",
+  bodyText = "Unsere Lösungen laufen on-premise, in der Cloud oder hybrid — immer DSGVO-konform und made in Germany.",
   ctaText = "Mehr über CreaLog",
   ctaHref = "/about",
   stats: rawStats = defaultStats,
@@ -46,33 +45,37 @@ const stats = rawStats.map(parseStat);
 
 <section class="about-section bg-white py-24 lg:py-28 overflow-hidden">
   <div class="max-w-7xl mx-auto px-6 lg:px-10">
-    <!-- Centered header: blue eyebrow → fat black headline → text -->
+    <!-- Header -->
     <div class="max-w-3xl mx-auto text-center">
       <span class="reveal sec-eyebrow">{eyebrow}</span>
       <h2 class="reveal sec-title">{title}</h2>
       <p class="reveal sec-sub">{subtitle}</p>
     </div>
 
-    <!-- Subtle brand logo above the stat pills -->
-    <div class="reveal flex justify-center mt-16 lg:mt-20 mb-8">
-      <img src="/crealog_logo.png" alt="CreaLog" class="about-logo" />
-    </div>
-
-    <!-- All stats in one large rounded pill, with count-up -->
-    <div class="reveal stats-pill">
+    <!-- Compact stats row -->
+    <div class="reveal stats-row">
       {
         stats.map((s, i) => (
-          <div class:list={["stat-item", i > 0 && "stat-item--divider"]}>
-            <span class="stat-num" data-num={s.num} data-suffix={s.suffix}>
-              {s.value}
-            </span>
-            <span class="stat-label">{s.label}</span>
-          </div>
+          <>
+            <div class="stats-row__item">
+              <span
+                class="stats-row__num"
+                data-num={s.num}
+                data-suffix={s.suffix}
+              >
+                {s.value}
+              </span>
+              <span class="stats-row__label">{s.label}</span>
+            </div>
+            {i < stats.length - 1 && (
+              <div class="stats-row__divider" aria-hidden="true" />
+            )}
+          </>
         ))
       }
     </div>
 
-    <!-- Closing paragraph + tertiary CTA -->
+    <!-- Closing text + CTA -->
     <div class="max-w-2xl mx-auto mt-14 text-center">
       <p class="reveal text-[15px] leading-[1.75] text-[#5b6472]">{bodyText}</p>
       <div class="reveal mt-7">
@@ -102,7 +105,6 @@ const stats = rawStats.map(parseStat);
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
-  /* shared section-header pattern: blue keyword → fat black headline → text */
   .sec-eyebrow {
     display: inline-block;
     color: #1d4ed8;
@@ -127,106 +129,46 @@ const stats = rawStats.map(parseStat);
     color: #5b6472;
   }
 
-  /* subtle brand mark above the stat pills */
-  .about-logo {
-    height: 32px;
-    width: auto;
-    opacity: 0.85;
-  }
-
-  /* one large rounded pill holding all stats — dark, elegant */
-  .stats-pill {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  /* compact stats row */
+  .stats-row {
+    display: flex;
     align-items: center;
-    gap: 1.75rem 0;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 0;
+    margin: 3rem auto 3.5rem;
     max-width: 780px;
-    margin: 0 auto;
-    padding: 1.75rem 1.25rem;
-    background: linear-gradient(135deg, #2f6bff 0%, #1d4ed8 55%, #1b46c2 100%);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 2rem;
-    box-shadow:
-      0 26px 60px -24px rgba(29, 78, 216, 0.55),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
-  @media (min-width: 1024px) {
-    .stats-pill {
-      grid-template-columns: repeat(4, 1fr);
-      padding: 2rem 1.25rem;
-      border-radius: 9999px;
-    }
-  }
-
-  .stat-item {
-    position: relative;
+  .stats-row__item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0 1.25rem;
+    gap: 0.25rem;
+    padding: 0.75rem 2rem;
     text-align: center;
   }
-  /* elegant dividers that fade out top & bottom */
-  .stat-item--divider::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1px;
-    height: 62%;
-    background: linear-gradient(
-      180deg,
-      transparent,
-      rgba(255, 255, 255, 0.24),
-      transparent
-    );
-  }
-  /* mobile 2×2: divide only the right column instead */
-  @media (max-width: 1023px) {
-    .stat-item--divider::before {
-      display: none;
-    }
-    .stat-item:nth-child(even)::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 62%;
-      background: linear-gradient(
-        180deg,
-        transparent,
-        rgba(255, 255, 255, 0.16),
-        transparent
-      );
-    }
-  }
-
-  .stat-num {
-    font-size: clamp(1.7rem, 2.3vw, 2.15rem);
+  .stats-row__num {
+    font-size: clamp(1.5rem, 2.2vw, 1.9rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1;
-    color: #fff;
-    background: linear-gradient(180deg, #ffffff 0%, #e3ecff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #004990;
     font-variant-numeric: tabular-nums;
   }
-  .stat-label {
+  .stats-row__label {
     font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 0.14em;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
+    color: #9ca3af;
+  }
+  .stats-row__divider {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(180deg, transparent, #e2e8f0, transparent);
+    flex-shrink: 0;
   }
 
-  /* tertiary text link with navy arrow that nudges on hover */
   .about-cta {
     display: inline-flex;
     align-items: center;
@@ -241,7 +183,7 @@ const stats = rawStats.map(parseStat);
     gap: 0.75rem;
   }
 
-  /* scroll reveal — only armed once JS runs, so no-JS keeps content visible */
+  /* scroll reveal */
   .about-section.reveal-ready .reveal {
     opacity: 0;
     transform: translateY(16px);
@@ -253,7 +195,6 @@ const stats = rawStats.map(parseStat);
     opacity: 1;
     transform: translateY(0);
   }
-
   @media (prefers-reduced-motion: reduce) {
     .about-section.reveal-ready .reveal {
       opacity: 1;
@@ -270,7 +211,6 @@ const stats = rawStats.map(parseStat);
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    // ── Scroll reveal ──────────────────────────────────────────────
     section.classList.add("reveal-ready");
     const els = section.querySelectorAll<HTMLElement>(".reveal");
     const io = new IntersectionObserver(
@@ -282,35 +222,33 @@ const stats = rawStats.map(parseStat);
           }
         });
       },
-      { threshold: 0.15 },
+      { threshold: 0.1 },
     );
     els.forEach((el, i) => {
-      el.style.transitionDelay = `${i * 0.1}s`;
+      el.style.transitionDelay = `${i * 0.08}s`;
       io.observe(el);
     });
 
-    // ── Count-up on the stat pills ─────────────────────────────────
-    const nums = section.querySelectorAll<HTMLElement>(".stat-num");
+    // count-up on stats row
+    const nums = section.querySelectorAll<HTMLElement>(".stats-row__num");
     if (!reduce) {
       nums.forEach((el) => {
         el.textContent = "0" + (el.dataset.suffix || "");
       });
-
       const countUp = (el: HTMLElement) => {
         const target = parseInt(el.dataset.num || "0", 10);
         const suffix = el.dataset.suffix || "";
-        const duration = 1500;
+        const duration = 1400;
         const start = performance.now();
         const step = (now: number) => {
           const p = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+          const eased = 1 - Math.pow(1 - p, 3);
           el.textContent = Math.round(eased * target) + suffix;
           if (p < 1) requestAnimationFrame(step);
           else el.textContent = target + suffix;
         };
         requestAnimationFrame(step);
       };
-
       const countObs = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {

@@ -23,6 +23,15 @@ try {
 } catch {
   // Story nicht erreichbar → Fallback auf hardcoded Defaults
 }
+
+const heroBlok       = storyContent?.body?.find((b: any) => b.component === "hero");
+const companyBlok    = storyContent?.body?.find((b: any) => b.component === "company");
+const managementBlok = storyContent?.body?.find((b: any) => b.component === "management");
+
+const companyStats = companyBlok?.stats?.map((s: any) => ({
+  value: s.value,
+  label: s.label,
+}));
 ---
 
 <!doctype html>
@@ -36,20 +45,21 @@ try {
   </head>
   <body>
     <Navbar />
-    {storyContent ? (
-      <>
-        {["hero", "company", "management"].map((type) => {
-          const blok = storyContent.body?.find((b: any) => b.component === type);
-          return blok ? <StoryblokComponent blok={blok} /> : null;
-        })}
-      </>
-    ) : (
-      <>
-        <Hero />
-        <Company />
-        <Management />
-      </>
-    )}
+
+    {heroBlok ? <StoryblokComponent blok={heroBlok} /> : <Hero />}
+
+    <Company
+      eyebrow={companyBlok?.eyebrow}
+      title={companyBlok?.title}
+      subtitle={companyBlok?.subtitle}
+      bodyText={companyBlok?.body_text}
+      ctaText={companyBlok?.cta_text}
+      ctaHref={companyBlok?.cta_href}
+      stats={companyStats?.length ? companyStats : undefined}
+    />
+
+    {managementBlok ? <StoryblokComponent blok={managementBlok} /> : <Management />}
+
     <Solutions />
     <Industries />
     <Testimonials />

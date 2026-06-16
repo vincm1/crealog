@@ -1,0 +1,1032 @@
+---
+import "../../assets/app.css";
+import Navbar from "../../components/Navbar/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+const heroTags = [
+  "Telco-grade",
+  "Made in Europe",
+  "Multitenant",
+  "Geo-redundant",
+  "Cloud-native",
+  "AI-enabled",
+  "MCP-ready",
+];
+
+const coreRequirements = [
+  {
+    num: "01",
+    title: "Schnellere Service-Einführung",
+    desc: "Neue Kommunikations- und Mehrwertdienste schneller bereitstellen und am Markt platzieren.",
+  },
+  {
+    num: "02",
+    title: "Flexible Anpassung",
+    desc: "Dienste flexibel an individuelle Anforderungen und Geschäftsmodelle anpassen.",
+  },
+  {
+    num: "03",
+    title: "Nahtlose Integration",
+    desc: "Nahtlose Integration in bestehende und zukünftige Netzwerkumgebungen.",
+  },
+  {
+    num: "04",
+    title: "Legacy-Migration",
+    desc: "Sichere Migration von Legacy-Umgebungen ohne Bruch im laufenden Betrieb.",
+  },
+  {
+    num: "05",
+    title: "Telco-grade Betrieb",
+    desc: "Telco-grade Verfügbarkeit und geo-redundanter Betrieb für maximale Ausfallsicherheit.",
+  },
+  {
+    num: "06",
+    title: "Governance & Souveränität",
+    desc: "Governance, Compliance und digitale Souveränität. Made in Europe.",
+  },
+];
+
+const operationModels = [
+  "Cloud-nativ / cloud-agnostisch",
+  "On-Premises",
+  "Private Cloud",
+  "Managed Service",
+];
+
+const standardApplications = [
+  "Nummernumsetzungsdienste (NTS) und VPN",
+  "Call Completion",
+  "Voicebots, Chatbots und KI-Agenten",
+  "Contact Center",
+  "NG112-Notfalldienste",
+  "Recording",
+];
+
+const omnichannelChannels = [
+  "Telefonie",
+  "HD Voice",
+  "RTT",
+  "E-Mail Bots",
+  "Microsoft Teams",
+  "RCS / SMS",
+  "Messenger",
+  "Web und App",
+  "WebRTC und Video",
+];
+
+const specSheets = [
+  { name: "SDP-Platform", desc: "Gesamtübersicht der Plattformarchitektur" },
+  { name: "IVR", desc: "Interactive Voice Response" },
+  { name: "Media Server SMS/RCS/USSD", desc: "Messaging-Kanal Spezifikationen" },
+  { name: "Media Server Web/Chat/E-Mail", desc: "Web-Kanal Spezifikationen" },
+  { name: "SIP", desc: "Session Initiation Protocol" },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>Service Delivery Plattform | CreaLog SDP</title>
+    <meta
+      name="description"
+      content="CreaLog SDP - die gemeinsame Plattform für Telekommunikationsanwendungen in den Bereichen Kommunikation, Signalisierung, Medien und KI."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="sdp-e-page">
+    <Navbar />
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero__layout">
+          <div class="hero__copy">
+            <nav class="breadcrumb">
+              <a href="/">CreaLog</a>
+              <span aria-hidden="true">/</span>
+              <a href="/telco-solutions">Telco Solutions</a>
+              <span aria-hidden="true">/</span>
+              <span>Service Delivery Plattform</span>
+            </nav>
+
+            <h1 class="hero__title">
+              Service Delivery
+              <span class="hero__title-accent">Plattform</span>
+            </h1>
+
+            <p class="hero__intro">
+              Die gemeinsame Basis für Telco-Anwendungen: Kommunikation,
+              Signalisierung, Medien, Messaging, KI und Backend-Integration auf
+              einer Plattform.
+            </p>
+
+            <div class="hero__cta">
+              <a href="/kontakt" class="btn btn--primary">Kontakt aufnehmen</a>
+              <a href="#plattform" class="btn btn--ghost">Mehr erfahren</a>
+            </div>
+          </div>
+
+          <div class="hero__panel" aria-hidden="true">
+            <div class="panel">
+              <div class="panel__header">
+                <span class="panel__title">CreaLog SDP</span>
+                <span class="panel__status">Live orchestration</span>
+              </div>
+              <div class="panel__body">
+                <div class="panel__block">
+                  <span class="panel__label">Kommunikation</span>
+                  <strong>Messaging, Signalisierung, Medien</strong>
+                </div>
+                <div class="panel__block">
+                  <span class="panel__label">Integration</span>
+                  <strong>AI, Omnichannel und Backend-Orchestrierung</strong>
+                </div>
+                <div class="panel__block">
+                  <span class="panel__label">Betrieb</span>
+                  <strong>Cloud-native, multitenant, geo-redundant</strong>
+                </div>
+                <ul class="panel__list">
+                  {
+                    [
+                      "Service Orchestration",
+                      "MCP-ready Integration",
+                      "Network Evolution",
+                      "Enterprise Scale",
+                    ].map((item) => (
+                      <li>{item}</li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tags strip inside hero container, below layout -->
+        <div class="hero__tags">
+          {heroTags.map((tag) => <span>{tag}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <main id="plattform">
+      <!-- Platform intro -->
+      <section class="section section--intro">
+        <div class="container">
+          <div class="intro-layout">
+            <div class="intro-left">
+              <h2 class="section-title">
+                Eine Plattform für alle Telco-Services
+              </h2>
+              <p class="section-copy">
+                CreaLog SDP ist die gemeinsame Plattform für
+                Telekommunikationsanwendungen in den Bereichen Kommunikation,
+                Signalisierung, Medien, Messaging sowie KI und
+                Backend-Integrationen. Sie schafft eine einheitliche
+                technologische Grundlage, auf der Standardanwendungen
+                konsolidiert und neue Dienste effizient eingeführt werden
+                können.
+              </p>
+            </div>
+            <aside class="intro-aside">
+              <span class="aside-label">Plattformkern</span>
+              <p>
+                Eine einheitliche Basis für Standardanwendungen, neue Dienste
+                und kontrollierte Modernisierung bestehender Umgebungen.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Kernanforderungen -->
+      <section class="section section--alt">
+        <div class="container">
+          <span class="eyebrow">Kernanforderungen</span>
+          <h2 class="section-title">
+            Entwickelt für die Anforderungen von CSPs
+          </h2>
+          <p class="section-copy section-copy--wide">
+            Kommunikationsdienstleister müssen heute mehrere Anwendungen auf
+            einer Plattform bündeln, neue Dienste schneller einführen und dabei
+            bestehende Netzwerke weiter nutzen.
+          </p>
+          <div class="req-grid">
+            {
+              coreRequirements.map((item) => (
+                <div class="req-item">
+                  <span class="req-item__num">{item.num}</span>
+                  <h3 class="req-item__title">{item.title}</h3>
+                  <p class="req-item__desc">{item.desc}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- AI + Betriebsmodelle -->
+      <section class="section">
+        <div class="container">
+          <div class="paired-grid">
+            <article class="paired-card ai-card">
+              <span class="eyebrow eyebrow--light">AI-ready</span>
+              <h2 class="section-title section-title--sm">
+                KI-gesteuerte Service-Interaktionen
+              </h2>
+              <p class="section-copy">
+                Das SDP integriert moderne Standards wie MCP, damit
+                KI-gesteuerte Service-Interaktionen sicher, kontrolliert und
+                nachvollziehbar mit zugelassenen Tools, Datenquellen und
+                Backend-Prozessen verbunden werden können.
+              </p>
+              <p class="section-copy">
+                Die Trennung zwischen KI-basierter Schlussfolgerung und
+                deterministischer Backend-Ausführung bleibt erhalten - die
+                Grundlage für überprüfbare, richtliniengesteuerte KI-Dienste.
+              </p>
+            </article>
+
+            <article class="paired-card deploy-card">
+              <h2 class="section-title section-title--sm">
+                Flexible Betriebsmodelle
+              </h2>
+              <p class="section-copy">
+                CreaLog SDP passt sich an Sicherheitsanforderungen,
+                Compliance-Vorgaben und bestehende Betriebsmodelle an.
+              </p>
+              <ul class="model-list">
+                {operationModels.map((item) => <li>{item}</li>)}
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Standardanwendungen -->
+      <section class="section section--alt">
+        <div class="container">
+          <h2 class="section-title">Standardanwendungen</h2>
+          <p class="section-copy">
+            Ein breites Portfolio an telekommunikationsgerechten
+            Standardanwendungen und Unternehmensdiensten kann auf der CreaLog
+            SDP aufgebaut werden.
+          </p>
+          <div class="app-grid">
+            {
+              standardApplications.map((item) => (
+                <div class="app-item">
+                  <svg
+                    class="app-item__icon"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.2" />
+                    <path
+                      d="M5 8l2 2 4-4"
+                      stroke="currentColor"
+                      stroke-width="1.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span>{item}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Omnichannel -->
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Omnichannel-Architektur</h2>
+          <p class="section-copy">
+            Die CreaLog SDP unterstützt Telephony, Messaging, Web, App und
+            moderne Kollaborationskanäle - vereinheitlicht auf einer Plattform.
+          </p>
+          <div class="channel-list">
+            {
+              omnichannelChannels.map((channel) => (
+                <span class="channel-chip">{channel}</span>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Spec sheets -->
+      <section class="section section--alt">
+        <div class="container">
+          <h2 class="section-title">Technische Datenblätter</h2>
+          <p class="section-copy">
+            Für die wichtigsten Plattformbestandteile stehen detaillierte
+            Spezifikationen bereit.
+          </p>
+          <div class="spec-grid">
+            {
+              specSheets.map((item) => (
+                <a href="/kontakt" class="spec-card">
+                  <span class="spec-card__label">Datenblatt</span>
+                  <h3 class="spec-card__name">{item.name}</h3>
+                  <p class="spec-card__desc">{item.desc}</p>
+                  <span class="spec-card__action">Anfordern</span>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="section">
+        <div class="container">
+          <div class="cta-panel">
+            <h2 class="cta-title">Mit dem Sales Team sprechen</h2>
+            <p class="cta-sub">
+              Wenn Sie die CreaLog SDP für Ihr Netz, Ihre Services oder Ihre
+              Enterprise-Strategie einordnen wollen, ist der direkte Austausch
+              der nächste sinnvolle Schritt.
+            </p>
+            <div class="cta-row">
+              <a href="/kontakt" class="btn btn--dark">Kontakt aufnehmen</a>
+              <a href="#plattform" class="btn btn--outline-dark"
+                >Zur Plattformübersicht</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  /* ── Tokens ── */
+  :root {
+    --blue: #004990;
+    --blue-mid: #1d6bbf;
+    --text-dark: #0a1628;
+    --text-mid: #475569;
+    --text-muted: #94a3b8;
+    --surface: #ffffff;
+    --surface-alt: #f8faff;
+    --border: #e2e8f0;
+    --radius-card: 16px;
+    --radius-pill: 999px;
+    --font: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+  }
+  .sdp-e-page {
+    font-family: var(--font);
+    background: var(--surface);
+    color: var(--text-dark);
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 2.5rem;
+    }
+  }
+
+  .section {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+  }
+  .section--intro {
+    border-top: none;
+  }
+  .section--alt {
+    background: var(--surface-alt);
+  }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.26em;
+    color: var(--blue);
+    margin-bottom: 1rem;
+  }
+  .eyebrow--light {
+    color: #7dd3fc;
+  }
+
+  /* ── Typography ── */
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: var(--text-dark);
+    margin: 0 0 1rem;
+  }
+  .section-title--sm {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+  }
+  .section-copy {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--text-mid);
+    margin: 0 0 1rem;
+    max-width: 60ch;
+  }
+  .section-copy--wide {
+    max-width: 72ch;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.8rem 1.45rem;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    border: 1.5px solid transparent;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease,
+      border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn--primary {
+    background: rgba(0, 73, 144, 0.92);
+    color: #fff;
+    border-color: rgba(56, 168, 255, 0.3);
+  }
+  .btn--primary:hover {
+    box-shadow: 0 0 28px rgba(56, 168, 255, 0.22);
+    border-color: rgba(56, 168, 255, 0.5);
+  }
+  .btn--ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(210, 235, 255, 0.92);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+  .btn--dark {
+    background: var(--text-dark);
+    color: #fff;
+  }
+  .btn--dark:hover {
+    box-shadow: 0 8px 24px rgba(10, 22, 40, 0.22);
+  }
+  .btn--outline-dark {
+    background: transparent;
+    color: var(--blue-mid);
+    border-color: var(--border);
+  }
+  .btn--outline-dark:hover {
+    background: var(--surface-alt);
+    border-color: var(--blue-mid);
+  }
+
+  /* ── Hero ── */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 5.5rem 0 3rem;
+    background: #050a0f;
+    color: #fff;
+  }
+
+  .hero__glow {
+    position: absolute;
+    top: -8%;
+    left: 50%;
+    width: 620px;
+    height: 420px;
+    transform: translateX(-50%);
+    background: radial-gradient(
+      ellipse,
+      rgba(0, 73, 144, 0.34) 0%,
+      transparent 72%
+    );
+    pointer-events: none;
+  }
+
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(56, 168, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 168, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(
+      ellipse 84% 72% at 50% 50%,
+      black 28%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .hero__layout {
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 420px);
+      gap: 4rem;
+    }
+  }
+
+  .breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 12px;
+    color: rgba(160, 200, 240, 0.36);
+  }
+  .breadcrumb a {
+    color: rgba(160, 200, 240, 0.5);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .breadcrumb a:hover {
+    color: #38a8ff;
+  }
+
+  .hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    color: #fff;
+  }
+  .hero__title-accent {
+    display: block;
+    background: linear-gradient(135deg, #60b8ff 0%, #a5d8ff 58%, #c8e8ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero__intro {
+    max-width: 52ch;
+    margin: 0 0 2rem;
+    font-size: 15px;
+    line-height: 1.8;
+    color: rgba(180, 210, 240, 0.72);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  /* Panel (right side of hero) */
+  .hero__panel {
+    display: flex;
+    justify-content: center;
+  }
+  .panel {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 28px 64px -24px rgba(0, 0, 0, 0.58);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+  }
+  .panel__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .panel__title,
+  .panel__status {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .panel__title {
+    color: #93c5fd;
+  }
+  .panel__status {
+    color: rgba(210, 235, 255, 0.4);
+  }
+  .panel__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1.1rem 1.25rem;
+  }
+  .panel__block {
+    padding: 0.85rem 1rem;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .panel__block strong {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #fff;
+  }
+  .panel__label {
+    color: rgba(210, 235, 255, 0.42);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .panel__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+  .panel__list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(210, 235, 255, 0.8);
+    font-size: 13px;
+    padding: 0.1rem 0;
+  }
+  .panel__list li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(56, 168, 255, 0.7);
+    flex-shrink: 0;
+  }
+
+  /* Tags strip below hero layout */
+  .hero__tags {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .hero__tags span {
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(210, 235, 255, 0.72);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── Intro ── */
+  .intro-layout {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .intro-layout {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 3rem;
+    }
+  }
+
+  .intro-aside {
+    padding: 1.25rem 1.4rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+  }
+  .aside-label {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-pill);
+    background: rgba(0, 73, 144, 0.08);
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .intro-aside p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-mid);
+  }
+
+  /* ── Kernanforderungen ── */
+  .req-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 768px) {
+    .req-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 3rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .req-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .req-item {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .req-item__num {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--blue);
+    margin-bottom: 0.5rem;
+  }
+  .req-item__title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0 0 0.4rem;
+  }
+  .req-item__desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-mid);
+    margin: 0;
+  }
+
+  /* ── Paired (AI + Deploy) ── */
+  .paired-grid {
+    display: grid;
+    gap: 1rem;
+  }
+  @media (min-width: 1024px) {
+    .paired-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .paired-card {
+    padding: 2rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+  }
+  .ai-card {
+    background: linear-gradient(160deg, #0b1729 0%, #060d1a 100%);
+    border-color: rgba(255, 255, 255, 0.07);
+    color: #fff;
+  }
+  .ai-card .section-title {
+    color: #fff;
+  }
+  .ai-card .section-copy {
+    color: rgba(180, 210, 240, 0.7);
+  }
+
+  .model-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .model-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dark);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+  .model-list li::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--blue-mid);
+    flex-shrink: 0;
+  }
+
+  /* ── Apps ── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 2rem;
+  }
+  @media (min-width: 768px) {
+    .app-grid {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 3rem;
+    }
+  }
+
+  .app-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+  .app-item__icon {
+    width: 16px;
+    height: 16px;
+    color: var(--blue-mid);
+    flex-shrink: 0;
+  }
+
+  /* ── Channels ── */
+  .channel-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 2rem;
+  }
+  .channel-chip {
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-dark);
+    font-size: 13px;
+    font-weight: 600;
+    transition:
+      border-color 0.15s,
+      color 0.15s;
+  }
+  .channel-chip:hover {
+    border-color: var(--blue-mid);
+    color: var(--blue-mid);
+  }
+
+  /* ── Spec sheets ── */
+  .spec-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  @media (min-width: 640px) {
+    .spec-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .spec-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .spec-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.25rem 1.35rem;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+  .spec-card:hover {
+    border-color: var(--blue-mid);
+    box-shadow: 0 6px 20px -6px rgba(29, 107, 191, 0.14);
+  }
+  .spec-card__label {
+    color: var(--blue);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .spec-card__name {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-dark);
+  }
+  .spec-card__desc {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--text-mid);
+    flex: 1;
+  }
+  .spec-card__action {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue-mid);
+    margin-top: 0.5rem;
+  }
+
+  /* ── CTA ── */
+  .cta-panel {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--surface-alt);
+  }
+  .cta-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: var(--text-dark);
+    margin: 0 0 0.75rem;
+  }
+  .cta-sub {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-mid);
+    max-width: 42ch;
+    margin: 0 auto 2rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.9rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn {
+      transition: none;
+    }
+    .btn:hover {
+      transform: none;
+    }
+  }
+</style>

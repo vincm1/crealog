@@ -1,0 +1,865 @@
+---
+import "../../assets/app.css";
+import Navbar from "../../components/Navbar/Navbar.astro";
+import Footer from "../../components/Footer.astro";
+
+// Inhalte: crealog.com/de/plattform-technologie/sip-applikation-server/
+
+const characteristics = [
+  "IMS-konform",
+  "SIP-basiert",
+  "netzwerkunabhängig",
+  "geräteunabhängig",
+  "telco-erprobt",
+  "SIP TLS · SRTP",
+];
+
+const liveRows = [
+  { name: "SIP Registrar / Proxy", load: 44 },
+  { name: "Number Translation", load: 58 },
+  { name: "Voice VPN", load: 36 },
+  { name: "Media / IVR", load: 22 },
+];
+
+// „NG-IN / Number Translation" — Kernfunktionen
+const features = [
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg>`,
+    title: "Zukunftssichere Technologie",
+    desc: "SIP-basierte Lösung mit voller Interoperabilität und nahtlosem IMS-Netzübergang.",
+    tags: ["SIP", "IMS"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"/></svg>`,
+    title: "Netzwerk- & geräteunabhängig",
+    desc: "Verarbeitet Verkehr aus IP- und leitungsvermittelten Netzen — unabhängig vom Endgerät.",
+    tags: ["IP", "Circuit-switched"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21.75 17.25v-.228a4.5 4.5 0 00-.12-1.03l-2.268-9.64a3.375 3.375 0 00-3.285-2.602H7.923a3.375 3.375 0 00-3.285 2.602l-2.268 9.64a4.5 4.5 0 00-.12 1.03v.228m19.5 0a3 3 0 01-3 3H5.25a3 3 0 01-3-3m19.5 0a3 3 0 00-3-3H5.25a3 3 0 00-3 3m16.5 0h.008v.008h-.008v-.008zm-3 0h.008v.008h-.008v-.008z"/></svg>`,
+    title: "Hohe Kapazität",
+    desc: "Telco-erprobte Plattform mit integriertem Überlastungsschutz für hohe Lasten.",
+    tags: ["Überlastschutz", "Skalierbar"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75"/></svg>`,
+    title: "Hochgradig anpassbar",
+    desc: "Flexible Anpassung an individuelle Kundenanforderungen und freie Skalierung.",
+    tags: ["Konfigurierbar", "Modular"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v17.25m0 0c-1.472 0-2.882.265-4.185.75M12 20.25c1.472 0 2.882.265 4.185.75M18.75 4.97A48.416 48.416 0 0012 4.5c-2.291 0-4.545.16-6.75.47m13.5 0c1.01.143 2.01.317 3 .52m-3-.52l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.988 5.988 0 01-2.031.353 5.988 5.988 0 01-2.031-.353c-.483-.174-.711-.703-.59-1.202L18.75 4.971zm-16.5.52c.99-.203 1.99-.377 3-.52m0 0l2.62 10.726c.122.499-.106 1.028-.589 1.202a5.989 5.989 0 01-2.031.353 5.989 5.989 0 01-2.031-.353c-.483-.174-.711-.703-.59-1.202L5.25 4.971z"/></svg>`,
+    title: "Garantierte Rechtskonformität",
+    desc: "Erfüllt geltende gesetzliche und regulatorische Anforderungen zuverlässig.",
+    tags: ["Compliance", "Audit-fähig"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"/></svg>`,
+    title: "Kundenselbstverwaltung",
+    desc: "Eigenständige Verwaltung über eine benutzerfreundliche, intuitive GUI.",
+    tags: ["Self-Service", "GUI"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5"/></svg>`,
+    title: "Effizientes Routing",
+    desc: "Schnelle und einfache Bereitstellung von Routing-Regeln ohne Umwege.",
+    tags: ["Provisioning", "Realtime"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>`,
+    title: "Flexible Betriebsoptionen",
+    desc: "Eigenständiger Betrieb oder Kombination mit gehosteten Funktionen.",
+    tags: ["Standalone", "Hosted"],
+  },
+  {
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>`,
+    title: "Statistiken für Kunden",
+    desc: "Detaillierte Nutzungsinformationen und Auswertungen pro Kunde.",
+    tags: ["Reporting", "Insights"],
+  },
+];
+
+// „Voice VPN" — Vorteile als Checkliste
+const vpn = [
+  "Ein- und ausgehende SIP-Anrufe",
+  "Anrufumleitung, -verweigerung, Weiterleitung & Übertragung",
+  "SIP-Registrar- & Proxy-Server mit Authentifizierung",
+  "Konfigurierbare SIP-Portbereiche & NAT-Translation",
+  "Verbesserte Sicherheit mit SIP TLS & SRTP",
+];
+
+// „Medien & Sprachverarbeitung" — Media-Fähigkeiten
+const media = [
+  "Audioansagen",
+  "Bridging",
+  "Mischen",
+  "Konferenzschaltung",
+  "Rauschunterdrückung",
+  "Spracherkennung (ASR)",
+  "Sprachsynthese (TTS)",
+  "DTMF-Erkennung",
+  "DTMF-Generierung",
+];
+
+// „Fakten & Funktionen"
+const specs = [
+  { label: "Standards", value: "W3C · IETF · ITU · ANSI" },
+  { label: "Protokolle", value: "SIP · IMS · SIP-T" },
+  { label: "Sicherheit", value: "SIP TLS · SRTP" },
+  { label: "Medien", value: "ASR · TTS · DTMF · Konferenz" },
+  { label: "Netze", value: "IP · leitungsvermittelt · PSTN/SIP-Gateway" },
+  { label: "Dienste", value: "NG-IN Number Translation · Voice VPN" },
+  { label: "Verwaltung", value: "Self-Service-GUI · Kundenstatistiken" },
+  { label: "Betrieb", value: "Standalone oder gehostet" },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>SIP Applikations-Server | CreaLog Telco Solutions</title>
+    <meta
+      name="description"
+      content="Standardkonformer IMS SIP Applikations-Server von CreaLog — SIP-basiert, netzwerk- und geräteunabhängig, telco-erprobt. Für NG-IN Number Translation und Voice VPN."
+    />
+  </head>
+  <body class="ix-page">
+    <Navbar />
+
+    <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+    <section class="ix-hero">
+      <div class="ix-hero__aurora" aria-hidden="true"></div>
+      <div class="ix-container">
+        <div class="ix-hero__inner">
+          <div class="ix-hero__left">
+            <nav class="ix-breadcrumb">
+              <a href="/">CreaLog</a>
+              <span>›</span>
+              <a href="/telco-solutions">Telco Solutions</a>
+              <span>›</span>
+              <span>SIP Applikations-Server</span>
+            </nav>
+
+            <div class="ix-eyebrow-wrap">
+              <div class="ix-eyebrow-dash"></div>
+              <span class="ix-eyebrow">Plattform-Technologie</span>
+            </div>
+
+            <h1 class="ix-hero__h1">
+              SIP Applikations-<br />
+              <span class="ix-hero__accent">Server</span>
+            </h1>
+
+            <p class="ix-hero__sub">
+              Der standardkonforme, IMS-fähige SIP Applikations-Server von
+              CreaLog ist die Basis für Number-Translation-Dienste (NG-IN) und
+              Voice VPN — netzwerk- und geräteunabhängig, telco-erprobt und
+              hochgradig anpassbar.
+            </p>
+
+            <div class="ix-chips">
+              {characteristics.map((c) => <span class="ix-chip">{c}</span>)}
+            </div>
+
+            <div class="ix-hero__ctas">
+              <a href="/kontakt" class="ix-btn ix-btn--primary">
+                Demo vereinbaren
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+              </a>
+              <a href="/kontakt" class="ix-btn ix-btn--outline">
+                Datenblatt anfordern
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: live status card -->
+          <div class="ix-hero__right" aria-hidden="true">
+            <div class="ix-preview">
+              <div class="ix-preview__bar"><i></i><i></i><i></i></div>
+              <div class="ix-preview__body">
+                <div class="ix-preview__label">SIP AS — Live Status</div>
+                {liveRows.map((row) => (
+                  <div class="ix-row">
+                    <span class="ix-row__dot" />
+                    <span class="ix-row__name">{row.name}</span>
+                    <div class="ix-row__bar">
+                      <div class="ix-row__fill" style={`width:${row.load}%`} />
+                    </div>
+                    <span class="ix-row__pct">{row.load}%</span>
+                  </div>
+                ))}
+                <div class="ix-preview__footer">
+                  <span class="ix-live"><span class="ix-live__dot" />Live</span>
+                  <span>IMS-konform · SIP TLS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── NG-IN / Number Translation ────────────────────────────────────── -->
+    <section class="ix-section ix-features">
+      <div class="ix-container">
+        <div class="ix-sec-head">
+          <div class="ix-eyebrow-wrap">
+            <div class="ix-eyebrow-dash"></div>
+            <span class="ix-eyebrow">NG-IN / Number Translation</span>
+          </div>
+          <div class="ix-sec-head__row">
+            <h2 class="ix-sec-title">
+              Intelligente<br />
+              <span class="ix-title-accent">Number-Translation-Dienste</span>
+            </h2>
+            <p class="ix-sec-sub">
+              Neun Stärken, die den SIP Applikations-Server für Carrier
+              unverzichtbar machen.
+            </p>
+          </div>
+        </div>
+        <div class="ix-feat-grid reveal-section">
+          {features.map((f) => (
+            <div class="ix-feat-card reveal">
+              <span class="ix-feat-card__bar" aria-hidden="true" />
+              <div class="ix-feat-card__icon" set:html={f.icon} />
+              <h3 class="ix-feat-card__title">{f.title}</h3>
+              <p class="ix-feat-card__desc">{f.desc}</p>
+              <div class="ix-feat-card__tags">
+                {f.tags.map((t) => <span class="ix-tag">{t}</span>)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Voice VPN ─────────────────────────────────────────────────────── -->
+    <section class="ix-section ix-vpn">
+      <div class="ix-container">
+        <div class="ix-vpn__inner reveal-section">
+          <div class="ix-vpn__left reveal">
+            <div class="ix-eyebrow-wrap">
+              <div class="ix-eyebrow-dash"></div>
+              <span class="ix-eyebrow">Voice VPN</span>
+            </div>
+            <h2 class="ix-sec-title ix-vpn__title">
+              Sichere virtuelle<br />
+              <span class="ix-title-accent">Sprachnetze</span>
+            </h2>
+            <p class="ix-sec-sub ix-vpn__sub">
+              Vollwertige SIP-Anrufsteuerung mit Registrar, Proxy und
+              Authentifizierung — abgesichert über SIP TLS und SRTP.
+            </p>
+          </div>
+          <div class="ix-vpn__card reveal">
+            <ul class="ix-check-list">
+              {vpn.map((item) => (
+                <li class="ix-check-item">
+                  <svg class="ix-check-icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Medien & Sprachverarbeitung ───────────────────────────────────── -->
+    <section class="ix-section ix-channels">
+      <div class="ix-container">
+        <div class="ix-channels__inner reveal-section">
+          <div class="ix-channels__head reveal">
+            <div class="ix-eyebrow-wrap">
+              <div class="ix-eyebrow-dash"></div>
+              <span class="ix-eyebrow">Medienverarbeitung</span>
+            </div>
+            <h2 class="ix-sec-title">
+              Integrierte<br />
+              <span class="ix-title-accent">Sprach- & Medienfunktionen</span>
+            </h2>
+            <p class="ix-sec-sub ix-channels__sub">
+              Von Audioansagen über Konferenzen bis ASR, TTS und
+              DTMF — alles direkt in der Plattform.
+            </p>
+          </div>
+          <div class="ix-channels__cloud reveal">
+            {media.map((m) => <span class="ix-channel">{m}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Standards band ────────────────────────────────────────────────── -->
+    <section class="ix-section ix-band-sec">
+      <div class="ix-container">
+        <div class="ix-band reveal-section">
+          <div class="ix-band__glow" aria-hidden="true"></div>
+          <div class="ix-band__icon reveal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/></svg>
+          </div>
+          <div class="ix-band__text">
+            <span class="ix-band__eyebrow reveal">Standardkonform</span>
+            <h2 class="ix-band__title reveal">
+              Unterstützt alle wichtigen Standards
+            </h2>
+            <p class="ix-band__desc reveal">
+              Der SIP Applikations-Server unterstützt alle wichtigen
+              <strong>W3C-, IETF-, ITU- und ANSI-Standards</strong> — für
+              maximale Interoperabilität und einen nahtlosen IMS-Netzübergang.
+            </p>
+            <div class="ix-band__tags reveal">
+              <span class="ix-band__tag">W3C</span>
+              <span class="ix-band__tag">IETF</span>
+              <span class="ix-band__tag">ITU</span>
+              <span class="ix-band__tag">ANSI</span>
+              <span class="ix-band__tag">SIP TLS</span>
+              <span class="ix-band__tag">SRTP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Specs / Fakten & Funktionen ───────────────────────────────────── -->
+    <section class="ix-section ix-specs">
+      <div class="ix-container">
+        <div class="ix-specs__inner">
+          <div class="ix-specs__left reveal-section">
+            <div class="ix-eyebrow-wrap reveal">
+              <div class="ix-eyebrow-dash"></div>
+              <span class="ix-eyebrow">Fakten & Funktionen</span>
+            </div>
+            <h2 class="ix-sec-title ix-specs__title reveal">
+              IMS-konform,<br /><span class="ix-title-accent">SIP-nativ</span>
+            </h2>
+            <p class="ix-sec-sub ix-specs__sub reveal">
+              Eine telco-erprobte Plattform, gebaut für Interoperabilität,
+              Sicherheit und hohe Lasten in Carrier-Netzen.
+            </p>
+            <div class="ix-specs__badges reveal">
+              <span class="ix-sbadge">IMS-konform</span>
+              <span class="ix-sbadge">SIP TLS · SRTP</span>
+              <span class="ix-sbadge">W3C · IETF</span>
+              <span class="ix-sbadge">telco-erprobt</span>
+            </div>
+          </div>
+          <div class="ix-specs__right reveal-section">
+            {specs.map((s) => (
+              <div class="ix-spec-row reveal">
+                <span class="ix-spec-row__label">{s.label}</span>
+                <span class="ix-spec-row__value">{s.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────────────────── -->
+    <section class="ix-section ix-cta">
+      <div class="ix-container">
+        <div class="ix-cta__inner reveal-section">
+          <div class="ix-cta__glow" aria-hidden="true"></div>
+          <div class="ix-eyebrow-wrap reveal" style="justify-content:center;">
+            <div class="ix-eyebrow-dash" style="background:#7dd3fc;"></div>
+            <span class="ix-eyebrow" style="color:#7dd3fc;">Nächster Schritt</span>
+          </div>
+          <h2 class="ix-cta__title reveal">
+            Bereit für standardkonforme SIP-Dienste?
+          </h2>
+          <p class="ix-cta__sub reveal">
+            Sprechen Sie mit einem unserer Telco-Experten oder fordern Sie direkt
+            das technische Datenblatt zum SIP Applikations-Server an.
+          </p>
+          <div class="ix-cta__btns reveal">
+            <a href="/kontakt" class="ix-btn ix-btn--light">Demo vereinbaren →</a>
+            <a href="/kontakt" class="ix-btn ix-btn--ghost">Datenblatt anfordern</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+  </body>
+</html>
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+  .ix-page {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    margin: 0;
+    background: #fff;
+  }
+  html, body { margin: 0; width: 100%; }
+
+  .ix-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  @media (min-width: 1024px) { .ix-container { padding: 0 2.5rem; } }
+
+  /* ── sections ── */
+  .ix-section { padding: 5rem 0; }
+  .ix-features { background: #fff; }
+  .ix-vpn { background: #f8faff; border-top: 1px solid #e6e8ec; border-bottom: 1px solid #e6e8ec; }
+  .ix-channels { background: #fff; }
+  .ix-band-sec { background: #fff; padding: 3rem 0; }
+  .ix-specs { background: #f8faff; border-top: 1px solid #e6e8ec; }
+  .ix-cta { background: #fff; }
+
+  /* ── eyebrow ── */
+  .ix-eyebrow-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .ix-eyebrow-dash { width: 24px; height: 1.5px; background: #004990; flex-shrink: 0; }
+  .ix-eyebrow {
+    color: #004990;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+  }
+
+  /* ── section header ── */
+  .ix-sec-head { margin-bottom: 3rem; }
+  .ix-sec-head__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  @media (min-width: 1024px) {
+    .ix-sec-head__row {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+  }
+  .ix-sec-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #0a1628;
+    margin: 0;
+  }
+  .ix-title-accent { color: #1d6bbf; }
+  .ix-sec-sub {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #6b7280;
+    max-width: 340px;
+  }
+  @media (min-width: 1024px) { .ix-sec-sub { text-align: right; } }
+
+  /* ── hero ── */
+  .ix-hero {
+    position: relative;
+    padding: 7rem 0 4rem;
+    background: linear-gradient(160deg, #f0f5ff 0%, #ffffff 55%);
+    border-bottom: 1px solid #e6e8ec;
+    overflow: hidden;
+  }
+  .ix-hero__aurora {
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(29, 107, 191, 0.16), transparent 65%);
+    pointer-events: none;
+  }
+  .ix-hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .ix-hero__inner { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  }
+
+  .ix-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 1.5rem;
+  }
+  .ix-breadcrumb a { color: #6b7280; text-decoration: none; }
+  .ix-breadcrumb a:hover { color: #004990; }
+
+  .ix-hero__h1 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #09090b;
+    margin: 0 0 1.25rem;
+  }
+  .ix-hero__accent {
+    background: linear-gradient(135deg, #1d6bbf, #1d4ed8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .ix-hero__sub {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5b6472;
+    max-width: 520px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* characteristic chips */
+  .ix-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2rem; }
+  .ix-chip {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #1d4ed8;
+    background: rgba(29, 78, 216, 0.07);
+    border: 1px solid rgba(29, 78, 216, 0.14);
+    padding: 5px 13px;
+    border-radius: 99px;
+  }
+
+  .ix-hero__ctas { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  /* buttons */
+  .ix-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.8rem 1.6rem;
+    border-radius: 99px;
+    text-decoration: none;
+    transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+    border: none;
+  }
+  .ix-btn--primary { background: #09090b; color: #fff; }
+  .ix-btn--primary:hover { background: #18181b; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(29,78,216,0.2); }
+  .ix-btn--outline { background: #fff; color: #3f3f46; border: 1.5px solid #e4e4e7; }
+  .ix-btn--outline:hover { border-color: #09090b; background: #f4f4f5; transform: translateY(-2px); }
+  .ix-btn--light { background: #fff; color: #0a1628; box-shadow: 0 8px 24px rgba(56,189,248,0.18); }
+  .ix-btn--light:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(56,189,248,0.32); }
+  .ix-btn--ghost { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.22); }
+  .ix-btn--ghost:hover { background: rgba(255,255,255,0.16); transform: translateY(-2px); }
+
+  /* preview card */
+  .ix-hero__right { display: flex; justify-content: center; }
+  .ix-preview {
+    width: 100%;
+    max-width: 400px;
+    background: #0e1929;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 32px 64px -24px rgba(15,23,42,0.4);
+  }
+  .ix-preview__bar {
+    display: flex; gap: 6px; padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .ix-preview__bar i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.12); }
+  .ix-preview__body { padding: 1.25rem; display: flex; flex-direction: column; gap: 10px; }
+  .ix-preview__label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: rgba(255,255,255,0.3); margin-bottom: 4px; }
+  .ix-row { display: flex; align-items: center; gap: 8px; }
+  .ix-row__dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+  .ix-row__name { font-size: 12px; color: rgba(255,255,255,0.7); flex: 1; white-space: nowrap; }
+  .ix-row__bar { flex: 1; height: 4px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; }
+  .ix-row__fill { height: 100%; background: linear-gradient(90deg, #2f6bff, #60a5fa); border-radius: 99px; }
+  .ix-row__pct { font-size: 11px; color: rgba(255,255,255,0.35); width: 28px; text-align: right; }
+  .ix-preview__footer {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 4px; padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px; color: rgba(255,255,255,0.3);
+  }
+  .ix-live { display: flex; align-items: center; gap: 5px; color: #22c55e; font-weight: 600; }
+  .ix-live__dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: ixPulse 1.4s ease-in-out infinite; }
+  @keyframes ixPulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── feature cards ── */
+  .ix-feat-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 640px) { .ix-feat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .ix-feat-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ix-feat-card {
+    position: relative;
+    padding: 28px;
+    border: 1px solid #e6e8ec;
+    border-radius: 18px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .ix-feat-card__bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1d6bbf, rgba(29,107,191,0));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .ix-feat-card:hover { border-color: #1d6bbf; transform: translateY(-3px); box-shadow: 0 12px 32px -8px rgba(29,107,191,0.16); }
+  .ix-feat-card:hover .ix-feat-card__bar { opacity: 1; }
+  .ix-feat-card__icon {
+    width: 46px; height: 46px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 13px;
+    background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px -4px rgba(29,78,216,0.4);
+  }
+  .ix-feat-card__icon :global(svg) { width: 22px; height: 22px; }
+  .ix-feat-card__title { font-size: 15.5px; font-weight: 700; color: #0a1628; margin: 0; }
+  .ix-feat-card__desc { font-size: 13.5px; line-height: 1.65; color: #5b6472; margin: 0; flex: 1; }
+  .ix-feat-card__tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+  .ix-tag {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.04em;
+    background: #eff4ff; color: #1d4ed8;
+    padding: 3px 9px; border-radius: 99px;
+  }
+
+  /* ── voice vpn ── */
+  .ix-vpn__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) { .ix-vpn__inner { grid-template-columns: 1fr 1.1fr; gap: 4rem; } }
+  .ix-vpn__title { text-align: left; }
+  .ix-vpn__sub { text-align: left; max-width: 380px; margin-top: 0.75rem; }
+  @media (min-width: 1024px) { .ix-vpn__sub { text-align: left; } }
+  .ix-vpn__card {
+    background: #fff;
+    border: 1px solid #e6e8ec;
+    border-radius: 18px;
+    padding: 1.75rem 2rem;
+    box-shadow: 0 12px 32px -16px rgba(15,23,42,0.16);
+  }
+  .ix-check-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.9rem; }
+  .ix-check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 14px;
+    line-height: 1.45;
+    color: #374151;
+    font-weight: 500;
+  }
+  .ix-check-icon { width: 20px; height: 20px; flex-shrink: 0; color: #1d6bbf; margin-top: 1px; }
+
+  /* ── channels / media cloud ── */
+  .ix-channels__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 1024px) { .ix-channels__inner { grid-template-columns: 0.9fr 1.1fr; gap: 4rem; } }
+  .ix-channels__sub { text-align: left; max-width: 380px; margin-top: 0.75rem; }
+  @media (min-width: 1024px) { .ix-channels__sub { text-align: left; } }
+  .ix-channels__cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ix-channel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0a1628;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    padding: 0.65rem 1.1rem;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .ix-channel:hover { border-color: #1d6bbf; color: #1d6bbf; transform: translateY(-2px); }
+
+  /* ── dark band (standards) ── */
+  .ix-band {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    border-radius: 24px;
+    padding: clamp(2rem, 4vw, 3rem);
+    overflow: hidden;
+    background: linear-gradient(180deg, #0b1729 0%, #060d1a 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  @media (min-width: 768px) { .ix-band { flex-direction: row; align-items: center; gap: 2.5rem; } }
+  .ix-band__glow {
+    position: absolute;
+    top: -40%; right: -5%;
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.2), transparent 65%);
+    pointer-events: none;
+  }
+  .ix-band__icon {
+    position: relative;
+    flex-shrink: 0;
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
+    color: #fff;
+    box-shadow: 0 12px 30px -8px rgba(56,189,248,0.5);
+  }
+  .ix-band__icon :global(svg) { width: 32px; height: 32px; }
+  .ix-band__text { position: relative; }
+  .ix-band__eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: #7dd3fc; margin-bottom: 0.6rem;
+  }
+  .ix-band__title {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    font-weight: 800; letter-spacing: -0.02em; line-height: 1.15;
+    color: #fff; margin: 0;
+  }
+  .ix-band__desc {
+    font-size: 14.5px; line-height: 1.7;
+    color: rgba(255,255,255,0.62);
+    margin: 0.75rem 0 0; max-width: 60ch;
+  }
+  .ix-band__desc strong { color: #fff; font-weight: 700; }
+  .ix-band__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.1rem; }
+  .ix-band__tag {
+    font-size: 11.5px; font-weight: 600;
+    color: #cbe6ff;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.16);
+    padding: 4px 12px; border-radius: 99px;
+  }
+
+  /* ── specs ── */
+  .ix-specs__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (min-width: 1024px) { .ix-specs__inner { grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center; } }
+  .ix-specs__title { text-align: left; margin-bottom: 0.75rem; }
+  .ix-specs__sub { text-align: left; max-width: 360px; margin: 0.75rem 0 0; }
+  @media (min-width: 1024px) { .ix-specs__sub { text-align: left; } }
+  .ix-specs__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 1.5rem; }
+  .ix-sbadge {
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 4px 12px; border-radius: 99px;
+    border: 1.5px solid #e2e8f0; color: #374151;
+  }
+  .ix-spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #f1f5fb;
+    font-size: 13.5px;
+  }
+  .ix-spec-row:first-child { border-top: 1px solid #f1f5fb; }
+  .ix-spec-row__label { color: #6b7280; font-weight: 500; white-space: nowrap; }
+  .ix-spec-row__value { color: #09090b; font-weight: 600; text-align: right; }
+
+  /* ── cta ── */
+  .ix-cta__inner {
+    position: relative;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 28px;
+    padding: clamp(2.75rem, 5vw, 4rem);
+    overflow: hidden;
+    background: linear-gradient(180deg, #0b1729 0%, #060d1a 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .ix-cta__glow {
+    position: absolute;
+    top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 560px; height: 460px;
+    background: radial-gradient(circle, rgba(56,189,248,0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .ix-cta__inner .ix-eyebrow-wrap { position: relative; }
+  .ix-cta__title {
+    position: relative;
+    font-size: clamp(1.75rem, 3vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    color: #fff;
+    margin: 0 0 0.75rem;
+  }
+  .ix-cta__sub { position: relative; font-size: 15px; color: rgba(255,255,255,0.62); line-height: 1.7; margin: 0 auto 2rem; max-width: 30rem; }
+  .ix-cta__btns { position: relative; display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+
+  /* ── scroll reveal ── */
+  .reveal-section.ready .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-section.ready .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-section.ready .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+<script>
+  const sections = document.querySelectorAll<HTMLElement>(".reveal-section");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  sections.forEach((section) => {
+    section.classList.add("ready");
+    const items = section.querySelectorAll<HTMLElement>(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            const el = e.target as HTMLElement;
+            const idx = Array.from(items).indexOf(el);
+            el.style.transitionDelay = reduce ? "0ms" : `${idx * 60}ms`;
+            el.classList.add("visible");
+            io.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+    );
+    items.forEach((el) => io.observe(el));
+  });
+</script>

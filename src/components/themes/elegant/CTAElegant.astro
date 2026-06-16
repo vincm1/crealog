@@ -1,0 +1,145 @@
+---
+---
+
+<section class="cta-section bg-[#f7f9fd] py-24 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="cta-shell relative overflow-hidden rounded-[2rem] border border-[#dbe5f2] bg-[#07101d] px-6 py-14 sm:px-10 lg:px-14">
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute -top-24 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-[#1d6bbf]/25 blur-3xl"></div>
+        <div class="absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[#60b8ff]/15 blur-3xl"></div>
+        <div
+          class="absolute inset-0"
+          style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 35%, transparent 65%, rgba(255, 255, 255, 0.05));"
+        ></div>
+      </div>
+
+      <div class="relative grid gap-8 lg:grid-cols-[1.15fr_auto] lg:items-end">
+        <div class="max-w-2xl">
+          <div class="cta-eyebrow">
+            <div class="cta-line"></div>
+            <span>Nächster Schritt</span>
+          </div>
+          <h2 class="cta-title">
+            Bereit für eine
+            <span class="cta-title__accent">elegantere Plattform?</span>
+          </h2>
+          <p class="cta-sub">
+            Wenn Sie eine Voice- oder Service-Plattform brauchen, die sich präzise in Ihre Infrastruktur einfügt, sollten wir sprechen.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-3 lg:justify-end">
+          <a href="/about" class="cta-btn cta-btn--primary">Über CreaLog</a>
+          <a href="/telco-solutions/service-delivery-platform" class="cta-btn cta-btn--ghost">
+            Plattform ansehen
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  .cta-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .cta-line {
+    width: 24px;
+    height: 1px;
+    background: #93c5fd;
+    flex-shrink: 0;
+  }
+
+  .cta-eyebrow span {
+    color: #93c5fd;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+  }
+
+  .cta-title {
+    margin: 0;
+    max-width: 14ch;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    color: #fff;
+  }
+
+  .cta-title__accent {
+    background: linear-gradient(135deg, #a5d8ff 0%, #dbeafe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cta-sub {
+    margin: 1rem 0 0;
+    max-width: 44rem;
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(219, 234, 254, 0.68);
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    padding: 0.85rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition:
+      transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 220ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .cta-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .cta-btn--primary {
+    background: #fff;
+    color: #07101d;
+    box-shadow: 0 12px 30px rgba(10, 22, 40, 0.18);
+  }
+
+  .cta-btn--primary:hover {
+    background: #eff6ff;
+  }
+
+  .cta-btn--ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(219, 234, 254, 0.88);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .cta-btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cta-btn {
+      transition: none;
+    }
+
+    .cta-btn:hover {
+      transform: none;
+    }
+  }
+</style>

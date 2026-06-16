@@ -8,8 +8,8 @@ interface Person {
   image: string;
 }
 
-const CELL = 121.33;
-const GAP = 8;
+const CELL = 92;
+const GAP = 10;
 const STEP = 3 * (CELL + GAP);
 const EXIT_MS = 240;
 const SLIDE_MS = 800;
@@ -94,7 +94,6 @@ const currentQuoteWords = computed(() => makeWords(people.value[displayIndex.val
 const currentAuthorWords = computed(() =>
   makeWords(people.value[displayIndex.value].name, people.value[displayIndex.value].quote.length + 6)
 );
-
 onMounted(() => {
   requestAnimationFrame(() => requestAnimationFrame(() => { isMounted.value = true; }));
 });
@@ -103,6 +102,7 @@ onUnmounted(() => timers.forEach(clearTimeout));
 
 <template>
   <div class="mgmt-reel">
+    <div class="reel-noise" aria-hidden="true" />
     <!-- Reel -->
     <div class="reel-mask">
       <div class="reel-cols">
@@ -135,9 +135,16 @@ onUnmounted(() => timers.forEach(clearTimeout));
 
     <!-- Content -->
     <div class="reel-content">
-      <svg class="reel-quote-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-        <path d="M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18z"/>
-      </svg>
+      <div class="reel-topline">
+        <div class="reel-quote-shell">
+          <svg class="reel-quote-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18z"/>
+          </svg>
+        </div>
+        <div class="reel-kicker">
+          <span class="reel-kicker__label">Management</span>
+        </div>
+      </div>
 
       <div class="reel-stage" aria-live="polite">
         <!-- invisible sizer -->
@@ -185,29 +192,31 @@ onUnmounted(() => timers.forEach(clearTimeout));
       </div>
 
       <!-- Nav -->
-      <div class="reel-nav">
-        <button
-          type="button"
-          :disabled="index === 0"
-          aria-label="Vorherige Person"
-          class="reel-btn"
-          @click="paginate(-1)"
-        >
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M7.5 2.5 3.5 6l4 3.5"/>
-          </svg>
-        </button>
-        <button
-          type="button"
-          :disabled="index === count.value - 1"
-          aria-label="Nächste Person"
-          class="reel-btn"
-          @click="paginate(1)"
-        >
-          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m4.5 2.5 4 3.5-4 3.5"/>
-          </svg>
-        </button>
+      <div class="reel-footer">
+        <div class="reel-nav">
+          <button
+            type="button"
+            :disabled="index === 0"
+            aria-label="Vorherige Person"
+            class="reel-btn"
+            @click="paginate(-1)"
+          >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7.5 2.5 3.5 6l4 3.5"/>
+            </svg>
+          </button>
+          <button
+            type="button"
+            :disabled="index === count.value - 1"
+            aria-label="Nächste Person"
+            class="reel-btn"
+            @click="paginate(1)"
+          >
+            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m4.5 2.5 4 3.5-4 3.5"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -216,24 +225,41 @@ onUnmounted(() => timers.forEach(clearTimeout));
 <style scoped>
 .mgmt-reel {
   font-family: "Plus Jakarta Sans", sans-serif;
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 860px;
+  max-width: 920px;
   margin: 0 auto;
-  background: #09090b;
-  border-radius: 1.5rem;
+  background:
+    linear-gradient(135deg, rgba(16, 24, 40, 0.98), rgba(8, 15, 28, 0.98)),
+    #09090b;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 2rem;
   overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 30px 80px rgba(15, 23, 42, 0.18);
 }
 
 @media (min-width: 768px) {
-  .mgmt-reel { flex-direction: row; min-height: 320px; }
+  .mgmt-reel { flex-direction: row; min-height: 360px; }
+}
+
+.reel-noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(96, 184, 255, 0.28), transparent 28%),
+    radial-gradient(circle at 80% 80%, rgba(29, 78, 216, 0.18), transparent 24%);
 }
 
 /* ── Reel ── */
 .reel-mask {
   position: relative;
-  height: 224px;
+  height: 206px;
   flex-shrink: 0;
   overflow: hidden;
   -webkit-mask-image:
@@ -247,7 +273,11 @@ onUnmounted(() => timers.forEach(clearTimeout));
 }
 
 @media (min-width: 768px) {
-  .reel-mask { width: 380px; height: auto; }
+  .reel-mask {
+    width: 320px;
+    height: auto;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+  }
 }
 
 .reel-cols {
@@ -256,7 +286,7 @@ onUnmounted(() => timers.forEach(clearTimeout));
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .reel-col {
@@ -269,26 +299,26 @@ onUnmounted(() => timers.forEach(clearTimeout));
 
 .reel-cell {
   flex-shrink: 0;
-  width: 121.33px;
-  height: 121.33px;
-  border-radius: 0.75rem;
+  width: 92px;
+  height: 92px;
+  border-radius: 1.1rem;
   border: 1px solid rgba(255,255,255,0.06);
-  background: linear-gradient(to bottom, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  background: linear-gradient(to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.015));
   filter: blur(1px);
 }
 
 .reel-featured {
   position: relative;
   flex-shrink: 0;
-  width: 121.33px;
-  height: 121.33px;
-  border-radius: 0.75rem;
+  width: 92px;
+  height: 92px;
+  border-radius: 1.1rem;
   overflow: hidden;
   background: #1d4ed8;
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.12),
-    0 8px 32px -8px rgba(29,78,216,0.5),
-    0 32px 64px -16px rgba(0,0,0,0.5);
+    0 10px 30px -12px rgba(59,130,246,0.45),
+    0 28px 50px -20px rgba(0,0,0,0.4);
 }
 
 .reel-photo {
@@ -334,22 +364,61 @@ onUnmounted(() => timers.forEach(clearTimeout));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 2rem 2.5rem;
-  gap: 1.25rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .reel-content {
+    padding: 2rem 2rem 1.75rem 1rem;
+  }
+}
+
+.reel-topline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.reel-quote-shell {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.reel-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(226,232,240,0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.reel-kicker__label {
+  color: #93c5fd;
+  font-weight: 700;
 }
 
 .reel-quote-icon {
   display: block;
-  width: 40px;
-  height: 40px;
-  color: rgba(29,78,216,0.5);
+  width: 20px;
+  height: 20px;
+  color: rgba(147,197,253,0.8);
   flex-shrink: 0;
 }
 
 .reel-stage {
   position: relative;
   width: 100%;
-  max-width: 390px;
+  max-width: 430px;
   overflow: hidden;
 }
 
@@ -373,11 +442,11 @@ onUnmounted(() => timers.forEach(clearTimeout));
 
 .reel-text {
   margin: 0;
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.55;
   letter-spacing: -0.02em;
-  color: rgba(255,255,255,0.85);
+  color: rgba(255,255,255,0.92);
 }
 
 .reel-meta {
@@ -388,22 +457,31 @@ onUnmounted(() => timers.forEach(clearTimeout));
 
 .reel-author {
   margin: 0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #3b82f6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #93c5fd;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
 }
 
 .reel-position {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.42);
   letter-spacing: 0.06em;
 }
 
-/* ── Nav ── */
+/* ── Footer / Nav ── */
+.reel-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
 .reel-nav {
   display: flex;
   align-items: center;
@@ -413,18 +491,39 @@ onUnmounted(() => timers.forEach(clearTimeout));
 .reel-btn {
   display: grid;
   place-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.15);
-  background: transparent;
-  color: rgba(255,255,255,0.7);
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.82);
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), opacity 0.2s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+  transition:
+    transform 0.2s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
   padding: 0;
 }
 .reel-btn svg { width: 12px; height: 12px; }
-.reel-btn:hover:not(:disabled) { transform: scale(1.1); color: #fff; }
+.reel-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  color: #fff;
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(147,197,253,0.28);
+}
 .reel-btn:active:not(:disabled) { transform: scale(0.94); }
 .reel-btn:disabled { opacity: 0.3; cursor: default; }
+
+@media (max-width: 767px) {
+  .reel-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reel-nav {
+    align-self: flex-end;
+  }
+}
 </style>

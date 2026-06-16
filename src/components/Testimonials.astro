@@ -21,7 +21,7 @@ const items = [
     logoH: 40,
   },
   {
-    logo: "/customer_logos/a1.svg",
+    logo: "/customer_logos/a1_logo.jpg",
     company: "A1 Telekom Austria",
     quote:
       "Wir haben 40 % der Standardanfragen vollautomatisiert. Der Voice Agent läuft DSGVO-konform in unserem eigenen Rechenzentrum — Skalierung ohne Kompromisse bei Compliance.",
@@ -29,6 +29,7 @@ const items = [
     role: "Director Customer Service",
     initials: "JH",
     logoH: 34,
+    coloredBg: true,
   },
 ];
 ---
@@ -76,7 +77,7 @@ const items = [
           items.map((it, i) => (
             <button
               type="button"
-              class:list={["ts-logo", i === 0 && "is-active"]}
+              class:list={["ts-logo", i === 0 && "is-active", it.coloredBg && "ts-logo--colored"]}
               aria-label={it.company}
             >
               <img src={it.logo} alt={it.company} style={`height:${it.logoH}px`} />
@@ -208,6 +209,19 @@ const items = [
   }
   .ts-logo.is-active {
     background: rgba(255, 255, 255, 0.035);
+  }
+
+  /* JPG with white bg: invert→white becomes black, saturate(0)→removes color,
+     brightness(10)→all non-black grey tones clip to white = monochrome like others */
+  .ts-logo--colored img {
+    filter: invert(1) saturate(0) brightness(10);
+    opacity: 0.32;
+  }
+  .ts-logo--colored:hover img {
+    opacity: 0.6;
+  }
+  .ts-logo--colored.is-active img {
+    opacity: 1;
   }
   .ts-logo.is-active::before {
     content: "";

@@ -1,0 +1,27 @@
+---
+import SolutionsTabsElegant from "./SolutionsTabsElegant.vue";
+---
+
+<section class="relative bg-[#f8faff] py-24 overflow-hidden">
+  <div class="pointer-events-none absolute top-0 left-0 right-0 h-px bg-[#e2e8f0]"></div>
+
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-col gap-5 mb-14">
+      <div class="flex items-center gap-3">
+        <div class="h-px w-8 bg-[#004990]"></div>
+        <span class="text-[#004990] text-[11px] font-semibold uppercase tracking-[0.28em]">Unsere Lösungen</span>
+      </div>
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <h2 class="text-[2rem] lg:text-[2.5rem] font-bold leading-[1.1] tracking-[-0.02em] text-[#0a1628] max-w-[480px]">
+          Alles, was moderner<br />
+          <span class="text-[#1d6bbf]">Kundenkontakt braucht</span>
+        </h2>
+        <p class="text-[14px] text-[#6b7280] leading-relaxed max-w-[340px] lg:text-right">
+          Wählen Sie die Lösungsgruppe, die zu Ihrer Infrastruktur passt —
+          von der KI-Schnittstelle bis zum fertigen Contact-Center.
+        </p>
+      </div>
+    </div>
+    <SolutionsTabsElegant client:visible />
+  </div>
+</section>
