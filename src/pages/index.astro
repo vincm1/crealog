@@ -1,78 +1,42 @@
 ---
-import "../assets/app.css";
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import Navbar from "../components/Navbar/Navbar.astro";
-import Hero from "../components/Hero.astro";
-import Company from "../components/Company.astro";
-import Solutions from "../components/Solutions.astro";
-import Industries from "../components/Industries.astro";
-import Testimonials from "../components/Testimonials.astro";
-import CTA from "../components/Banners/CTA.astro";
-import Footer from "../components/Footer.astro";
-import Management from "../components/Management.astro";
+import LandingLayout from "../layouts/LandingLayout.astro";
+import HeroElegant from "../components/themes/elegant/HeroElegant.astro";
+import CompanyElegant from "../components/themes/elegant/CompanyElegant.astro";
+import ManagementElegant from "../components/themes/elegant/ManagementElegant.astro";
+import SolutionsElegant from "../components/themes/elegant/SolutionsElegant.astro";
+import IndustriesElegant from "../components/themes/elegant/IndustriesElegant.astro";
+import TestimonialsV2Elegant from "../components/themes/elegant/TestimonialsV2Elegant.astro";
+import CTAElegant from "../components/themes/elegant/CTAElegant.astro";
 
-let storyContent: any = null;
+let story: any = null;
 
 try {
   const storyblokApi = useStoryblokApi();
   const { data } = await storyblokApi.get("cdn/stories/home", {
     version: import.meta.env.DEV ? "draft" : "published",
   });
-  storyContent = data.story.content;
+  story = data.story;
 } catch {
-  // Story nicht erreichbar → Fallback auf hardcoded Defaults
+  // Storyblok unreachable — fallback to hardcoded components below
 }
-
-const heroBlok       = storyContent?.body?.find((b: any) => b.component === "hero");
-const companyBlok    = storyContent?.body?.find((b: any) => b.component === "company");
-const managementBlok = storyContent?.body?.find((b: any) => b.component === "management");
-
-const companyStats = companyBlok?.stats?.map((s: any) => ({
-  value: s.value,
-  label: s.label,
-}));
 ---
 
-<!doctype html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <title>AI-driven Platform for Enterprises & Telcos | CreaLog</title>
-  </head>
-  <body>
-    <Navbar />
-
-    {heroBlok ? <StoryblokComponent blok={heroBlok} /> : <Hero />}
-
-    <Company
-      eyebrow={companyBlok?.eyebrow}
-      title={companyBlok?.title}
-      subtitle={companyBlok?.subtitle}
-      bodyText={companyBlok?.body_text}
-      ctaText={companyBlok?.cta_text}
-      ctaHref={companyBlok?.cta_href}
-      stats={companyStats?.length ? companyStats : undefined}
-    />
-
-    {managementBlok ? <StoryblokComponent blok={managementBlok} /> : <Management />}
-
-    <Solutions />
-    <Industries />
-    <Testimonials />
-    <CTA />
-    <Footer />
-  </body>
-</html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
+<LandingLayout>
+  {story ? (
+    story.content.body?.map((blok: any) => (
+      <StoryblokComponent blok={blok} />
+    ))
+  ) : (
+    <>
+      <HeroElegant />
+      <CompanyElegant />
+      <ManagementElegant />
+      <SolutionsElegant />
+      <IndustriesElegant />
+      <TestimonialsV2Elegant />
+      <CTAElegant />
+    </>
+  )}
+</LandingLayout>
