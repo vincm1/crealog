@@ -1,0 +1,18 @@
+---
+// src/storyblok/landing/CompanyBlock.astro
+import { storyblokEditable } from "@storyblok/astro";
+import CompanyElegant from "../../components/themes/elegant/CompanyElegant.astro";
+
+const { blok } = Astro.props;
+---
+<div {...storyblokEditable(blok)}>
+  <CompanyElegant
+    eyebrow={blok.eyebrow}
+    title={blok.title}
+    title_accent={blok.title_accent}
+    body_text_1={blok.body_text_1}
+    body_text_2={blok.body_text_2}
+    cta_text={blok.cta_text}
+    cta_href={blok.cta_href}
+  />
+</div>

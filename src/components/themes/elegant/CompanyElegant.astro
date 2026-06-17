@@ -1,4 +1,14 @@
 ---
+const {
+  eyebrow = "Über CreaLog",
+  title = "Sprachkommunikation neu",
+  title_accent = "gedacht. Seit 1993.",
+  body_text_1 = "CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen für den professionellen Kundenkontakt. Mit mehr als 30 Jahren Erfahrung in der deutschen Telekommunikationsbranche entwickeln wir Plattformen, die Unternehmen dabei helfen, Kundengespräche zu automatisieren, zu analysieren und nachhaltig zu verbessern.",
+  body_text_2 = "Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere Lösungen laufen on-premise, in der Cloud oder hybrid — immer DSGVO-konform und made in Germany.",
+  cta_text = "Mehr über CreaLog",
+  cta_href = "/about",
+} = Astro.props;
+
 const stats = [
   { value: "1993", label: "Gegründet" },
   { value: "100+", label: "Unternehmenskunden" },
@@ -37,35 +47,29 @@ const stats = [
         <div class="flex items-center gap-3">
           <div class="h-px w-8 bg-[#1d6bbf]"></div>
           <span class="text-[#1d6bbf] text-[11px] font-semibold uppercase tracking-[0.28em]">
-            Über CreaLog
+            {eyebrow}
           </span>
         </div>
 
         <h2 class="text-[1.75rem] lg:text-[2rem] font-bold leading-[1.15] tracking-[-0.02em] text-gray-900">
-          Sprachkommunikation neu<br />
-          <span class="text-[#004990]">gedacht. Seit 1993.</span>
+          {title}<br />
+          <span class="text-[#004990]">{title_accent}</span>
         </h2>
 
         <p class="text-[15px] text-gray-500 leading-relaxed">
-          CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen
-          für den professionellen Kundenkontakt. Mit mehr als 30 Jahren Erfahrung
-          in der deutschen Telekommunikationsbranche entwickeln wir Plattformen,
-          die Unternehmen dabei helfen, Kundengespräche zu automatisieren,
-          zu analysieren und nachhaltig zu verbessern.
+          {body_text_1}
         </p>
 
         <p class="text-[15px] text-gray-500 leading-relaxed">
-          Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere
-          Lösungen laufen on-premise, in der Cloud oder hybrid — immer
-          DSGVO-konform und made in Germany.
+          {body_text_2}
         </p>
 
         <div class="pt-2">
           <a
-            href="/about"
+            href={cta_href}
             class="inline-flex items-center gap-2 text-[#004990] text-sm font-semibold hover:gap-3 transition-all duration-200"
           >
-            Mehr über CreaLog
+            {cta_text}
             <span class="text-[#1d6bbf]">→</span>
           </a>
         </div>
