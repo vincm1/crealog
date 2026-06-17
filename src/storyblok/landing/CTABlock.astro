@@ -1,0 +1,19 @@
+---
+// src/storyblok/landing/CTABlock.astro
+import { storyblokEditable } from "@storyblok/astro";
+import CTAElegant from "../../components/themes/elegant/CTAElegant.astro";
+
+const { blok } = Astro.props;
+---
+<div {...storyblokEditable(blok)}>
+  <CTAElegant
+    eyebrow={blok.eyebrow}
+    headline={blok.headline}
+    headline_accent={blok.headline_accent}
+    subline={blok.subline}
+    cta_primary_text={blok.cta_primary_text}
+    cta_primary_href={blok.cta_primary_href}
+    cta_secondary_text={blok.cta_secondary_text}
+    cta_secondary_href={blok.cta_secondary_href}
+  />
+</div>

@@ -1,4 +1,14 @@
 ---
+const {
+  eyebrow = "Nächster Schritt",
+  headline = "Bereit für eine",
+  headline_accent = "elegantere Plattform?",
+  subline = "Wenn Sie eine Voice- oder Service-Plattform brauchen, die sich präzise in Ihre Infrastruktur einfügt, sollten wir sprechen.",
+  cta_primary_text = "Über CreaLog",
+  cta_primary_href = "/about",
+  cta_secondary_text = "Plattform ansehen",
+  cta_secondary_href = "/telco-solutions/service-delivery-platform",
+} = Astro.props;
 ---
 
 <section class="cta-section bg-[#f7f9fd] py-24 overflow-hidden">
@@ -17,21 +27,21 @@
         <div class="max-w-2xl">
           <div class="cta-eyebrow">
             <div class="cta-line"></div>
-            <span>Nächster Schritt</span>
+            <span>{eyebrow}</span>
           </div>
           <h2 class="cta-title">
-            Bereit für eine
-            <span class="cta-title__accent">elegantere Plattform?</span>
+            {headline}
+            <span class="cta-title__accent">{headline_accent}</span>
           </h2>
           <p class="cta-sub">
-            Wenn Sie eine Voice- oder Service-Plattform brauchen, die sich präzise in Ihre Infrastruktur einfügt, sollten wir sprechen.
+            {subline}
           </p>
         </div>
 
         <div class="flex flex-wrap gap-3 lg:justify-end">
-          <a href="/about" class="cta-btn cta-btn--primary">Über CreaLog</a>
-          <a href="/telco-solutions/service-delivery-platform" class="cta-btn cta-btn--ghost">
-            Plattform ansehen
+          <a href={cta_primary_href} class="cta-btn cta-btn--primary">{cta_primary_text}</a>
+          <a href={cta_secondary_href} class="cta-btn cta-btn--ghost">
+            {cta_secondary_text}
           </a>
         </div>
       </div>
