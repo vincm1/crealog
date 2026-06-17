@@ -15,6 +15,15 @@ export default defineConfig({
     storyblok({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
       components: {
+        // Landing-page blocks
+        hero_block: "storyblok/landing/HeroBlock",
+        company_block: "storyblok/landing/CompanyBlock",
+        management_block: "storyblok/landing/ManagementBlock",
+        solutions_block: "storyblok/landing/SolutionsBlock",
+        industries_block: "storyblok/landing/IndustriesBlock",
+        testimonials_block: "storyblok/landing/TestimonialsBlock",
+        cta_block: "storyblok/landing/CTABlock",
+        // Sub-page blocks (existing, unchanged)
         hero: "storyblok/Hero",
         company: "storyblok/Company",
         management: "storyblok/Management",
