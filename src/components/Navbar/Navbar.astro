@@ -1,4 +1,5 @@
 ---
+import { useStoryblokApi } from "@storyblok/astro";
 import CXSolution from "./CXSolution.astro";
 import TelcoSolutions from "./TelcoSolutions.astro";
 import ProfessionalServices from "./ProfessionalServices.astro";
@@ -6,6 +7,25 @@ import MobileMenu from "./MobileMenu.astro";
 import LangToggler from "../LangToggler.astro";
 
 const { darkHero = false } = Astro.props;
+
+let cxStories: any[] = [];
+let telcoStories: any[] = [];
+let servicesStories: any[] = [];
+
+try {
+  const storyblokApi = useStoryblokApi();
+  const version = import.meta.env.DEV ? "draft" : "published";
+  const [cx, telco, ps] = await Promise.all([
+    storyblokApi.get("cdn/stories", { version, starts_with: "cx-solutions/", per_page: 50 }),
+    storyblokApi.get("cdn/stories", { version, starts_with: "telco-solutions/", per_page: 50 }),
+    storyblokApi.get("cdn/stories", { version, starts_with: "professional-services/", per_page: 50 }),
+  ]);
+  cxStories = cx.data.stories ?? [];
+  telcoStories = telco.data.stories ?? [];
+  servicesStories = ps.data.stories ?? [];
+} catch {
+  // Storyblok unreachable — dropdowns fall back to empty
+}
 ---
 
 <style>
@@ -191,7 +211,7 @@ const { darkHero = false } = Astro.props;
           <div
             class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
           >
-            <CXSolution />
+            <CXSolution stories={cxStories} />
           </div>
         </div>
       </div>
@@ -219,7 +239,7 @@ const { darkHero = false } = Astro.props;
           <div
             class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
           >
-            <TelcoSolutions />
+            <TelcoSolutions stories={telcoStories} />
           </div>
         </div>
       </div>
@@ -247,7 +267,7 @@ const { darkHero = false } = Astro.props;
           <div
             class="bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
           >
-            <ProfessionalServices />
+            <ProfessionalServices stories={servicesStories} />
           </div>
         </div>
       </div>
@@ -325,7 +345,7 @@ const { darkHero = false } = Astro.props;
 </div>
 
 <!-- Mobile Menu -->
-<MobileMenu />
+<MobileMenu cxStories={cxStories} telcoStories={telcoStories} servicesStories={servicesStories} />
 
 <script>
   const navbar = document.getElementById("navbar");

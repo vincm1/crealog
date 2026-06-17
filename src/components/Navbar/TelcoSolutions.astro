@@ -1,5 +1,8 @@
+---
+const { stories = [] } = Astro.props;
+---
 <div class="grid grid-cols-4 gap-3">
-  <!-- Column 1: Service Delivery Platform -->
+  <!-- Column 1: Dynamic stories from Storyblok -->
   <div class="bg-gray-50 rounded-xl p-5">
     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
       <span class="text-[12px] font-semibold text-gray-900">Service Delivery Platform</span>
@@ -8,15 +11,15 @@
       </svg>
     </div>
     <nav class="flex flex-col gap-3">
-      <a href="/telco_solutions/service_delivery_platform_index" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Service Delivery Platform</a>
-      <a href="/telco_solutions/sip_application_server_index" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">SIP Application Server</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Media Resource Function</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Service Manager</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">SCE (CDG)</a>
+      {stories.length > 0 ? stories.map((story: any) => (
+        <a href={`/${story.full_slug}`} class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">{story.name}</a>
+      )) : (
+        <span class="text-[13px] text-gray-400 italic">Demnächst verfügbar</span>
+      )}
     </nav>
   </div>
 
-  <!-- Column 2: Applications -->
+  <!-- Column 2: Applications (hardcoded) -->
   <div class="bg-gray-50 rounded-xl p-5">
     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
       <span class="text-[12px] font-semibold text-gray-900">Applications</span>
@@ -34,7 +37,7 @@
     </nav>
   </div>
 
-  <!-- Column 3: Interfaces / Mediation -->
+  <!-- Column 3: Interfaces / Mediation (hardcoded) -->
   <div class="bg-gray-50 rounded-xl p-5">
     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
       <span class="text-[12px] font-semibold text-gray-900">Interfaces / Mediation</span>
@@ -52,7 +55,7 @@
     </nav>
   </div>
 
-  <!-- Column 4: References -->
+  <!-- Column 4: References (hardcoded) -->
   <div class="bg-gray-50 rounded-xl p-5">
     <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
       <span class="text-[12px] font-semibold text-gray-900">References</span>
