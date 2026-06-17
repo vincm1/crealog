@@ -1,0 +1,38 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+
+const name = [blok.firstname, blok.lastname].filter(Boolean).join(" ");
+const imageUrl = blok.image?.filename ?? blok.image ?? "";
+---
+
+<section {...storyblokEditable(blok)} class="py-16 bg-white">
+  <div class="max-w-4xl mx-auto px-6 lg:px-10">
+    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-8">
+      {imageUrl && (
+        <div class="flex-none">
+          <img
+            src={imageUrl}
+            alt={name}
+            class="w-32 h-32 rounded-2xl object-cover shadow-lg"
+          />
+        </div>
+      )}
+      <div class="flex flex-col gap-3 text-center sm:text-left">
+        {name && (
+          <div>
+            <p class="text-xl font-bold text-gray-900">{name}</p>
+            {blok.position && (
+              <p class="text-sm font-medium text-[#004990] mt-0.5">{blok.position}</p>
+            )}
+          </div>
+        )}
+        {blok.quote && (
+          <blockquote class="text-gray-600 text-[15px] leading-relaxed italic border-l-2 border-[#004990] pl-4">
+            "{blok.quote}"
+          </blockquote>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

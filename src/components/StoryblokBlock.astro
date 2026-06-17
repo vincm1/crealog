@@ -1,0 +1,32 @@
+---
+/**
+ * Dynamic Storyblok block renderer.
+ * Resolves block components by convention: snake_case → PascalCase filename
+ * e.g. management_people → src/storyblok/ManagementPeople.astro
+ * No astro.config.mjs registration needed — just create the file.
+ */
+
+const { blok } = Astro.props;
+
+const allComponents = import.meta.glob("../storyblok/**/*.astro", { eager: true }) as Record<string, { default: any }>;
+
+function toPascalCase(snake: string) {
+  return snake.replace(/(^|_)([a-z])/g, (_, __, c) => c.toUpperCase());
+}
+
+const pascal = toPascalCase(blok?.component ?? "");
+// Try exact match first, then root-level fallback
+const path =
+  Object.keys(allComponents).find((k) => k.endsWith(`/${pascal}.astro`)) ?? null;
+
+const Component = path ? allComponents[path]?.default : null;
+---
+
+{Component ? (
+  <Component blok={blok} />
+) : import.meta.env.DEV ? (
+  <div style="border:2px dashed #f97316;padding:1rem;margin:1rem 0;font-family:monospace;font-size:13px;background:#fff7ed;border-radius:8px;color:#9a3412">
+    ⚠️ Block <strong>{blok?.component}</strong> hat noch keine Render-Komponente.<br />
+    Erstelle: <code>src/storyblok/{pascal}.astro</code>
+  </div>
+) : null}

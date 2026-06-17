@@ -25,6 +25,7 @@ export default defineConfig({
         testimonials_block: "storyblok/landing/TestimonialsBlock",
         cta_block: "storyblok/landing/CTABlock",
         // Sub-page blocks (existing, unchanged)
+        management_people: "storyblok/ManagementPeople",
         hero: "storyblok/Hero",
         company: "storyblok/Company",
         management: "storyblok/Management",

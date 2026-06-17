@@ -1,6 +1,6 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import StoryblokBlock from "../components/StoryblokBlock.astro";
 import SubPageLayout from "../layouts/SubPageLayout.astro";
 
 export async function getStaticPaths() {
@@ -21,9 +21,9 @@ const { story } = Astro.props;
 
 <SubPageLayout>
   {story.content.product_hero?.map((blok: any) => (
-    <StoryblokComponent blok={blok} />
+    <StoryblokBlock blok={blok} />
   ))}
   {story.content.body?.map((blok: any) => (
-    <StoryblokComponent blok={blok} />
+    <StoryblokBlock blok={blok} />
   ))}
 </SubPageLayout>
