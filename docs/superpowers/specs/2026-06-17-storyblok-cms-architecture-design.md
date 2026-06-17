@@ -15,7 +15,7 @@ Enable editors to manage the CreaLog website content — texts, images, componen
 
 ### Content Types
 
-**`landing_page`** — exactly one story at slug `home`:
+**`landing_page`** — exactly one story named `home`, no URL slug (always served at `/` by `index.astro`):
 
 | Field | Type | Notes |
 |---|---|---|
@@ -27,8 +27,6 @@ Allowed blocks in `body`: `hero_block`, `company_block`, `management_block`, `so
 
 | Field | Type | Notes |
 |---|---|---|
-| `seo_title` | Text | Required — used as `<title>` |
-| `seo_description` | Textarea | Meta description |
 | `product_hero` | Blocks (max 1) | Required — always rendered first |
 | `body` | Blocks | Free block selection |
 
@@ -94,7 +92,7 @@ src/layouts/
 └── SubPageLayout.astro   <Navbar> (white) + <slot> + <FooterElegant>
 ```
 
-Both layouts include `app.css`, the HTML shell, `<title>` from props, and `lang="de"`.
+Both layouts include `app.css`, the HTML shell, and `lang="de"`. `<title>` is hardcoded per layout for now (SEO out of scope).
 
 ### Storyblok Component Mapping
 
@@ -178,6 +176,7 @@ version: import.meta.env.DEV ? "draft" : "published"
 
 ## Out of Scope
 
+- SEO fields (`seo_title`, `seo_description`) on sub-pages — added later
 - Navigation/Navbar management via CMS (links stay hardcoded)
 - Blog or news section
 - Multi-language content (DE only for now)
