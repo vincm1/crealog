@@ -1,69 +1,92 @@
 ---
 const { cxStories = [], telcoStories = [], servicesStories = [] } = Astro.props;
+
+type Group = { key: string; label: string; stories: any[] };
+
+function groupStories(stories: any[]): Group[] {
+  const map = new Map<string, Group>();
+  for (const story of stories) {
+    const parts = story.full_slug.split('/');
+    const hasCategory = parts.length >= 3;
+    const key = hasCategory ? parts[1] : '__root__';
+    const label = hasCategory
+      ? parts[1].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      : '';
+    if (!map.has(key)) map.set(key, { key, label, stories: [] });
+    map.get(key)!.stories.push(story);
+  }
+  return [...map.values()];
+}
+
+const cxGroups = groupStories(cxStories);
+const telcoGroups = groupStories(telcoStories);
+const servicesGroups = groupStories(servicesStories);
 ---
-<div
-  id="mobile-menu"
-  class="hidden lg:hidden border-t border-gray-100 bg-white"
->
+
+<div id="mobile-menu" class="hidden lg:hidden border-t border-gray-100 bg-white">
   <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-0.5">
+
     <!-- CX Solutions -->
-    <button
-      id="cx-toggle"
-      class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left"
-    >
+    <button id="cx-toggle" class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left">
       CX Solutions
       <svg id="cx-chevron" class="w-4 h-4 text-gray-400 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
       </svg>
     </button>
     <div id="cx-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      {cxStories.length > 0 ? cxStories.map((story: any) => (
-        <a href={`/${story.full_slug}`} class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+      {cxGroups.length > 0 ? cxGroups.map((group) => (
+        <>
+          {group.label && (
+            <span class="px-3 pt-2 pb-1 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">{group.label}</span>
+          )}
+          {group.stories.map((story: any) => (
+            <a href={`/${story.full_slug}`} class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+          ))}
+        </>
       )) : (
         <span class="px-3 py-2 text-sm text-gray-400 italic">Demnächst verfügbar</span>
       )}
     </div>
 
     <!-- Telco Solutions -->
-    <button
-      id="in-toggle"
-      class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left"
-    >
+    <button id="in-toggle" class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left">
       Telco Solutions
       <svg id="in-chevron" class="w-4 h-4 text-gray-400 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
       </svg>
     </button>
     <div id="in-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      {telcoStories.length > 0 && (
-        <span class="px-3 pt-2 pb-1 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Service Delivery Platform</span>
-      )}
-      {telcoStories.length > 0 ? telcoStories.map((story: any) => (
-        <a href={`/${story.full_slug}`} class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+      {telcoGroups.length > 0 ? telcoGroups.map((group) => (
+        <>
+          {group.label && (
+            <span class="px-3 pt-2 pb-1 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">{group.label}</span>
+          )}
+          {group.stories.map((story: any) => (
+            <a href={`/${story.full_slug}`} class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+          ))}
+        </>
       )) : (
         <span class="px-3 py-2 text-sm text-gray-400 italic">Demnächst verfügbar</span>
       )}
-      <span class="px-3 pt-3 pb-1 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">Applications</span>
-      <a href="#" class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">IN & SIP Services</a>
-      <a href="#" class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">AI Agent Marketplace</a>
-      <a href="#" class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">NG 112</a>
-      <a href="#" class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Recording</a>
-      <a href="#" class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">Contact Center</a>
     </div>
 
     <!-- Professional Services -->
-    <button
-      id="ps-toggle"
-      class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left"
-    >
+    <button id="ps-toggle" class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50 text-left">
       Professional Services
       <svg id="ps-chevron" class="w-4 h-4 text-gray-400 transition-transform duration-200" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
       </svg>
     </button>
     <div id="ps-sub" class="hidden pl-3 flex flex-col gap-0.5 pb-1">
-      {servicesStories.length > 0 ? servicesStories.map((story: any) => (
-        <a href={`/${story.full_slug}`} class="px-3 py-2 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+      {servicesGroups.length > 0 ? servicesGroups.map((group) => (
+        <>
+          {group.label && (
+            <span class="px-3 pt-2 pb-1 text-[11px] font-semibold text-gray-400 uppercase tracking-wider">{group.label}</span>
+          )}
+          {group.stories.map((story: any) => (
+            <a href={`/${story.full_slug}`} class="px-3 py-1.5 text-sm text-gray-500 hover:text-gray-900 rounded-lg hover:bg-gray-50">{story.name}</a>
+          ))}
+        </>
       )) : (
         <span class="px-3 py-2 text-sm text-gray-400 italic">Demnächst verfügbar</span>
       )}
@@ -73,10 +96,7 @@ const { cxStories = [], telcoStories = [], servicesStories = [] } = Astro.props;
     <a href="/blog" class="px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-50">Blog</a>
 
     <div class="pt-3 mt-1 border-t border-gray-100">
-      <a
-        href="/kontakt"
-        class="flex justify-center items-center py-2.5 bg-[#09090b] text-white text-sm font-semibold rounded-full hover:bg-[#18181b] transition-colors"
-      >
+      <a href="/kontakt" class="flex justify-center items-center py-2.5 bg-[#09090b] text-white text-sm font-semibold rounded-full hover:bg-[#18181b] transition-colors">
         Kontakt aufnehmen
       </a>
     </div>

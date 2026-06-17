@@ -1,53 +1,55 @@
 ---
 const { stories = [] } = Astro.props;
+
+type Group = { key: string; label: string; stories: any[] };
+
+function groupStories(stories: any[]): Group[] {
+  const map = new Map<string, Group>();
+  for (const story of stories) {
+    const parts = story.full_slug.split('/');
+    const hasCategory = parts.length >= 3;
+    const key = hasCategory ? parts[1] : '__root__';
+    const label = hasCategory
+      ? parts[1].split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+      : '';
+    if (!map.has(key)) map.set(key, { key, label, stories: [] });
+    map.get(key)!.stories.push(story);
+  }
+  return [...map.values()];
+}
+
+const groups = groupStories(stories);
+const cols = Math.min(Math.max(groups.length, 1), 3);
+
+const ICONS = [
+  "M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18",
+  "M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z",
+  "M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5",
+];
 ---
-<div class="grid grid-cols-3 gap-3">
-  <!-- Column 1: Dynamic professional services pages from Storyblok -->
-  <div class="bg-gray-50 rounded-xl p-5">
-    <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
-      <span class="text-[13px] font-semibold text-gray-900">Services</span>
-      <svg class="w-5 h-5 text-[#004990]" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/>
-      </svg>
-    </div>
-    <nav class="flex flex-col gap-3">
-      {stories.length > 0 ? stories.map((story: any) => (
-        <a href={`/${story.full_slug}`} class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">{story.name}</a>
-      )) : (
-        <span class="text-[13px] text-gray-400 italic">Demnächst verfügbar</span>
-      )}
-    </nav>
-  </div>
 
-  <!-- Column 2: Implementierung (hardcoded) -->
-  <div class="bg-gray-50 rounded-xl p-5">
-    <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
-      <span class="text-[13px] font-semibold text-gray-900">Implementierung</span>
-      <svg class="w-5 h-5 text-[#004990]" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/>
-      </svg>
-    </div>
-    <nav class="flex flex-col gap-3">
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Systemintegration</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Custom Development</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Migration & Rollout</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Projektmanagement</a>
-    </nav>
+{groups.length > 0 ? (
+  <div class="grid gap-3" style={`grid-template-columns: repeat(${cols}, minmax(0, 1fr))`}>
+    {groups.map((group, i) => (
+      <div class="bg-gray-50 rounded-xl p-5">
+        {group.label && (
+          <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
+            <span class="text-[13px] font-semibold text-gray-900">{group.label}</span>
+            <svg class="w-5 h-5 text-[#004990] flex-none" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d={ICONS[i % ICONS.length]} />
+            </svg>
+          </div>
+        )}
+        <nav class="flex flex-col gap-3">
+          {group.stories.map((story: any) => (
+            <a href={`/${story.full_slug}`} class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">
+              {story.name}
+            </a>
+          ))}
+        </nav>
+      </div>
+    ))}
   </div>
-
-  <!-- Column 3: Training & Support (hardcoded) -->
-  <div class="bg-gray-50 rounded-xl p-5">
-    <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
-      <span class="text-[13px] font-semibold text-gray-900">Training & Support</span>
-      <svg class="w-5 h-5 text-[#004990]" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"/>
-      </svg>
-    </div>
-    <nav class="flex flex-col gap-3">
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Admin-Schulungen</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">Anwender-Workshops</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">24/7 Premium-Support</a>
-      <a href="#" class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">SLA & Wartung</a>
-    </nav>
-  </div>
-</div>
+) : (
+  <p class="text-sm text-gray-400 italic p-2">Demnächst verfügbar</p>
+)}
