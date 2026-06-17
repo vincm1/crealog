@@ -1,0 +1,10 @@
+---
+// src/storyblok/landing/ManagementBlock.astro
+import { storyblokEditable } from "@storyblok/astro";
+import ManagementElegant from "../../components/themes/elegant/ManagementElegant.astro";
+
+const { blok } = Astro.props;
+---
+<div {...storyblokEditable(blok)}>
+  <ManagementElegant />
+</div>

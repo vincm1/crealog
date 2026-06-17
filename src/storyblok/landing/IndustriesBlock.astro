@@ -1,0 +1,10 @@
+---
+// src/storyblok/landing/IndustriesBlock.astro
+import { storyblokEditable } from "@storyblok/astro";
+import IndustriesElegant from "../../components/themes/elegant/IndustriesElegant.astro";
+
+const { blok } = Astro.props;
+---
+<div {...storyblokEditable(blok)}>
+  <IndustriesElegant />
+</div>

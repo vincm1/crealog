@@ -1,0 +1,10 @@
+---
+// src/storyblok/landing/TestimonialsBlock.astro
+import { storyblokEditable } from "@storyblok/astro";
+import TestimonialsV2Elegant from "../../components/themes/elegant/TestimonialsV2Elegant.astro";
+
+const { blok } = Astro.props;
+---
+<div {...storyblokEditable(blok)}>
+  <TestimonialsV2Elegant />
+</div>
