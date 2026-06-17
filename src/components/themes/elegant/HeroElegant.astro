@@ -1,5 +1,16 @@
 ---
 import VoiceNetwork from "../../VoiceNetwork.vue";
+
+const {
+  badge_text = "AI-Powered Voice Solutions",
+  headline = "Die Zukunft des",
+  headline_accent = "Kundenkontakts",
+  subline = "Intelligente Sprachlösungen, die Kundengespräche automatisieren — schneller, skalierbarer und natürlicher als je zuvor.",
+  cta_primary_text = "Jetzt starten",
+  cta_primary_href = "/kontakt",
+  cta_secondary_text = "Lösungen ansehen",
+  cta_secondary_href = "/loesungen",
+} = Astro.props;
 ---
 
 <style>
@@ -98,7 +109,7 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
           <div class="wave-bar w-[3px] bg-[#38a8ff] rounded-full"></div>
         </div>
         <span class="text-[#38a8ff] text-[11px] font-semibold uppercase tracking-[0.28em]">
-          AI-Powered Voice Solutions
+          {badge_text}
         </span>
       </div>
 
@@ -107,12 +118,12 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
         class="fade-up font-bold leading-[1.04] tracking-[-0.03em] text-white"
         style="font-size: clamp(2rem, 4.5vw, 3.5rem);"
       >
-        Die Zukunft des<br />
+        {headline}<br />
         <span
           class="text-transparent bg-clip-text"
           style="background-image: linear-gradient(135deg, #60b8ff 0%, #a5d8ff 60%, #c8e8ff 100%);"
         >
-          Kundenkontakts
+          {headline_accent}
         </span>
       </h1>
 
@@ -121,27 +132,26 @@ import VoiceNetwork from "../../VoiceNetwork.vue";
         class="fade-up text-[15px] leading-relaxed font-light max-w-[400px]"
         style="color: rgba(180,210,240,0.65);"
       >
-        Intelligente Sprachlösungen, die Kundengespräche automatisieren —
-        schneller, skalierbarer und natürlicher als je zuvor.
+        {subline}
       </p>
 
       <!-- CTAs -->
       <div class="fade-up flex items-center gap-8">
         <a
-          href="/kontakt"
+          href={cta_primary_href}
           class="cta-primary px-8 py-[14px] text-white font-semibold text-sm rounded-full"
           style="background: rgba(0,73,144,0.9); border: 1px solid rgba(56,168,255,0.3);"
         >
-          Jetzt starten
+          {cta_primary_text}
         </a>
         <a
-          href="/loesungen"
+          href={cta_secondary_href}
           class="group flex items-center gap-2 text-sm font-medium transition-colors duration-200"
           style="color: rgba(160,200,240,0.6);"
           onmouseover="this.style.color='rgba(210,235,255,0.9)'"
           onmouseout="this.style.color='rgba(160,200,240,0.6)'"
         >
-          Lösungen ansehen
+          {cta_secondary_text}
           <span class="text-[#38a8ff] group-hover:translate-x-1 transition-transform duration-200">→</span>
         </a>
       </div>
