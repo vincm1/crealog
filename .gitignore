@@ -42,3 +42,4 @@ docs*
 *.xlsx
 *.pptx
 astro_storyblok_coolify_hetzner_v4.png
+.vercel

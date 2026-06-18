@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "engines": {
     "node": "22.x",
-    "pnpm": "9.x"
+    "pnpm": "10.x"
   },
   "scripts": {
     "dev": "astro dev",
@@ -13,6 +13,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/vercel": "^10.0.8",
     "@astrojs/vue": "^6.0.1",
     "@storyblok/astro": "^9.0.12",
     "@tailwindcss/vite": "^4.3.0",
