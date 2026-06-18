@@ -3,22 +3,20 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 
-export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi();
-  const { data } = await storyblokApi.get("cdn/stories", {
-    version: (import.meta.env.DEV || import.meta.env.STORYBLOK_IS_PREVIEW) ? "draft" : "published",
-    excluding_slugs: "home",
-    per_page: 100,
-  });
-  return data.stories
-    .filter((story: any) => !story.is_folder)
-    .map((story: any) => ({
-      params: { slug: story.full_slug },
-      props: { story },
-    }));
-}
+const { slug } = Astro.params;
+const isPreview = import.meta.env.DEV || Astro.url.searchParams.has("_storyblok");
 
-const { story } = Astro.props;
+const storyblokApi = useStoryblokApi();
+let story: any = null;
+
+try {
+  const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+    version: isPreview ? "draft" : "published",
+  });
+  story = data.story;
+} catch {
+  return Astro.redirect("/404");
+}
 ---
 
 <SolutionSubPage>

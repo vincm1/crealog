@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
+import vercel from "@astrojs/vercel";
 
 
 const env = loadEnv("", process.cwd(), "STORYBLOK");
@@ -42,6 +43,7 @@ export default defineConfig({
         reference_logo: "storyblok/ReferenceLogo",
         cta_section: "storyblok/CtaSection",
       },
+      livePreview: true,
       apiOptions: {
         region: "eu",
       },
@@ -51,5 +53,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), mkcert()],
   },
-  output: "static",
+  output: "server",
+  adapter: vercel(),
 });
