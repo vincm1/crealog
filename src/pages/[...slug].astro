@@ -1,14 +1,12 @@
 ---
-import { useStoryblokApi, getPayload } from "@storyblok/astro";
+import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
-
-const isDraft = import.meta.env.DEV || import.meta.env.STORYBLOK_PREVIEW;
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
   const { data } = await storyblokApi.get("cdn/stories", {
-    version: (import.meta.env.DEV || import.meta.env.STORYBLOK_PREVIEW) ? "draft" : "published",
+    version: (import.meta.env.DEV || import.meta.env.STORYBLOK_IS_PREVIEW) ? "draft" : "published",
     excluding_slugs: "home",
     per_page: 100,
   });
@@ -20,9 +18,7 @@ export async function getStaticPaths() {
     }));
 }
 
-let { story } = Astro.props;
-const payload = await getPayload(Astro);
-if (payload) story = payload.story;
+const { story } = Astro.props;
 ---
 
 <SolutionSubPage>

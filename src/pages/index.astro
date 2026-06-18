@@ -1,24 +1,18 @@
 ---
-import { useStoryblokApi, getPayload } from "@storyblok/astro";
+import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import LandingLayout from "../layouts/LandingLayout.astro";
 
-const isDraft = import.meta.env.DEV || import.meta.env.STORYBLOK_PREVIEW;
 let story: any = null;
 
-const payload = await getPayload(Astro);
-if (payload) {
-  story = payload.story;
-} else {
-  try {
-    const storyblokApi = useStoryblokApi();
-    const { data } = await storyblokApi.get("cdn/stories/home", {
-      version: isDraft ? "draft" : "published",
-    });
-    story = data.story;
-  } catch {
-    // Storyblok unreachable
-  }
+try {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/stories/home", {
+    version: (import.meta.env.DEV || import.meta.env.STORYBLOK_IS_PREVIEW) ? "draft" : "published",
+  });
+  story = data.story;
+} catch {
+  // Storyblok unreachable
 }
 ---
 
