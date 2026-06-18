@@ -1,7 +1,9 @@
 ---
-import { useStoryblokApi } from "@storyblok/astro";
+import { useStoryblokApi, getPayload } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
+
+const isDraft = import.meta.env.DEV || import.meta.env.STORYBLOK_PREVIEW;
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
@@ -18,7 +20,9 @@ export async function getStaticPaths() {
     }));
 }
 
-const { story } = Astro.props;
+let { story } = Astro.props;
+const payload = await getPayload(Astro);
+if (payload) story = payload.story;
 ---
 
 <SolutionSubPage>

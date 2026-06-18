@@ -43,6 +43,7 @@ export default defineConfig({
         reference_logo: "storyblok/ReferenceLogo",
         cta_section: "storyblok/CtaSection",
       },
+      livePreview: true,
       apiOptions: {
         region: "eu",
       },
