@@ -1,23 +1,18 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import Company from "../components/Company.astro";
+import CompanyElegant from "../components/CompanyElegant.astro";
 
 const { blok } = Astro.props;
-
-const stats = blok.stats?.map((s: any) => ({
-  value: s.value,
-  label: s.label,
-}));
 ---
 
 <div {...storyblokEditable(blok)}>
-  <Company
+  <CompanyElegant
     eyebrow={blok.eyebrow}
     title={blok.title}
-    subtitle={blok.subtitle}
-    bodyText={blok.body_text}
-    ctaText={blok.cta_text}
-    ctaHref={blok.cta_href}
-    stats={stats}
+    title_accent={blok.title_accent}
+    body_text_1={blok.body_text_1}
+    body_text_2={blok.body_text_2}
+    cta_text={blok.cta_text}
+    cta_href={blok.cta_href}
   />
 </div>

@@ -1,32 +1,42 @@
 ---
-// Subtle DE/EN language toggle. UI-only for now: persists the choice and sets
-// <html lang> + dispatches a "langchange" event, ready to wire to i18n later.
-// Pass `dark` when placing it on a dark background (e.g. the footer).
 interface Props {
   dark?: boolean;
 }
 const { dark = false } = Astro.props;
 ---
 
-<div
-  class:list={["lang-toggle", dark && "is-dark"]}
-  role="group"
-  aria-label="Sprache wählen"
->
-  <button type="button" class="lang-opt is-active" data-lang="de">DE</button>
-  <span class="lang-sep" aria-hidden="true">/</span>
-  <button type="button" class="lang-opt" data-lang="en">EN</button>
+<div class:list={["lang-dropdown", dark && "is-dark"]} role="group" aria-label="Sprache wählen">
+  <button type="button" class="lang-trigger" aria-haspopup="listbox" aria-expanded="false">
+    <span class="lang-current">DE</span>
+    <svg class="lang-chevron" width="10" height="10" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>
+  </button>
+
+  <ul class="lang-menu" role="listbox">
+    <li>
+      <button type="button" class="lang-opt is-active" data-lang="de" role="option" aria-selected="true">
+        <span class="lang-flag">🇩🇪</span> Deutsch
+      </button>
+    </li>
+    <li>
+      <button type="button" class="lang-opt" data-lang="en" role="option" aria-selected="false">
+        <span class="lang-flag">🇬🇧</span> English
+      </button>
+    </li>
+  </ul>
 </div>
 
 <style>
-  .lang-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 2px;
+  .lang-dropdown {
+    position: relative;
     font-family: "Plus Jakarta Sans", sans-serif;
   }
 
-  .lang-opt {
+  .lang-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     appearance: none;
     background: none;
     border: none;
@@ -34,71 +44,162 @@ const { dark = false } = Astro.props;
     font: inherit;
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.02em;
-    color: #a1a1aa;
-    padding: 3px 6px;
+    letter-spacing: 0.04em;
+    color: #52525b;
+    padding: 4px 8px;
     border-radius: 7px;
-    transition:
-      color 0.15s ease,
-      background 0.15s ease;
+    transition: color 0.15s ease, background 0.15s ease;
   }
-  .lang-opt:hover {
-    color: #18181b;
-  }
-  .lang-opt.is-active {
+  .lang-trigger:hover {
     color: #18181b;
     background: #f4f4f5;
   }
 
-  .lang-sep {
-    color: #d4d4d8;
-    font-size: 11px;
+  .lang-chevron {
+    transition: transform 0.2s ease;
+    color: #a1a1aa;
+  }
+  .lang-dropdown.is-open .lang-chevron {
+    transform: rotate(180deg);
   }
 
-  /* dark variant — for dark backgrounds like the footer */
-  .lang-toggle.is-dark .lang-opt {
-    color: rgba(255, 255, 255, 0.5);
+  .lang-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    min-width: 130px;
+    background: #fff;
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    padding: 4px;
+    list-style: none;
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 100;
   }
-  .lang-toggle.is-dark .lang-opt:hover {
+  .lang-dropdown.is-open .lang-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .lang-opt {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #52525b;
+    padding: 6px 10px;
+    border-radius: 7px;
+    text-align: left;
+    transition: background 0.1s ease, color 0.1s ease;
+    white-space: nowrap;
+  }
+  .lang-opt:hover {
+    background: #f4f4f5;
+    color: #18181b;
+  }
+  .lang-opt.is-active {
+    color: #18181b;
+    font-weight: 600;
+    background: #f4f4f5;
+  }
+
+  .lang-flag {
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  /* dark variant */
+  .lang-dropdown.is-dark .lang-trigger {
+    color: rgba(255,255,255,0.6);
+  }
+  .lang-dropdown.is-dark .lang-trigger:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+  }
+  .lang-dropdown.is-dark .lang-chevron {
+    color: rgba(255,255,255,0.35);
+  }
+  .lang-dropdown.is-dark .lang-menu {
+    background: #18181b;
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+  .lang-dropdown.is-dark .lang-opt {
+    color: rgba(255,255,255,0.65);
+  }
+  .lang-dropdown.is-dark .lang-opt:hover {
+    background: rgba(255,255,255,0.08);
     color: #fff;
   }
-  .lang-toggle.is-dark .lang-opt.is-active {
+  .lang-dropdown.is-dark .lang-opt.is-active {
+    background: rgba(255,255,255,0.1);
     color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  .lang-toggle.is-dark .lang-sep {
-    color: rgba(255, 255, 255, 0.25);
   }
 </style>
 
 <script>
-  const roots = Array.from(
-    document.querySelectorAll<HTMLElement>(".lang-toggle"),
-  );
-  if (roots.length) {
-    const allOpts = roots.flatMap((r) =>
-      Array.from(r.querySelectorAll<HTMLButtonElement>(".lang-opt")),
-    );
+  const LABELS: Record<string, string> = { de: "DE", en: "EN" };
 
-    const apply = (lang: string) => {
-      allOpts.forEach((o) =>
-        o.classList.toggle("is-active", o.dataset.lang === lang),
-      );
-      document.documentElement.lang = lang;
-      try {
-        localStorage.setItem("lang", lang);
-      } catch {}
-      document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+  document.querySelectorAll<HTMLElement>(".lang-dropdown").forEach((root) => {
+    const trigger = root.querySelector<HTMLButtonElement>(".lang-trigger")!;
+    const current = root.querySelector<HTMLSpanElement>(".lang-current")!;
+    const opts = Array.from(root.querySelectorAll<HTMLButtonElement>(".lang-opt"));
+
+    const close = () => {
+      root.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
     };
 
+    const apply = (lang: string) => {
+      opts.forEach((o) => {
+        const active = o.dataset.lang === lang;
+        o.classList.toggle("is-active", active);
+        o.setAttribute("aria-selected", String(active));
+      });
+      current.textContent = LABELS[lang] ?? lang.toUpperCase();
+      document.documentElement.lang = lang;
+      try { localStorage.setItem("lang", lang); } catch {}
+      document.dispatchEvent(new CustomEvent("langchange", { detail: { lang } }));
+      close();
+    };
+
+    // restore persisted choice
     let stored = "de";
-    try {
-      stored = localStorage.getItem("lang") || "de";
-    } catch {}
+    try { stored = localStorage.getItem("lang") || "de"; } catch {}
     apply(stored);
 
-    allOpts.forEach((o) =>
-      o.addEventListener("click", () => apply(o.dataset.lang || "de")),
-    );
-  }
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const opening = !root.classList.contains("is-open");
+      // close all other dropdowns first
+      document.querySelectorAll(".lang-dropdown.is-open").forEach((d) => {
+        if (d !== root) d.classList.remove("is-open");
+      });
+      root.classList.toggle("is-open", opening);
+      trigger.setAttribute("aria-expanded", String(opening));
+    });
+
+    opts.forEach((o) => o.addEventListener("click", () => apply(o.dataset.lang || "de")));
+  });
+
+  // close on outside click
+  document.addEventListener("click", () => {
+    document.querySelectorAll<HTMLElement>(".lang-dropdown.is-open").forEach((d) => {
+      d.classList.remove("is-open");
+      d.querySelector<HTMLButtonElement>(".lang-trigger")?.setAttribute("aria-expanded", "false");
+    });
+  });
 </script>

@@ -1,17 +1,19 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import Hero from "../components/Hero.astro";
+import HeroElegant from "../components/HeroElegant.astro";
 
 const { blok } = Astro.props;
 ---
 
 <div {...storyblokEditable(blok)}>
-  <Hero
-    badge={blok.badge}
-    titleTop={blok.title_top}
-    titleMain={blok.title_main}
-    subtitle={blok.subtitle}
-    ctaText={blok.cta_text}
-    ctaHref={blok.cta_href}
+  <HeroElegant
+    badge_text={blok.badge_text}
+    headline={blok.headline}
+    headline_accent={blok.headline_accent}
+    subline={blok.subline}
+    cta_primary_text={blok.cta_primary_text}
+    cta_primary_href={blok.cta_primary_href}
+    cta_secondary_text={blok.cta_secondary_text}
+    cta_secondary_href={blok.cta_secondary_href}
   />
 </div>

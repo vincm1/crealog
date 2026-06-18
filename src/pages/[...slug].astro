@@ -1,6 +1,6 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import StoryblokBlock from "../components/StoryblokBlock.astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SubPageLayout from "../layouts/SubPageLayout.astro";
 
 export async function getStaticPaths() {
@@ -10,20 +10,17 @@ export async function getStaticPaths() {
     excluding_slugs: "home",
     per_page: 100,
   });
-  return data.stories.map((story: any) => ({
-    params: { slug: story.full_slug },
-    props: { story },
-  }));
+  return data.stories
+    .filter((story: any) => !story.is_folder)
+    .map((story: any) => ({
+      params: { slug: story.full_slug },
+      props: { story },
+    }));
 }
 
 const { story } = Astro.props;
 ---
 
 <SubPageLayout>
-  {story.content.product_hero?.map((blok: any) => (
-    <StoryblokBlock blok={blok} />
-  ))}
-  {story.content.body?.map((blok: any) => (
-    <StoryblokBlock blok={blok} />
-  ))}
+  <StoryblokComponent blok={story.content} />
 </SubPageLayout>
