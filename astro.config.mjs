@@ -6,7 +6,6 @@ import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
 
-import vercel from "@astrojs/vercel";
 
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
@@ -53,5 +52,4 @@ export default defineConfig({
     plugins: [tailwindcss(), mkcert()],
   },
   output: "static",
-  adapter: vercel(),
 });
