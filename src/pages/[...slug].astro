@@ -6,7 +6,7 @@ import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
   const { data } = await storyblokApi.get("cdn/stories", {
-    version: import.meta.env.DEV ? "draft" : "published",
+    version: (import.meta.env.DEV || import.meta.env.STORYBLOK_PREVIEW) ? "draft" : "published",
     excluding_slugs: "home",
     per_page: 100,
   });
