@@ -18,6 +18,7 @@ export default defineConfig({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
       components: {
         page: "storyblok/Page",
+        sub_page: "storyblok/SubPage",
         // Landing-page blocks
         hero_block: "storyblok/landing/HeroBlock",
         company_block: "storyblok/landing/CompanyBlock",

@@ -1,7 +1,7 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import SubPageLayout from "../layouts/SubPageLayout.astro";
+import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
@@ -21,6 +21,6 @@ export async function getStaticPaths() {
 const { story } = Astro.props;
 ---
 
-<SubPageLayout>
+<SolutionSubPage>
   <StoryblokComponent blok={story.content} />
-</SubPageLayout>
+</SolutionSubPage>

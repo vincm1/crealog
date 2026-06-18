@@ -1,18 +1,80 @@
 ---
-// src/storyblok/landing/CompanyBlock.astro
 import { storyblokEditable } from "@storyblok/astro";
-import CompanyElegant from "../../components/CompanyElegant.astro";
 
 const { blok } = Astro.props;
+
+const eyebrow = blok.eyebrow || "Über CreaLog";
+const title = blok.title || "Sprachkommunikation neu";
+const title_accent = blok.title_accent || "gedacht. Seit 1993.";
+const body_text_1 = blok.body_text_1 || "CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen für den professionellen Kundenkontakt. Mit mehr als 30 Jahren Erfahrung in der deutschen Telekommunikationsbranche entwickeln wir Plattformen, die Unternehmen dabei helfen, Kundengespräche zu automatisieren, zu analysieren und nachhaltig zu verbessern.";
+const body_text_2 = blok.body_text_2 || "Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere Lösungen laufen on-premise, in der Cloud oder hybrid — immer DSGVO-konform und made in Germany.";
+const cta_text = blok.cta_text || "Mehr über CreaLog";
+const cta_href = blok.cta_href || "/about";
+
+const stats = [
+  { value: "1993", label: "Gegründet" },
+  { value: "100+", label: "Unternehmenskunden" },
+  { value: "50+", label: "Mitarbeitende" },
+];
 ---
-<div {...storyblokEditable(blok)}>
-  <CompanyElegant
-    eyebrow={blok.eyebrow}
-    title={blok.title}
-    title_accent={blok.title_accent}
-    body_text_1={blok.body_text_1}
-    body_text_2={blok.body_text_2}
-    cta_text={blok.cta_text}
-    cta_href={blok.cta_href}
-  />
-</div>
+
+<section {...storyblokEditable(blok)} class="bg-gray-50 border-y border-gray-100 py-20 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <div class="flex flex-col gap-8">
+        <img
+          src="/crealog_logo.png"
+          alt="CreaLog"
+          class="h-14 w-auto object-contain object-left"
+        />
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-gray-200">
+          {stats.map((s) => (
+            <div class="min-w-0 flex flex-col items-center gap-1 sm:px-6 sm:first:pl-0 sm:last:pr-0">
+              <span class="text-[1.4rem] lg:text-[1.5rem] font-bold tracking-tight text-[#004990] leading-none text-center">
+                {s.value}
+              </span>
+              <span class="text-[11px] lg:text-[12px] text-gray-400 uppercase tracking-[0.12em] font-medium leading-snug text-center max-w-[9rem]">
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div class="flex items-center gap-3">
+          <div class="h-px w-8 bg-[#1d6bbf]"></div>
+          <span class="text-[#1d6bbf] text-[11px] font-semibold uppercase tracking-[0.28em]">
+            {eyebrow}
+          </span>
+        </div>
+
+        <h2 class="text-[1.75rem] lg:text-[2rem] font-bold leading-[1.15] tracking-[-0.02em] text-gray-900">
+          {title}<br />
+          <span class="text-[#004990]">{title_accent}</span>
+        </h2>
+
+        <p class="text-[15px] text-gray-500 leading-relaxed">
+          {body_text_1}
+        </p>
+
+        <p class="text-[15px] text-gray-500 leading-relaxed">
+          {body_text_2}
+        </p>
+
+        <div class="pt-2">
+          <a
+            href={cta_href}
+            class="inline-flex items-center gap-2 text-[#004990] text-sm font-semibold hover:gap-3 transition-all duration-200"
+          >
+            {cta_text}
+            <span class="text-[#1d6bbf]">→</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

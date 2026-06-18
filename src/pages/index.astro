@@ -2,13 +2,6 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import LandingLayout from "../layouts/LandingLayout.astro";
-import HeroElegant from "../components/HeroElegant.astro";
-import CompanyElegant from "../components/CompanyElegant.astro";
-import ManagementElegant from "../components/ManagementElegant.astro";
-import SolutionsElegant from "../components/SolutionsElegant.astro";
-import IndustriesElegant from "../components/IndustriesElegant.astro";
-import TestimonialsV2Elegant from "../components/TestimonialsV2Elegant.astro";
-import CTAElegant from "../components/CTAElegant.astro";
 
 let story: any = null;
 
@@ -19,24 +12,12 @@ try {
   });
   story = data.story;
 } catch {
-  // Storyblok unreachable — fallback to hardcoded components below
+  // Storyblok unreachable
 }
 ---
 
 <LandingLayout>
-  {story ? (
-    story.content.body?.map((blok: any) => (
-      <StoryblokComponent blok={blok} />
-    ))
-  ) : (
-    <>
-      <HeroElegant />
-      <CompanyElegant />
-      <ManagementElegant />
-      <SolutionsElegant />
-      <IndustriesElegant />
-      <TestimonialsV2Elegant />
-      <CTAElegant />
-    </>
-  )}
+  {story?.content.body?.map((blok: any) => (
+    <StoryblokComponent blok={blok} />
+  ))}
 </LandingLayout>
