@@ -1,0 +1,281 @@
+---
+// Editierbares Landing-CTA-Banner — Grunddesign aus Banners/CTA.astro
+// (blaues abgerundetes Banner, animierter Voice-Equalizer, weißer Pill-Button +
+// Unterstrich-Textlink). Inhalte/Buttons kommen per Props aus Storyblok.
+interface Props {
+  title?: string;
+  subline?: string;
+  primaryText?: string;
+  primaryHref?: string;
+  secondaryText?: string;
+  secondaryHref?: string;
+}
+
+const {
+  title = "Bereit, Ihren Kundenkontakt zu transformieren?",
+  subline = "Sprechen Sie mit unseren Experten — oder erkunden Sie die Lösungen selbst.",
+  primaryText = "Demo anfragen",
+  primaryHref = "/kontakt",
+  secondaryText,
+  secondaryHref = "/kontakt",
+} = Astro.props;
+
+// Animated voice equalizer — mirrors the mini waveform in the Hero's
+// "Jetzt starten" button, as if something is being spoken.
+const N = 23;
+const bars = Array.from({ length: N }, (_, i) => {
+  const t = N > 1 ? i / (N - 1) : 0.5;
+  const env = Math.sin(Math.PI * t); // 0 at the ends → 1 in the middle
+  const h = Math.round(28 + env * 112); // px height envelope (taller centre)
+  const dur = (0.7 + (i % 5) * 0.13).toFixed(2); // varied speed
+  const delay = (-((i * 0.17) % 1.1)).toFixed(2); // staggered start
+  const opacity = (0.4 + env * 0.5).toFixed(2);
+  return { h, dur, delay, opacity };
+});
+---
+
+<section class="ctab-section">
+  <div class="max-w-7xl mx-auto px-6 lg:px-10">
+    <div class="ctab-banner reveal">
+      <div class="ctab-eq" aria-hidden="true">
+        {
+          bars.map((b) => (
+            <span
+              style={`height:${b.h}px;opacity:${b.opacity};animation-duration:${b.dur}s;animation-delay:${b.delay}s`}
+            />
+          ))
+        }
+      </div>
+
+      <div class="ctab-content">
+        <h2 class="ctab-title">{title}</h2>
+        {subline && <p class="ctab-sub">{subline}</p>}
+        <div class="ctab-actions">
+          {primaryText && (
+            <a href={primaryHref} class="ctab-primary">
+              {primaryText}
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          )}
+          {secondaryText && (
+            <a href={secondaryHref} class="ctab-secondary">{secondaryText}</a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ctab-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #fff;
+    padding: 2rem 0 4rem;
+  }
+
+  .ctab-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    background: #1d4ed8;
+    padding: clamp(2.75rem, 5vw, 4.5rem);
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* subtle dot grid */
+  .ctab-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.14) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    pointer-events: none;
+  }
+
+  .ctab-content {
+    position: relative;
+    z-index: 1;
+    order: 1;
+    flex-shrink: 0;
+    max-width: 540px;
+  }
+
+  .ctab-title {
+    font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    color: #fff;
+    margin: 0;
+  }
+
+  .ctab-sub {
+    margin: 1rem 0 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 420px;
+  }
+
+  .ctab-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  /* primary — white pill */
+  .ctab-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    background: #fff;
+    color: #0a1628;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.85rem 1.8rem;
+    border-radius: 9999px;
+    text-decoration: none;
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.25s ease;
+  }
+  .ctab-primary svg {
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ctab-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(9, 9, 11, 0.22);
+  }
+  .ctab-primary:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* secondary — white text link with underline reveal */
+  .ctab-secondary {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+  }
+  .ctab-secondary::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 1.5px;
+    background: #fff;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ctab-secondary:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* animated voice equalizer — centred in the second column */
+  .ctab-eq {
+    position: relative;
+    z-index: 1;
+    order: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 150px;
+    pointer-events: none;
+  }
+  .ctab-eq span {
+    display: block;
+    width: 8px;
+    border-radius: 99px;
+    background: #fff;
+    transform-origin: center;
+    animation-name: ctabSpeak;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+  @keyframes ctabSpeak {
+    0%,
+    100% {
+      transform: scaleY(0.28);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    .ctab-eq {
+      display: none;
+    }
+  }
+
+  /* scroll reveal — armed by JS so no-JS keeps it visible */
+  .ctab-section.reveal-ready .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ctab-section.reveal-ready .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ctab-section.reveal-ready .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .ctab-eq span {
+      animation: none;
+      transform: scaleY(0.85);
+    }
+  }
+</style>
+
+<script>
+  // Support multiple banners on one page.
+  document.querySelectorAll<HTMLElement>(".ctab-section").forEach((section) => {
+    section.classList.add("reveal-ready");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-visible");
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
+    section
+      .querySelectorAll<HTMLElement>(".reveal")
+      .forEach((el) => io.observe(el));
+  });
+</script>

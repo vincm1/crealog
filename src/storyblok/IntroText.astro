@@ -1,0 +1,125 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import SubPageBadge from "../components/SubPageBadge.astro";
+
+const { blok } = Astro.props;
+
+const layout = blok.layout || "centered"; // "centered" | "left"
+---
+
+<section {...storyblokEditable(blok)} class={`intro-text intro-text--${layout}`}>
+  <div class="intro-text__inner">
+
+    {blok.eyebrow && (
+      <SubPageBadge text={blok.eyebrow} />
+    )}
+
+    {blok.headline && (
+      <h2 class="intro-text__headline">{blok.headline}</h2>
+    )}
+
+    {blok.body && (
+      <p class="intro-text__body">{blok.body}</p>
+    )}
+
+    {blok.cta_text && blok.cta_href && (
+      <a href={blok.cta_href} class="intro-text__cta">
+        {blok.cta_text}
+        <svg class="intro-text__cta-arrow" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    )}
+
+  </div>
+</section>
+
+<style>
+  .intro-text {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #ffffff;
+    padding: 5rem 1.5rem;
+    color: #0f1e30;
+  }
+
+  .intro-text__inner {
+    margin: 0 auto;
+    max-width: 52rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Centered variant (default) */
+  .intro-text--centered .intro-text__inner {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Left-aligned variant */
+  .intro-text--left .intro-text__inner {
+    align-items: flex-start;
+    text-align: left;
+    max-width: 44rem;
+  }
+
+  /* Headline */
+  .intro-text__headline {
+    margin: 0;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: #0f1e30;
+    max-width: 22ch;
+  }
+
+  /* Decorative divider below headline */
+  .intro-text__headline::after {
+    content: "";
+    display: block;
+    margin-top: 1.25rem;
+    width: 3rem;
+    height: 3px;
+    border-radius: 2px;
+    background: #fcb040;
+  }
+
+  .intro-text--centered .intro-text__headline::after {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Body text */
+  .intro-text__body {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    color: #64748b;
+    max-width: 60ch;
+  }
+
+  /* Optional CTA link */
+  .intro-text__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    font-weight: 600;
+    color: #004990;
+    text-decoration: none;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+
+  .intro-text__cta:hover {
+    color: #013a73;
+    gap: 0.65rem;
+  }
+
+  .intro-text__cta-arrow {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+  }
+</style>

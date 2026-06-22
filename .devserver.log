@@ -1,0 +1,30 @@
+
+> crealog-website@0.0.1 dev C:\Users\vince\dev\crealog_website
+> astro dev
+
+[vite] connected.
+[2m18:22:49[22m [34m[types][39m Generated [2m2ms[22m
+[2m18:22:49[22m [34m[vite][39m Port 4321 is in use, trying another one...
+[42m[1m astro [22m[49m [32mv6.4.4[39m [2mready in[22m 3534 [2mms[22m
+[2m┃[22m Local    [36mhttps://localhost:4322/[39m
+[2m┃[22m Network  [2muse --host to expose[22m
+[2m18:22:49[22m [32mwatching for file changes...[39m
+[2m18:25:34[22m Configuration file updated. Restarting...
+[vite] connected.
+[2m18:25:36[22m [34m[vite][39m Re-optimizing dependencies because lockfile has changed
+[2m18:25:36[22m [34m[vite][39m server restarted.
+[2m18:25:48[22m Configuration file updated. Restarting...
+[vite] connected.
+[2m18:25:49[22m [34m[vite][39m Re-optimizing dependencies because lockfile has changed
+[2m18:25:49[22m [34m[vite][39m server restarted.
+[2m18:28:53[22m Configuration file updated. Restarting...
+[vite] connected.
+[2m18:28:56[22m [34m[vite][39m server restarted.
+[2m18:28:58[22m Configuration file updated. Restarting...
+[vite] connected.
+[2m18:28:59[22m [34m[vite][39m Re-optimizing dependencies because vite config has changed
+[2m18:28:59[22m [34m[vite][39m server restarted.
+[2m18:41:24[22m Configuration file updated. Restarting...
+Local icons changed, reloading
+[vite] connected.
+[2m18:41:27[22m [34m[vite][39m server restarted.

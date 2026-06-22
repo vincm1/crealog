@@ -1,0 +1,63 @@
+---
+interface Props {
+  text: string;
+  link?: string;
+  linkText?: string;
+}
+
+const { text, link, linkText = "Mehr erfahren" } = Astro.props;
+---
+
+<span class="badge">
+  <span class="badge__text">{text}</span>
+  {link && (
+    <a href={link} class="badge__link">
+      {linkText}
+      <svg class="badge__arrow" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+      </svg>
+    </a>
+  )}
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(15, 30, 48, 0.10);
+    background: #ffffff;
+    padding: 0.35rem 0.9rem;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+  }
+
+  .badge__text {
+    /* separator dot between text and link */
+  }
+
+  .badge__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 600;
+    color: #18222f;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .badge__link:hover {
+    color: #004990;
+  }
+
+  .badge__arrow {
+    width: 11px;
+    height: 11px;
+    flex: none;
+  }
+</style>

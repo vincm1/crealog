@@ -1,43 +1,165 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import SubPageBadge from "../components/SubPageBadge.astro";
 const { blok } = Astro.props;
+
+// Hero-Variante: "screenshot" (Produktbild im Browser-Mockup) oder "features" (Feature-Liste)
+const variant = blok.hero_variant || "screenshot";
+const hasFeatures = Array.isArray(blok.features) && blok.features.length > 0;
+const showFeatures = variant === "features" && hasFeatures;
+const showMockup = variant === "screenshot" && blok.image?.filename;
 ---
+
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+
+  .hero-product {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #ffffff;
+    color: #0f1e30;
+  }
+
+  /* Crop the screenshot to a fixed height and fade it out at the bottom,
+     so the hero stays compact and you don't scroll a long dashboard. */
+  .mockup-shot {
+    max-height: 440px;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 62%, transparent 100%);
+  }
+
+  /* Entrance animations */
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes appear-zoom {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-appear      { opacity: 0; animation: appear      0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .animate-appear-zoom { opacity: 0; animation: appear-zoom 0.8s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+  .delay-0 { animation-delay: 0s; }
+  .delay-1 { animation-delay: 0.12s; }
+  .delay-2 { animation-delay: 0.26s; }
+  .delay-3 { animation-delay: 0.42s; }
+  .delay-4 { animation-delay: 0.6s; }
+  .delay-5 { animation-delay: 0.85s; }
+
+  /* Headline — huge, solid (design guide: kein Gradient-Text) */
+  .hero-title {
+    line-height: 1.02;
+    color: #18222f;
+  }
+
+  /* Soft glow blob — Crealog royalblau, sits low behind the mockup band */
+  /* Glow anchored to the top edge of the mockup (like Mikolaj's Glow variant="top") */
+  .hero-glow {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -32%);
+    width: min(1200px, 118%);
+    height: 320px;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+      ellipse 50% 50% at 50% 50%,
+      rgba(37, 99, 235, 0.36) 0%,
+      rgba(0, 73, 144, 0.20) 36%,
+      rgba(56, 168, 255, 0.09) 58%,
+      transparent 76%
+    );
+    filter: blur(44px);
+  }
+
+  /* MockupFrame — browser chrome */
+  .mockup-frame {
+    border-radius: 16px 16px 0 0;
+    border: 1px solid rgba(15, 30, 48, 0.1);
+    border-bottom: none;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.6) inset,
+      0 -1px 0 rgba(255, 255, 255, 0.5) inset,
+      0 32px 90px -24px rgba(0, 73, 144, 0.28),
+      0 12px 40px rgba(15, 30, 48, 0.12);
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .mockup-bar {
+    height: 38px;
+    background: #f1f5f9;
+    border-bottom: 1px solid rgba(15, 30, 48, 0.06);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 7px;
+  }
+
+  .mockup-dot { width: 11px; height: 11px; border-radius: 50%; }
+
+  /* Feature cards (Variante B) — border-based, design-guide konform */
+  .feature-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .feature-card:hover {
+    border-color: #004990;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -16px rgba(0, 73, 144, 0.25);
+  }
+</style>
 
 <section
   {...storyblokEditable(blok)}
-  class="relative pt-32 pb-20 bg-white overflow-hidden"
+  class="hero-product relative overflow-hidden"
+  style="padding-top: 8rem; padding-bottom: 0;"
 >
-  <div class="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+  <!-- Text block -->
+  <div class="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-7 px-6 text-center">
+
+    <!-- Badge -->
     {blok.badge && (
-      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-[#004990] border border-blue-100 mb-6">
-        {blok.badge}
-      </span>
+      <div class="animate-appear delay-0">
+        <SubPageBadge text={blok.badge} link={blok.badge_link} linkText={blok.badge_link_text} />
+      </div>
     )}
 
-    <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight mb-4">
+    <!-- Title -->
+    <h1 class="hero-title animate-appear delay-1 max-w-4xl text-4xl font-extrabold tracking-[-0.035em] sm:text-5xl md:text-6xl">
       {blok.title}
     </h1>
 
+    <!-- Tagline -->
     {blok.tagline && (
-      <p class="text-sm font-medium text-gray-400 tracking-wide uppercase mb-6">
+      <p class="animate-appear delay-1 -mt-2 text-[12px] font-semibold uppercase tracking-[0.24em] text-gray-400">
         {blok.tagline}
       </p>
     )}
 
+    <!-- Description -->
     {blok.subtitle && (
-      <p class="text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto mb-10">
+      <p class="animate-appear delay-2 max-w-xl text-lg font-medium leading-relaxed text-gray-500">
         {blok.subtitle}
       </p>
     )}
 
-    <div class="flex flex-wrap items-center justify-center gap-3">
+    <!-- Actions -->
+    <div class="animate-appear delay-3 mt-2 flex flex-wrap items-center justify-center gap-4">
       {blok.cta_primary_text && (
         <a
           href={blok.cta_primary_href || "#"}
-          class="inline-flex items-center gap-2 px-6 py-3 bg-[#09090b] text-white text-sm font-semibold rounded-full hover:bg-[#18181b] transition-colors"
+          class="inline-flex items-center gap-2 rounded-full bg-[#09090b] px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200 hover:bg-[#18181b] hover:-translate-y-0.5 hover:shadow-[0_10px_32px_rgba(37,99,235,0.35),0_4px_12px_rgba(9,9,11,0.25)]"
         >
           {blok.cta_primary_text}
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
@@ -45,11 +167,51 @@ const { blok } = Astro.props;
       {blok.cta_secondary_text && (
         <a
           href={blok.cta_secondary_href || "#"}
-          class="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-gray-700 border border-gray-200 rounded-full hover:border-gray-300 hover:text-gray-900 transition-colors"
+          class="inline-flex items-center gap-2 rounded-full border border-[#e4e4e7] bg-white px-7 py-3.5 text-sm font-semibold text-[#18181b] transition-all duration-200 hover:border-[#09090b] hover:bg-[#f4f4f5] hover:-translate-y-0.5"
         >
           {blok.cta_secondary_text}
         </a>
       )}
     </div>
+
+    <!-- Variante A: Produkt-Screenshot im Browser-Mockup (bleibt nach unten ausgeblendet) -->
+    {showMockup && (
+      <div class="animate-appear-zoom delay-5 relative mt-12 w-full max-w-6xl">
+        <!-- Soft royalblau glow (Glow variant="top") -->
+        <div class="hero-glow"></div>
+        <div class="mockup-frame relative z-10">
+          <div class="mockup-bar">
+            <div class="mockup-dot" style="background:#ff5f57;"></div>
+            <div class="mockup-dot" style="background:#febc2e;"></div>
+            <div class="mockup-dot" style="background:#28c840;"></div>
+          </div>
+          <div class="mockup-shot">
+            <img
+              src={blok.image.filename}
+              alt={blok.image.alt || blok.title || ""}
+              width="1248"
+              height="765"
+              class="block h-auto w-full"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </div>
+    )}
+
+    <!-- Variante B: Wichtige Features als Karten-Grid (wie Service Delivery) -->
+    {showFeatures && (
+      <div class="animate-appear-zoom delay-5 relative mb-20 mt-12 w-full max-w-5xl">
+        <!-- Soft royalblau glow (Glow variant="top") -->
+        <div class="hero-glow"></div>
+        <div class="feature-grid relative z-10 grid grid-cols-1 gap-4 text-left sm:grid-cols-2 lg:grid-cols-3">
+          {blok.features.map((item: any) => (
+            <div class="feature-card">
+              <StoryblokComponent blok={item} />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </section>

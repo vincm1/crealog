@@ -1,0 +1,174 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import SubPageBadge from "../components/SubPageBadge.astro";
+import { Icon } from "astro-icon/components";
+
+const { blok } = Astro.props;
+
+const primaryText  = blok.primary_text  || "Gespräch vereinbaren";
+const primaryHref  = blok.primary_href  || "/kontakt";
+const secondaryText = blok.secondary_text || "Demo anfragen";
+const secondaryHref = blok.secondary_href || "/kontakt";
+---
+
+<section {...storyblokEditable(blok)} class="ecta-section">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10">
+    <div class="ecta-card">
+
+      {blok.badge && (
+        <SubPageBadge text={blok.badge} />
+      )}
+
+      <h2 class="ecta-headline">
+        {blok.headline || "Sprechen Sie mit unseren Experten"}
+      </h2>
+
+      {blok.description && (
+        <p class="ecta-desc">{blok.description}</p>
+      )}
+
+      <div class="ecta-actions">
+        <a href={primaryHref} class="ecta-btn-outline">
+          <Icon name="heroicons:phone-arrow-up-right" class="ecta-icon" />
+          {primaryText}
+        </a>
+        <a href={secondaryHref} class="ecta-btn-filled">
+          {secondaryText}
+          <Icon name="heroicons:arrow-right" class="ecta-icon" />
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .ecta-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #ffffff;
+    padding: 2rem 0 5rem;
+  }
+
+  .ecta-card {
+    background: #f4f6f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 28px;
+    padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .ecta-headline {
+    margin: 0;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #0a1628;
+    max-width: 22ch;
+  }
+
+  .ecta-desc {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #64748b;
+    max-width: 54ch;
+  }
+
+  .ecta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  /* Outline button — weißer Hintergrund, navy Border */
+  .ecta-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 9999px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #0a1628;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .ecta-btn-outline:hover {
+    border-color: #004990;
+    color: #004990;
+    box-shadow: 0 4px 16px rgba(0, 73, 144, 0.10);
+    transform: translateY(-1px);
+  }
+
+  /* Filled button — Crealog Navy */
+  .ecta-btn-filled {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.6rem;
+    border-radius: 9999px;
+    border: 1.5px solid transparent;
+    background: #0a1628;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .ecta-btn-filled:hover {
+    background: #004990;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0, 73, 144, 0.28);
+  }
+
+  /* Arrow nudge on filled button hover */
+  .ecta-btn-filled .ecta-icon {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .ecta-btn-filled:hover .ecta-icon {
+    transform: translateX(3px);
+  }
+
+  .ecta-icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  @media (max-width: 480px) {
+    .ecta-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .ecta-btn-outline,
+    .ecta-btn-filled {
+      justify-content: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ecta-btn-outline,
+    .ecta-btn-filled,
+    .ecta-btn-filled .ecta-icon {
+      transition: none;
+    }
+    .ecta-btn-outline:hover,
+    .ecta-btn-filled:hover {
+      transform: none;
+    }
+    .ecta-btn-filled:hover .ecta-icon {
+      transform: none;
+    }
+  }
+</style>

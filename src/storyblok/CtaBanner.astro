@@ -1,0 +1,20 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import CtaBanner from "../components/Banners/CtaBanner.astro";
+
+const { blok } = Astro.props;
+
+// Leere Felder → undefined, damit die Defaults der Banner-Komponente greifen.
+// Sekundär-Button bleibt ohne Text ausgeblendet (kein Default-Text).
+---
+
+<div {...storyblokEditable(blok)}>
+  <CtaBanner
+    title={blok.title || undefined}
+    subline={blok.subline || undefined}
+    primaryText={blok.cta_primary_text || undefined}
+    primaryHref={blok.cta_primary_href || undefined}
+    secondaryText={blok.cta_secondary_text || undefined}
+    secondaryHref={blok.cta_secondary_href || undefined}
+  />
+</div>

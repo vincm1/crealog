@@ -1,6 +1,7 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import SubPageBadge from "../components/SubPageBadge.astro";
 const { blok } = Astro.props;
 
 const colClass: Record<string, string> = {
@@ -11,16 +12,83 @@ const colClass: Record<string, string> = {
 const cols = colClass[blok.columns] ?? "sm:grid-cols-2 lg:grid-cols-4";
 ---
 
-<section {...storyblokEditable(blok)} class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-6 lg:px-10">
-    {(blok.title || blok.subtitle) && (
-      <div class="text-center mb-12">
-        {blok.title && <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">{blok.title}</h2>}
-        {blok.subtitle && <p class="text-gray-500 max-w-2xl mx-auto">{blok.subtitle}</p>}
+<section {...storyblokEditable(blok)} class="fg-section">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10">
+
+    {(blok.badge || blok.title || blok.subtitle) && (
+      <div class="fg-header">
+        {blok.badge && <SubPageBadge text={blok.badge} link={blok.badge_link} linkText={blok.badge_link_text} />}
+        {blok.title && <h2 class="fg-title">{blok.title}</h2>}
+        {blok.subtitle && <p class="fg-subtitle">{blok.subtitle}</p>}
       </div>
     )}
-    <div class={`grid grid-cols-1 ${cols} gap-8`}>
-      {blok.items?.map((item: any) => <StoryblokComponent blok={item} />)}
+
+    <div class={`grid grid-cols-1 ${cols} gap-5`}>
+      {blok.items?.map((item: any) => (
+        <div class="fg-card">
+          <StoryblokComponent blok={item} />
+        </div>
+      ))}
     </div>
+
   </div>
 </section>
+
+<style>
+  .fg-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #ffffff;
+    padding: 6rem 0 7rem;
+    color: #0f1e30;
+  }
+
+  .fg-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .fg-title {
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #0a1628;
+    max-width: 22ch;
+  }
+
+  .fg-subtitle {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #64748b;
+    max-width: 54ch;
+  }
+
+  /* Card wrapper */
+  .fg-card {
+    background: #ffffff;
+    border: 1px solid #eaeff5;
+    border-radius: 20px;
+    padding: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 4px rgba(10, 22, 40, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .fg-card:hover {
+    border-color: #c7d9f0;
+    box-shadow: 0 8px 32px -8px rgba(0, 73, 144, 0.14);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fg-card { transition: none; }
+    .fg-card:hover { transform: none; }
+  }
+</style>

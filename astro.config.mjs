@@ -6,6 +6,7 @@ import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import vercel from "@astrojs/vercel";
+import icon from "astro-icon";
 
 
 const env = loadEnv("", process.cwd(), "STORYBLOK");
@@ -14,6 +15,7 @@ const env = loadEnv("", process.cwd(), "STORYBLOK");
 export default defineConfig({
   integrations: [
     vue(),
+    icon(),
     storyblok({
       accessToken: env.STORYBLOK_DELIVERY_API_TOKEN,
       components: {
@@ -42,6 +44,10 @@ export default defineConfig({
         references_section: "storyblok/ReferencesSection",
         reference_logo: "storyblok/ReferenceLogo",
         cta_section: "storyblok/CtaSection",
+        cta_banner: "storyblok/CtaBanner",
+        model_section: "storyblok/ModelSection",
+        intro_text: "storyblok/IntroText",
+        expert_cta: "storyblok/ExpertCta",
       },
       livePreview: true,
       apiOptions: {
