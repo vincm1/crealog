@@ -1,0 +1,8 @@
+---
+// Nested block — one logo entry inside a solution_references block.
+// Fields in Storyblok: name (Text), logo (Asset)
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+<!-- Rendered by SolutionReferences.astro via blok mapping — this stub satisfies Storyblok's component registry -->
+<span {...storyblokEditable(blok)} style="display:none" aria-hidden="true" />

@@ -1,0 +1,7 @@
+---
+// Nested block — one tab entry inside a product_tabs block.
+// Rendered by ProductTabs.vue via blok mapping.
+import { storyblokEditable } from "@storyblok/astro";
+const { blok } = Astro.props;
+---
+<span {...storyblokEditable(blok)} style="display:none" aria-hidden="true" />

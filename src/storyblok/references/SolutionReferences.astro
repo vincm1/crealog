@@ -1,0 +1,27 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import SolutionReferencesBanner from "../../components/Banners/SolutionReferences.astro";
+
+const { blok } = Astro.props;
+
+const logos = (blok.logos ?? []).map((item: any) => ({
+  name: item.name ?? "",
+  src: item.logo?.filename ?? undefined,
+}));
+
+const categories: string[] = blok.categories
+  ? blok.categories.split(",").map((s: string) => s.trim()).filter(Boolean)
+  : [];
+---
+
+<div {...storyblokEditable(blok)}>
+  <SolutionReferencesBanner
+    eyebrow={blok.eyebrow}
+    headline={blok.headline}
+    description={blok.description}
+    ctaText={blok.cta_text}
+    ctaHref={blok.cta_href}
+    logos={logos.length ? logos : undefined}
+    categories={categories.length ? categories : undefined}
+  />
+</div>

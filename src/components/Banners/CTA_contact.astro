@@ -1,10 +1,15 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
   eyebrow?: string;
   headline?: string;
   subline?: string;
   href?: string;
   hrefSecondary?: string;
+  image?: string;
+  imageAlt?: string;
+  topicIcon?: string;
 }
 
 const {
@@ -13,6 +18,9 @@ const {
   subline = "Ob KI-Voicebot, Carrier-Infrastruktur oder Beratung — unsere Experten finden mit Ihnen die passende Lösung.",
   href = "/demo",
   hrefSecondary = "/kontakt",
+  image,
+  imageAlt = "Experte",
+  topicIcon = "heroicons:chat-bubble-left-ellipsis",
 } = Astro.props;
 ---
 
@@ -20,21 +28,41 @@ const {
   <div class="cta-aurora" aria-hidden="true"></div>
   <div class="cta-grid" aria-hidden="true"></div>
 
-  <div class="cta-body">
-    <span class="cta-eyebrow">{eyebrow}</span>
-    <h2 class="cta-headline">{headline}</h2>
-    <p class="cta-subline">{subline}</p>
+  <div class="cta-left">
+    <div class="cta-body">
+      <span class="cta-eyebrow">{eyebrow}</span>
+      <h2 class="cta-headline">{headline}</h2>
+      <p class="cta-subline">{subline}</p>
+    </div>
+
+    <div class="cta-actions">
+      <a href={href} class="cta-primary">
+        Demo anfragen
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+      <a href={hrefSecondary} class="cta-secondary">Kontakt aufnehmen</a>
+    </div>
   </div>
 
-  <div class="cta-actions">
-    <a href={href} class="cta-primary">
-      Demo anfragen
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M5 12h14"></path>
-        <path d="M12 5l7 7-7 7"></path>
-      </svg>
-    </a>
-    <a href={hrefSecondary} class="cta-secondary">Kontakt aufnehmen</a>
+  <div class="cta-visual" aria-hidden="true">
+    {image ? (
+      <img src={image} alt={imageAlt} class="cta-expert-photo" />
+    ) : (
+      <div class="cta-avatar-wrap">
+        <div class="cta-avatar">
+          <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="cta-avatar-svg" aria-hidden="true">
+            <circle cx="40" cy="28" r="18" fill="rgba(255,255,255,0.80)" />
+            <ellipse cx="40" cy="78" rx="28" ry="20" fill="rgba(255,255,255,0.80)" />
+          </svg>
+        </div>
+        <div class="cta-topic-badge">
+          <Icon name={topicIcon} class="cta-topic-icon" />
+        </div>
+      </div>
+    )}
   </div>
 </div>
 
@@ -94,8 +122,17 @@ const {
     pointer-events: none;
   }
 
-  .cta-body {
+  /* left column: text + buttons stacked */
+  .cta-left {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cta-body {
     max-width: 30rem;
   }
 
@@ -135,7 +172,6 @@ const {
     display: flex;
     align-items: center;
     gap: 0.85rem;
-    flex-shrink: 0;
   }
 
   .cta-primary {
@@ -188,6 +224,90 @@ const {
     transform: translateY(-2px);
   }
 
+  /* right column: visual */
+  .cta-visual {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* avatar placeholder */
+  .cta-avatar-wrap {
+    position: relative;
+    width: 136px;
+    height: 136px;
+  }
+
+  .cta-avatar {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    box-shadow:
+      0 0 48px rgba(56, 189, 248, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition:
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.3s ease;
+  }
+  .cta-avatar:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 64px rgba(56, 189, 248, 0.26),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  .cta-avatar-svg {
+    width: 88%;
+    height: 88%;
+    opacity: 0.72;
+  }
+
+  /* topic icon badge */
+  .cta-topic-badge {
+    position: absolute;
+    bottom: 2px;
+    right: -2px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(6, 13, 26, 0.88);
+    border: 1.5px solid rgba(125, 211, 252, 0.35);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(56, 189, 248, 0.22);
+  }
+
+  .cta-topic-icon {
+    width: 18px;
+    height: 18px;
+    color: #7dd3fc;
+  }
+
+  /* real expert photo */
+  .cta-expert-photo {
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 0 48px rgba(56, 189, 248, 0.16);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .cta-expert-photo:hover {
+    transform: scale(1.05);
+  }
+
   @media (max-width: 860px) {
     .cta-contact {
       flex-direction: column;
@@ -197,6 +317,10 @@ const {
     .cta-body {
       max-width: 100%;
     }
+    .cta-left {
+      width: 100%;
+      gap: 1.5rem;
+    }
     .cta-actions {
       width: 100%;
     }
@@ -205,11 +329,22 @@ const {
       flex: 1;
       justify-content: center;
     }
+    .cta-visual {
+      display: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .cta-aurora {
       animation: none;
+    }
+    .cta-avatar,
+    .cta-expert-photo {
+      transition: none;
+    }
+    .cta-avatar:hover,
+    .cta-expert-photo:hover {
+      transform: none;
     }
   }
 </style>

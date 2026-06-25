@@ -1,7 +1,7 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import SubPageBadge from "../components/SubPageBadge.astro";
+import SubPageBadge from "../../components/SubPageBadge.astro";
 const { blok } = Astro.props;
 
 // Hero-Variante: "screenshot" (Produktbild im Browser-Mockup) oder "features" (Feature-Liste)
@@ -146,7 +146,7 @@ const showMockup = variant === "screenshot" && blok.image?.filename;
 
     <!-- Description -->
     {blok.subtitle && (
-      <p class="animate-appear delay-2 max-w-xl text-lg font-medium leading-relaxed text-gray-500">
+      <p class="animate-appear delay-2 max-w-2xl text-lg font-medium leading-relaxed text-gray-500">
         {blok.subtitle}
       </p>
     )}

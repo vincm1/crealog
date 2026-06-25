@@ -1,0 +1,306 @@
+---
+// Komponenten-Übersicht — rendert jeden SubPage-Storyblok-Block mit Beispieldaten.
+// Reine Entwickler-/Redaktions-Referenz, nicht in der Navigation verlinkt.
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import SolutionSubPage from "../layouts/SolutionSubPage.astro";
+
+const DEMO_IMG = "https://a.storyblok.com/f/293145431528152/dfeb36a1b4/demo-dashboard.png";
+const EXPERT_IMG = "https://a.storyblok.com/f/293145431528152/414x322/7144c2557a/michael_kloos.jpg";
+
+const sample = [
+  {
+    id: "hero",
+    label: "Hero",
+    desc: "Vollbild-Voice-Hero mit animiertem Netzwerk-Hintergrund (Startseite/Company).",
+    blok: { component: "hero" },
+  },
+  {
+    id: "product_hero",
+    label: "Product Hero",
+    desc: "Produkt-Hero mit Badge, Headline, CTAs und Browser-Screenshot.",
+    blok: {
+      component: "product_hero",
+      badge: "CX Solutions · Bots & AI",
+      title: "AI Voice Bots",
+      tagline: "Revolution in der telefonischen Kundenkommunikation",
+      subtitle:
+        "CreaLog Voice Bots automatisieren telefonische Kundenanliegen natürlich und effizient – mit modernster Spracherkennung und nahtloser Omnichannel-Integration.",
+      hero_variant: "screenshot",
+      image: { filename: DEMO_IMG, alt: "Demo" },
+      cta_primary_text: "Demo anfragen",
+      cta_primary_href: "/kontakt",
+      cta_secondary_text: "Mehr erfahren",
+      cta_secondary_href: "#",
+    },
+  },
+  {
+    id: "intro_text",
+    label: "Intro Text",
+    desc: "Zentrierter Einleitungstext mit Eyebrow, Headline und Fließtext.",
+    blok: {
+      component: "intro_text",
+      layout: "centered",
+      eyebrow: "Bots & AI",
+      headline: "Kundenkommunikation, die niemals schläft",
+      body: "Moderne Kunden erwarten sofortige Antworten – unabhängig von Uhrzeit, Kanal oder Anfragevolumen. CreaLog Chat Bots übernehmen repetitive Kommunikationsaufgaben vollständig automatisiert und entlasten Ihr Team nachhaltig.",
+    },
+  },
+  {
+    id: "feature_grid",
+    label: "Feature Grid",
+    desc: "Karten-Raster mit Icon-Features (nested: feature_item).",
+    blok: {
+      component: "feature_grid",
+      badge: "Ihre Vorteile",
+      title: "Ihre Vorteile auf einen Blick",
+      subtitle:
+        "Alles, was Sie für automatisierten Kundenservice brauchen – leistungsstark, DSGVO-konform und einfach integrierbar.",
+      columns: "3",
+      items: [
+        { component: "feature_item", icon: "microphone", title: "Leistungsstarke Spracherkennung", description: "Über 100 Sprachen und Dialekte mit automatischer Sprachidentifikation." },
+        { component: "feature_item", icon: "cpu-chip", title: "Natürliche Sprachausgabe", description: "Neuronale Stimmen, kaum von einem Menschen zu unterscheiden." },
+        { component: "feature_item", icon: "arrows-right-left", title: "Omnichannel-fähig", description: "Dieselbe Bot-Logik auf Telefonie, Web Chat und Messenger." },
+        { component: "feature_item", icon: "clock", title: "24/7 Verfügbarkeit", description: "Rund um die Uhr erreichbar – ohne Wartezeiten, ohne Ausfälle." },
+        { component: "feature_item", icon: "shield-check", title: "DSGVO & EU AI Act konform", description: "Sicher und rechtskonform – hosted in Deutschland möglich." },
+        { component: "feature_item", icon: "adjustments-horizontal", title: "Low-Code Entwicklung", description: "Bots grafisch erstellen ohne tiefe Programmierkenntnisse." },
+      ],
+    },
+  },
+  {
+    id: "product_tabs",
+    label: "Product Tabs",
+    desc: "Interaktiver Tab-Showcase mit Browser-Mockup (nested: product_tab_item).",
+    blok: {
+      component: "product_tabs",
+      section_badge: "Voice Bot in Aktion",
+      section_headline: "So klingt moderner Kundenservice.",
+      default_image: { filename: DEMO_IMG, alt: "Demo" },
+      tabs: [
+        { component: "product_tab_item", badge: "Voice Bot", title: "Eingehende Anrufe", headline: "Jeder Anruf wird sofort beantwortet.", description: "Der CreaLog Voice Bot nimmt eingehende Anrufe vollautomatisch entgegen – ohne Warteschleife, 24 Stunden am Tag.", cta_text: "Demo anfragen", cta_href: "/kontakt" },
+        { component: "product_tab_item", badge: "Voice Bot", title: "Intelligentes Routing", headline: "Der richtige Agent zur richtigen Zeit.", description: "KI erkennt Gesprächsabsicht und Kontext in Echtzeit und leitet Anrufer präzise weiter.", cta_text: "Demo anfragen", cta_href: "/kontakt" },
+        { component: "product_tab_item", badge: "Voice Bot", title: "CRM-Anbindung", headline: "Kundendaten immer im Blick.", description: "Der Voice Bot greift live auf CRM, ERP und interne Datenbanken zu.", cta_text: "Demo anfragen", cta_href: "/kontakt" },
+      ],
+    },
+  },
+  {
+    id: "solution_banner",
+    label: "Solution Banner",
+    desc: "Full-bleed Banner mit hellblauem Gradient, Slogan und Kundenlogos.",
+    blok: { component: "solution_banner", logos: [] },
+  },
+  {
+    id: "solution_references",
+    label: "Solution References",
+    desc: "Referenz-Sektion mit Logo-Marquee und Branchen-Chips (weißer Hintergrund).",
+    blok: { component: "solution_references", logos: [] },
+  },
+  {
+    id: "references_section",
+    label: "References Section",
+    desc: "Einfaches Logo-Raster (nested: reference_logo).",
+    blok: {
+      component: "references_section",
+      title: "Unsere Referenzen",
+      logos: [
+        { component: "reference_logo", name: "Deutsche Telekom" },
+        { component: "reference_logo", name: "Vodafone" },
+        { component: "reference_logo", name: "A1 Telekom Austria" },
+        { component: "reference_logo", name: "Swisscom" },
+        { component: "reference_logo", name: "Sky" },
+        { component: "reference_logo", name: "O2" },
+      ],
+    },
+  },
+  {
+    id: "company",
+    label: "Company",
+    desc: "Über-uns-Block mit Logo, Kennzahlen und Beschreibungstext.",
+    blok: { component: "company" },
+  },
+  {
+    id: "management",
+    label: "Management",
+    desc: "Geschäftsführungs-Sektion mit Leader-Karten.",
+    blok: { component: "management" },
+  },
+  {
+    id: "management_people",
+    label: "Management People",
+    desc: "Einzelne Person mit Foto, Position und Zitat.",
+    blok: {
+      component: "management_people",
+      firstname: "Michael",
+      lastname: "Kloos",
+      position: "Geschäftsführer",
+      image: { filename: EXPERT_IMG },
+      quote: "Seit fast drei Jahrzehnten gestalten wir die Zukunft des Kundenkontakts – mit Technologie, die Menschen in den Mittelpunkt stellt.",
+    },
+  },
+  {
+    id: "expert_cta",
+    label: "Expert CTA",
+    desc: "CTA-Karte mit Experten-Foto und zwei Buttons.",
+    blok: {
+      component: "expert_cta",
+      photo: { filename: EXPERT_IMG, alt: "Michael Kloos" },
+      photo_name: "Michael Kloos",
+      photo_role: "CEO",
+      badge: "Kostenlose Beratung",
+      headline: "Sprechen Sie mit unseren Experten",
+      description: "Erfahren Sie, wie CreaLog Ihre Kundenkommunikation revolutioniert – live in Ihrer Infrastruktur.",
+      primary_text: "Gespräch vereinbaren",
+      primary_href: "/kontakt",
+      secondary_text: "Demo anfragen",
+      secondary_href: "/kontakt",
+    },
+  },
+  {
+    id: "cta_banner",
+    label: "CTA Banner",
+    desc: "Abschluss-Banner mit Titel, Subline und zwei Buttons.",
+    blok: {
+      component: "cta_banner",
+      title: "Bereit für den nächsten Schritt?",
+      subline: "Sprechen Sie mit unseren Experten – wir zeigen Ihnen CreaLog live in Ihrer Infrastruktur.",
+      cta_primary_text: "Demo anfragen",
+      cta_primary_href: "/kontakt",
+      cta_secondary_text: "Kontakt aufnehmen",
+      cta_secondary_href: "/kontakt",
+    },
+  },
+];
+---
+
+<SolutionSubPage>
+  <!-- Übersichts-Header + Inhaltsverzeichnis -->
+  <header class="ko-header">
+    <div class="ko-header-inner">
+      <span class="ko-kicker">Referenz</span>
+      <h1 class="ko-title">SubPage-Komponenten</h1>
+      <p class="ko-lead">
+        Alle verfügbaren Storyblok-Blöcke für Subpages – mit Beispieldaten gerendert.
+        Klicken Sie auf einen Block, um direkt dorthin zu springen.
+      </p>
+      <nav class="ko-toc" aria-label="Komponenten">
+        {sample.map((s) => (
+          <a href={`#${s.id}`} class="ko-toc-link">{s.label}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  {sample.map((s) => (
+    <>
+      <div class="ko-marker" id={s.id}>
+        <div class="ko-marker-inner">
+          <code class="ko-code">{s.blok.component}</code>
+          <div class="ko-marker-text">
+            <span class="ko-marker-label">{s.label}</span>
+            <span class="ko-marker-desc">{s.desc}</span>
+          </div>
+        </div>
+      </div>
+      <StoryblokComponent blok={s.blok} />
+    </>
+  ))}
+</SolutionSubPage>
+
+<style>
+  .ko-header {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: linear-gradient(180deg, #0a1628 0%, #0f2540 100%);
+    color: #fff;
+    padding: clamp(5rem, 9vw, 7rem) clamp(1.5rem, 6vw, 4rem) clamp(3rem, 5vw, 4rem);
+  }
+  .ko-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .ko-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #60b8ff;
+  }
+  .ko-title {
+    margin: 0.75rem 0 0;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+  .ko-lead {
+    margin: 1.1rem 0 0;
+    max-width: 56ch;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(200, 222, 245, 0.75);
+  }
+  .ko-toc {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .ko-toc-link {
+    font-size: 13px;
+    font-weight: 600;
+    color: #cfe4fb;
+    text-decoration: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(96, 184, 255, 0.3);
+    background: rgba(56, 168, 255, 0.08);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .ko-toc-link:hover {
+    background: rgba(56, 168, 255, 0.2);
+    border-color: rgba(96, 184, 255, 0.6);
+  }
+
+  /* Label-Streifen vor jeder Komponente */
+  .ko-marker {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    background: #f1f5f9;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+    scroll-margin-top: 1rem;
+  }
+  .ko-marker-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem clamp(1.5rem, 6vw, 4rem);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .ko-code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2563eb;
+    background: #fff;
+    border: 1px solid #dbe5f2;
+    border-radius: 7px;
+    padding: 0.3rem 0.6rem;
+    white-space: nowrap;
+    flex: none;
+  }
+  .ko-marker-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+  .ko-marker-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0a1628;
+  }
+  .ko-marker-desc {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.4;
+  }
+</style>

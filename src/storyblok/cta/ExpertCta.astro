@@ -1,19 +1,40 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
-import SubPageBadge from "../components/SubPageBadge.astro";
+import SubPageBadge from "../../components/SubPageBadge.astro";
 import { Icon } from "astro-icon/components";
 
 const { blok } = Astro.props;
 
-const primaryText  = blok.primary_text  || "Gespräch vereinbaren";
-const primaryHref  = blok.primary_href  || "/kontakt";
+const primaryText   = blok.primary_text   || "Gespräch vereinbaren";
+const primaryHref   = blok.primary_href   || "/kontakt";
 const secondaryText = blok.secondary_text || "Demo anfragen";
 const secondaryHref = blok.secondary_href || "/kontakt";
+
+const hasPhoto = blok.photo?.filename;
 ---
 
 <section {...storyblokEditable(blok)} class="ecta-section">
   <div class="mx-auto max-w-6xl px-6 lg:px-10">
     <div class="ecta-card">
+
+      {hasPhoto && (
+        <div class="ecta-expert">
+          <img
+            src={blok.photo.filename}
+            alt={blok.photo.alt || blok.photo_name || ""}
+            class="ecta-photo"
+            width="80"
+            height="80"
+            loading="lazy"
+          />
+          {(blok.photo_name || blok.photo_role) && (
+            <div class="ecta-expert-meta">
+              {blok.photo_name && <span class="ecta-expert-name">{blok.photo_name}</span>}
+              {blok.photo_role && <span class="ecta-expert-role">{blok.photo_role}</span>}
+            </div>
+          )}
+        </div>
+      )}
 
       {blok.badge && (
         <SubPageBadge text={blok.badge} />
@@ -59,6 +80,42 @@ const secondaryHref = blok.secondary_href || "/kontakt";
     align-items: center;
     text-align: center;
     gap: 1.5rem;
+  }
+
+  /* Expert photo + name/role */
+  .ecta-expert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .ecta-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 73, 144, 0.15);
+  }
+
+  .ecta-expert-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.125rem;
+  }
+
+  .ecta-expert-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0a1628;
+  }
+
+  .ecta-expert-role {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748b;
   }
 
   .ecta-headline {

@@ -1,0 +1,310 @@
+---
+interface Logo {
+  name: string;
+  src?: string;
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  eyebrow?: string;
+  headline?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  logos?: Logo[];
+  categories?: string[];
+}
+
+const {
+  eyebrow = "Unsere Kunden",
+  headline = "Führende Unternehmen vertrauen auf CreaLog.",
+  description = "Von Telekommunikationsriesen bis zu mittelständischen Unternehmen – CreaLog begleitet Enterprises bei der Modernisierung ihres Kundenkontakts.",
+  ctaText = "Demo anfragen",
+  ctaHref = "/kontakt",
+  logos = [
+    { name: "Deutsche Telekom", src: "/customer_logos/telekom_logo.png",  width: 130, height: 40 },
+    { name: "Swisscom",         src: "/customer_logos/swisscom_logo.png", width: 120, height: 36 },
+    { name: "A1 Telekom",       src: "/customer_logos/a1_logo.jpg",       width: 60,  height: 36 },
+    { name: "Sky",              src: "/customer_logos/sky_logo.png",      width: 80,  height: 36 },
+  ],
+  categories = ["Telekommunikation", "Finanzwesen", "Gesundheitswesen", "Öffentlicher Sektor"],
+} = Astro.props;
+
+const track = [...logos, ...logos];
+---
+
+<section class="sref-section">
+  <!-- Blue radial glow — covers most of the section like the hero glow, but taller/wider -->
+  <div class="sref-glow" aria-hidden="true"></div>
+
+  <div class="sref-inner">
+    <!-- Header -->
+    <div class="sref-header">
+      <span class="sref-eyebrow">{eyebrow}</span>
+      <h2 class="sref-headline">{headline}</h2>
+      <p class="sref-desc">{description}</p>
+      <a href={ctaHref} class="sref-cta">
+        {ctaText}
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Divider -->
+    <div class="sref-divider" aria-hidden="true"></div>
+
+    <!-- Logo marquee -->
+    <div class="sref-marquee-outer" aria-label="Kundenreferenzen">
+      <div class="sref-marquee-inner">
+        {track.map((logo) => (
+          <div class="sref-logo-card" title={logo.name}>
+            {logo.src ? (
+              <img
+                src={logo.src}
+                alt={logo.name}
+                width={logo.width ?? 120}
+                height={logo.height ?? 36}
+                class="sref-logo-img"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <span class="sref-logo-text">{logo.name}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Category chips -->
+    <div class="sref-categories" aria-label="Branchen">
+      {categories.map((cat) => (
+        <span class="sref-cat">{cat}</span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .sref-section {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+    padding: clamp(5rem, 9vw, 8rem) clamp(1.5rem, 6vw, 4rem);
+  }
+
+  /* ── Blue glow — same language as .hero-glow but scaled to fill the whole section ── */
+  .sref-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(
+        ellipse 110% 85% at 50% 50%,
+        rgba(37, 99, 235, 0.13) 0%,
+        rgba(0, 73, 144, 0.08) 38%,
+        rgba(56, 168, 255, 0.04) 62%,
+        transparent 82%
+      );
+    filter: blur(32px);
+  }
+
+  .sref-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ── Header ── */
+  .sref-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 640px;
+  }
+
+  .sref-eyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #2563eb;
+    margin-bottom: 1.1rem;
+  }
+
+  .sref-headline {
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin: 0;
+    color: #18222f;
+  }
+
+  .sref-desc {
+    margin: 1.1rem 0 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #6b7280;
+    max-width: 520px;
+  }
+
+  .sref-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 0.8rem 1.9rem;
+    border-radius: 9999px;
+    background: #09090b;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background 0.2s ease,
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s ease;
+  }
+  .sref-cta svg {
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .sref-cta:hover {
+    background: #18181b;
+    transform: translateY(-2px);
+    box-shadow:
+      0 10px 32px rgba(37, 99, 235, 0.35),
+      0 4px 12px rgba(9, 9, 11, 0.25);
+  }
+  .sref-cta:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ── Divider ── */
+  .sref-divider {
+    width: 100%;
+    height: 1px;
+    background: #e2e8f0;
+    margin: clamp(2.5rem, 5vw, 4rem) 0;
+  }
+
+  /* ── Marquee ── */
+  .sref-marquee-outer {
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%
+    );
+  }
+
+  .sref-marquee-inner {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: sref-scroll 36s linear infinite;
+  }
+  .sref-marquee-outer:hover .sref-marquee-inner {
+    animation-play-state: paused;
+  }
+
+  @keyframes sref-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .sref-logo-card {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 80px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 30, 48, 0.05);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+    cursor: default;
+  }
+  .sref-logo-card:hover {
+    border-color: #004990;
+    box-shadow: 0 8px 24px rgba(0, 73, 144, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .sref-logo-img {
+    max-width: 120px;
+    max-height: 38px;
+    object-fit: contain;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+  .sref-logo-card:hover .sref-logo-img {
+    opacity: 1;
+  }
+
+  .sref-logo-text {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #94a3b8;
+    text-align: center;
+    padding: 0 1rem;
+    transition: color 0.2s ease;
+  }
+  .sref-logo-card:hover .sref-logo-text {
+    color: #004990;
+  }
+
+  /* ── Category chips ── */
+  .sref-categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.65rem;
+    margin-top: 2rem;
+  }
+
+  .sref-cat {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #2563eb;
+    padding: 0.3rem 0.9rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(37, 99, 235, 0.20);
+    background: rgba(37, 99, 235, 0.05);
+  }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .sref-marquee-inner { animation: none; }
+    .sref-cta, .sref-logo-card { transition: none; }
+    .sref-cta:hover { transform: none; box-shadow: none; }
+    .sref-logo-card:hover { transform: none; }
+  }
+</style>

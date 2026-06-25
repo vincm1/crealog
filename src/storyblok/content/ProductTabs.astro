@@ -1,0 +1,24 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import ProductTabs from "../../components/ProductTabs.vue";
+
+const { blok } = Astro.props;
+
+const tabs = (blok.tabs ?? []).map((tab: any) => ({
+  title:       tab.title       ?? "",
+  badge:       tab.badge       ?? "",
+  headline:    tab.headline    ?? "",
+  description: tab.description ?? "",
+  ctaText:     tab.cta_text   ?? "Demo anfragen",
+  ctaHref:     tab.cta_href   ?? "/kontakt",
+  image:       tab.image?.filename ?? "",
+}));
+
+const defaultImage: string = blok.default_image?.filename ?? "";
+const sectionBadge: string = blok.section_badge ?? "";
+const sectionHeadline: string = blok.section_headline ?? "";
+---
+
+<div {...storyblokEditable(blok)}>
+  <ProductTabs client:visible tabs={tabs} defaultImage={defaultImage} sectionBadge={sectionBadge} sectionHeadline={sectionHeadline} />
+</div>

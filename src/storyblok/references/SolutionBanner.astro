@@ -1,0 +1,20 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import SolutionBanner from "../../components/Banners/SolutionBanner.astro";
+
+const { blok } = Astro.props;
+
+const logos = (blok.logos ?? []).map((item: any) => ({
+  name: item.name ?? "",
+  src: item.logo?.filename ?? undefined,
+}));
+---
+
+<div {...storyblokEditable(blok)}>
+  <SolutionBanner
+    eyebrow={blok.eyebrow}
+    headline={blok.headline}
+    subline={blok.subline}
+    logos={logos.length ? logos : undefined}
+  />
+</div>
