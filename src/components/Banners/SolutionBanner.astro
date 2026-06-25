@@ -1,7 +1,7 @@
 ---
-// Full-bleed colored banner — light-blue gradient background (same color language
-// as ProductHero's hero-glow, but filling the whole section). A bold slogan plus
-// customer logos in frosted-glass cards. Used on solution sub-pages.
+// Slim full-bleed banner — light-blue gradient background (same color language as
+// ProductHero's hero-glow). A short message line plus customer logos placed directly
+// on the gradient (transparent, no cards). Used on solution sub-pages.
 interface Logo {
   name: string;
   src?: string;
@@ -17,8 +17,6 @@ interface Props {
 }
 
 const {
-  eyebrow = "Im Einsatz bei führenden Anbietern",
-  headline = "Die Stimme hinter Millionen von Kundengesprächen.",
   subline = "Von Telekommunikationskonzernen bis zum Mittelstand – CreaLog Voice Bots beantworten täglich Anrufe in über 100 Sprachen, rund um die Uhr.",
   logos = [
     { name: "Deutsche Telekom", src: "/customer_logos/telekom_logo.png",  width: 130, height: 40 },
@@ -35,30 +33,25 @@ const {
   <div class="sb-grid" aria-hidden="true"></div>
 
   <div class="sb-inner">
-    {eyebrow && <span class="sb-eyebrow">{eyebrow}</span>}
-
-    {headline && <h2 class="sb-headline">{headline}</h2>}
-
     {subline && <p class="sb-subline">{subline}</p>}
 
     {logos.length > 0 && (
       <div class="sb-logos" aria-label="Kundenreferenzen">
         {logos.map((logo) => (
-          <div class="sb-logo-card" title={logo.name}>
-            {logo.src ? (
-              <img
-                src={logo.src}
-                alt={logo.name}
-                width={logo.width ?? 120}
-                height={logo.height ?? 36}
-                class="sb-logo-img"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <span class="sb-logo-text">{logo.name}</span>
-            )}
-          </div>
+          logo.src ? (
+            <img
+              src={logo.src}
+              alt={logo.name}
+              title={logo.name}
+              width={logo.width ?? 120}
+              height={logo.height ?? 36}
+              class="sb-logo-img"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <span class="sb-logo-text" title={logo.name}>{logo.name}</span>
+          )
         ))}
       </div>
     )}
@@ -73,10 +66,10 @@ const {
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    padding: clamp(4.5rem, 9vw, 8rem) clamp(1.5rem, 6vw, 4rem);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 6vw, 4rem);
     /* Full light-blue gradient background — the "colored band" */
     background:
-      radial-gradient(ellipse 70% 55% at 50% -8%, rgba(56, 168, 255, 0.30), transparent 62%),
+      radial-gradient(ellipse 70% 70% at 50% -20%, rgba(56, 168, 255, 0.26), transparent 62%),
       linear-gradient(180deg, #eef5fe 0%, #ddecfc 52%, #cfe4fb 100%);
   }
 
@@ -84,17 +77,17 @@ const {
   .sb-glow {
     position: absolute;
     left: 50%;
-    bottom: -25%;
+    bottom: -55%;
     transform: translateX(-50%);
     width: min(1100px, 110%);
-    height: 520px;
+    height: 320px;
     pointer-events: none;
     z-index: 0;
     background: radial-gradient(
       ellipse 50% 50% at 50% 50%,
-      rgba(37, 99, 235, 0.28) 0%,
-      rgba(0, 73, 144, 0.16) 38%,
-      rgba(56, 168, 255, 0.08) 60%,
+      rgba(37, 99, 235, 0.22) 0%,
+      rgba(0, 73, 144, 0.12) 38%,
+      rgba(56, 168, 255, 0.06) 60%,
       transparent 78%
     );
     filter: blur(48px);
@@ -108,14 +101,14 @@ const {
     pointer-events: none;
     background-image: radial-gradient(rgba(0, 73, 144, 0.08) 1px, transparent 1px);
     background-size: 26px 26px;
-    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, black 0%, transparent 75%);
-    mask-image: radial-gradient(ellipse 75% 70% at 50% 40%, black 0%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, black 0%, transparent 78%);
+    mask-image: radial-gradient(ellipse 80% 75% at 50% 50%, black 0%, transparent 78%);
   }
 
   .sb-inner {
     position: relative;
     z-index: 1;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -123,99 +116,50 @@ const {
     text-align: center;
   }
 
-  /* Eyebrow — frosted pill */
-  .sb-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #004990;
-    padding: 0.4rem 1rem;
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 2px 10px rgba(0, 73, 144, 0.08);
-    margin-bottom: 1.6rem;
-    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .sb-headline {
-    margin: 0;
-    font-size: clamp(2rem, 4.6vw, 3.25rem);
-    font-weight: 800;
-    line-height: 1.06;
-    letter-spacing: -0.035em;
-    color: #0f1e30;
-    max-width: 16ch;
-    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
-  }
-
   .sb-subline {
-    margin: 1.4rem 0 0;
-    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    margin: 0;
+    font-size: clamp(0.95rem, 1.3vw, 1.0625rem);
     line-height: 1.7;
     font-weight: 500;
     color: #3f5469;
     max-width: 60ch;
-    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  /* ── Logo strip — frosted glass cards ── */
+  /* ── Logo strip — transparent, placed directly on the gradient ── */
   .sb-logos {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-top: clamp(2.5rem, 5vw, 3.75rem);
-    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.32s both;
-  }
-
-  .sb-logo-card {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 168px;
-    height: 80px;
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.9) inset,
-      0 10px 30px -8px rgba(0, 73, 144, 0.18);
-    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
-    cursor: default;
-  }
-  .sb-logo-card:hover {
-    transform: translateY(-3px);
-    box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.9) inset,
-      0 18px 40px -10px rgba(0, 73, 144, 0.28);
+    gap: clamp(1.75rem, 4vw, 3.25rem);
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+    animation: sb-appear 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
   }
 
   .sb-logo-img {
-    max-width: 120px;
+    max-width: 130px;
     max-height: 40px;
+    width: auto;
+    height: auto;
     object-fit: contain;
-    opacity: 0.85;
-    transition: opacity 0.2s ease;
+    /* Monochrom: entfärben + weiße Logo-Hintergründe in den Verlauf einschmelzen */
+    filter: grayscale(1);
+    opacity: 0.7;
+    mix-blend-mode: multiply;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
-  .sb-logo-card:hover .sb-logo-img {
+  .sb-logo-img:hover {
     opacity: 1;
+    transform: translateY(-2px);
   }
 
   .sb-logo-text {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #5b7790;
     text-align: center;
-    padding: 0 1rem;
   }
 
   @keyframes sb-appear {
@@ -225,24 +169,18 @@ const {
 
   /* ── Responsive ── */
   @media (max-width: 640px) {
-    .sb-logo-card {
-      width: 132px;
-      height: 68px;
-    }
     .sb-logo-img {
-      max-width: 96px;
+      max-width: 100px;
       max-height: 32px;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .sb-eyebrow,
-    .sb-headline,
     .sb-subline,
     .sb-logos {
       animation: none;
     }
-    .sb-logo-card { transition: none; }
-    .sb-logo-card:hover { transform: none; }
+    .sb-logo-img { transition: none; }
+    .sb-logo-img:hover { transform: none; }
   }
 </style>

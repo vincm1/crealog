@@ -50,6 +50,8 @@ export default defineConfig({
         logos_cta: "storyblok/references/SolutionReferences",
         logos_cta_item: "storyblok/references/SolutionReferenceItem",
       },
+      // Gelöschte/unbekannte Blöcke crashen die Seite nicht, sondern werden ignoriert.
+      enableFallbackComponent: true,
       livePreview: true,
       apiOptions: {
         region: "eu",
