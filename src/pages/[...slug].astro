@@ -3,20 +3,25 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 
-const { slug } = Astro.params;
-const isPreview = import.meta.env.DEV || Astro.url.searchParams.has("_storyblok");
-
-const storyblokApi = useStoryblokApi();
-let story: any = null;
-
-try {
-  const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
-    version: isPreview ? "draft" : "published",
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const stories = await storyblokApi.getAll("cdn/stories", {
+    version: "published",
   });
-  story = data.story;
-} catch {
-  return Astro.redirect("/404");
+
+  // Slugs mit eigener Route auslassen (index.astro -> "home", komponenten.astro),
+  // damit keine doppelten Routen entstehen.
+  const reserved = new Set(["home", "komponenten"]);
+
+  return stories
+    .filter((story: any) => !reserved.has(story.full_slug))
+    .map((story: any) => ({
+      params: { slug: story.full_slug },
+      props: { story },
+    }));
 }
+
+const { story } = Astro.props;
 ---
 
 <SolutionSubPage>

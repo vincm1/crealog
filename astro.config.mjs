@@ -5,7 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
-import vercel from "@astrojs/vercel";
 import icon from "astro-icon";
 
 
@@ -52,7 +51,7 @@ export default defineConfig({
       },
       // Gelöschte/unbekannte Blöcke crashen die Seite nicht, sondern werden ignoriert.
       enableFallbackComponent: true,
-      livePreview: true,
+      livePreview: false,
       apiOptions: {
         region: "eu",
       },
@@ -62,6 +61,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), mkcert()],
   },
-  output: "server",
-  adapter: vercel(),
+  output: "static",
 });
