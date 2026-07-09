@@ -1,0 +1,160 @@
+---
+// Impressum — nutzt das gemeinsame LandingLayout (Navbar + Footer). Der
+// rechtliche Text ist 1:1 übernommen und darf inhaltlich nicht verändert
+// werden. darkHero={false}, damit die Navbar über dem hellen Hintergrund
+// von Anfang an weiß und sichtbar ist.
+import LandingLayout from "../layouts/LandingLayout.astro";
+---
+
+<LandingLayout
+  title="Impressum | CreaLog"
+  description="Impressum der CreaLog Software-Entwicklung und Beratung GmbH."
+  darkHero={false}
+>
+  <main class="imprint">
+    <h1 class="imprint__title">Impressum</h1>
+
+      <section class="imprint__block">
+        <p class="imprint__company">
+          CreaLog Software-Entwicklung und Beratung GmbH
+        </p>
+        <p>
+          Frankfurter Ring 211<br />
+          80807 München<br />
+          Deutschland
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <p>
+          Registergericht: Amtsgericht München<br />
+          Registernummer: HRB 101195
+        </p>
+        <p>
+          Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:
+          DE153762108
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <p>
+          Fon +49 89 324656-0<br />
+          E-Mail: marketing(at)crealog.com
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <p>
+          Geschäftsführer: Michael Kloos, Dr. Bernd Plannerer<br />
+          Verantwortlich für den Inhalt i.S.d. § 18 Abs. 2 MStV: Annette Ruß (Marketingleiterin)<br
+          />
+          Datenschutzbeauftragter: datenschutz@crealog.com
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <p>
+          Hiermit widersprechen wir ausdrücklich der Verwendung unserer
+          Kontaktdaten zu Werbezwecken.
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <h2 class="imprint__heading">Gender-Hinweis</h2>
+        <p>
+          Wir wollen aufmerksam mit der Sprache umgehen und bemühen uns, nicht
+          mehr wie bislang, nur die männliche Form zu verwenden. Am Anfang eines
+          Textes wollen wir die Doppelform nennen - also von Leserinnen und
+          Lesern sprechen, von Kundinnen und Kunden. Im weiteren Verlauf eines
+          Beitrags wollen wir die männliche und die weibliche Form abwechseln
+          oder auch neutrale Formulierungen finden.
+        </p>
+        <p>
+          Entsprechende Begriffe gelten darum, im Sinne der Gleichbehandlung,
+          grundsätzlich für alle Geschlechter.
+        </p>
+      </section>
+
+      <section class="imprint__block">
+        <h2 class="imprint__heading">
+          Zertifiziert nach DIN EN ISO 9001:2015, 14001:2015 und ISO/IEC
+          27001:2022
+        </h2>
+        <p>
+          CreaLog unterhält ein Qualitätsmanagementsystem, das nach ISO
+          9001:2015 (Reg.-Nr. 12 100/104 17937 TMS) für Entwicklung, Vertrieb
+          und Betrieb von Lösungen für Telekommunikation und
+          Sprachautomatisierung zertifiziert ist.
+        </p>
+        <p>Das Umweltmanagement ist nach ISO 14001:2015 zertifiziert.</p>
+        <p>
+          Bitte laden Sie bei Bedarf hier unser ISO Zertifikat
+          (9001:2015|14001:2015) herunter.
+        </p>
+        <p>
+          CreaLog unterhält ein Informationssicherheitsmanagmentsystem , das
+          nach ISO/IEC 27001:2022 (Reg.-Nr. 12 310 17937 TMS) für Entwicklung,
+          Vertrieb und Betrieb von Lösungen für Telekommunikation und
+          Sprachautomatisierung zertifiziert ist.
+        </p>
+        <p>
+          Bitte laden Sie bei Bedarf hier unser ISO Zertifikat (27001:2022)
+          herunter.
+        </p>
+      </section>
+    </main>
+</LandingLayout>
+
+<style>
+  .imprint {
+    max-width: 46rem;
+    /* Oben zusätzlicher Abstand, damit der Inhalt nicht unter der fixierten
+       Navbar (h-16) verschwindet. */
+    margin: 0 auto;
+    padding: clamp(6rem, 6vw + 4rem, 9rem) 1.5rem clamp(4rem, 8vw, 6rem);
+    font-family: "Poppins", Calibri, sans-serif;
+    color: #23303f;
+  }
+
+  .imprint__title {
+    margin: 0 0 clamp(1.75rem, 4vw, 2.75rem);
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: #0f1e30;
+  }
+
+  .imprint__block {
+    padding: 1.5rem 0;
+    border-top: 1px solid #e6edf5;
+  }
+  .imprint__block:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .imprint__block p {
+    margin: 0 0 0.9rem;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #3d4a5c;
+  }
+  .imprint__block p:last-child {
+    margin-bottom: 0;
+  }
+
+  .imprint__company {
+    font-weight: 700;
+    color: #0f1e30 !important;
+  }
+
+  .imprint__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    color: #004081;
+  }
+</style>

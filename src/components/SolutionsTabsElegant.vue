@@ -65,7 +65,9 @@ const solutions = { cx: cxSolutions, tl: telcoSolutions, ps: professionalService
             <h3 class="card-title">{{ s.title }}</h3>
             <p class="card-desc">{{ s.description }}</p>
           </div>
-          <div class="card-arrow">→</div>
+          <div class="card-foot">
+            <span class="card-arrow">→</span>
+          </div>
         </a>
       </div>
     </Transition>
@@ -73,7 +75,7 @@ const solutions = { cx: cxSolutions, tl: telcoSolutions, ps: professionalService
 </template>
 
 <style scoped>
-.solutions-root { font-family: "Plus Jakarta Sans", sans-serif; }
+.solutions-root { font-family: "Poppins", Calibri, sans-serif; }
 
 .tab-switcher {
   display: inline-flex; align-items: center; gap: 4px;
@@ -87,27 +89,29 @@ const solutions = { cx: cxSolutions, tl: telcoSolutions, ps: professionalService
   background: transparent; border: none; cursor: pointer;
   transition: color 0.2s ease; letter-spacing: 0.01em;
 }
-.tab-btn.active { color: white; background: #004990; }
+.tab-btn.active { color: white; background: #004081; }
 
 .cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 @media (min-width: 1024px) { .cards-grid { grid-template-columns: repeat(4, 1fr); } }
 
 .solution-card {
-  display: flex; flex-direction: column; gap: 16px; padding: 24px;
+  display: flex; flex-direction: column; padding: 22px;
   border-radius: 16px; border: 1px solid #e2e8f0;
   background: white; text-decoration: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   opacity: 0; animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards; cursor: pointer;
 }
-.solution-card:hover { border-color: #004990; box-shadow: 0 4px 16px rgba(0,73,144,0.1); transform: translateY(-3px); }
-.solution-card:hover .card-arrow { color: #004990; transform: translateX(4px); }
+.solution-card:hover { border-color: #004081; box-shadow: 0 10px 30px -10px rgba(0,64,129,0.18); transform: translateY(-3px); }
+.solution-card:hover .card-icon { background: #004081; color: #fff; }
+.solution-card:hover .card-arrow { color: #004081; transform: translateX(4px); }
 
-.card-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: rgba(0,73,144,0.08); color: #004990; flex-shrink: 0; }
-.card-icon svg { width: 20px; height: 20px; }
-.card-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+.card-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: rgba(0,64,129,0.08); color: #004081; flex-shrink: 0; margin-bottom: 18px; transition: background 0.2s ease, color 0.2s ease; }
+.card-icon svg { width: 21px; height: 21px; }
+.card-body { display: flex; flex-direction: column; gap: 8px; }
 .card-title { font-size: 14.5px; font-weight: 700; color: #0a1628; line-height: 1.2; }
 .card-desc { font-size: 13px; color: #6b7280; line-height: 1.65; }
-.card-arrow { font-size: 16px; color: #cbd5e1; transition: color 0.2s ease, transform 0.2s ease; align-self: flex-end; }
+.card-foot { margin-top: auto; padding-top: 16px; border-top: 1px solid #eef2f7; display: flex; justify-content: flex-end; align-items: center; }
+.card-arrow { font-size: 16px; color: #cbd5e1; transition: color 0.2s ease, transform 0.2s ease; }
 
 .tab-fade-enter-active { transition: opacity 0.25s ease, transform 0.25s ease; }
 .tab-fade-leave-active { transition: opacity 0.15s ease, transform 0.15s ease; }

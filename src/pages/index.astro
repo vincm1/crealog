@@ -2,6 +2,7 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import LandingLayout from "../layouts/LandingLayout.astro";
+import Newsletter from "../components/Banners/Newsletter.astro";
 
 const isPreview = import.meta.env.DEV || Astro.url.searchParams.has("_storyblok");
 let story: any = null;
@@ -21,4 +22,5 @@ try {
   {story?.content.body?.map((blok: any) => (
     <StoryblokComponent blok={blok} />
   ))}
+  <Newsletter />
 </LandingLayout>

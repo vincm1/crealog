@@ -7,7 +7,6 @@ import { loadEnv } from "vite";
 import mkcert from "vite-plugin-mkcert";
 import icon from "astro-icon";
 
-
 const env = loadEnv("", process.cwd(), "STORYBLOK");
 
 // https://astro.build/config

@@ -3,6 +3,21 @@
 import "../assets/app.css";
 import Navbar from "../components/Navbar/Navbar.astro";
 import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  // darkHero: Navbar startet transparent über dunklem Hero (Landingpages).
+  // Für helle Inhaltsseiten (z. B. Impressum) auf false setzen — dann ist die
+  // Navbar von Anfang an weiß und über weißem Hintergrund sichtbar.
+  darkHero?: boolean;
+}
+
+const {
+  title = "AI-driven Platform for Enterprises & Telcos | CreaLog",
+  description,
+  darkHero = true,
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="de">
@@ -11,10 +26,11 @@ import Footer from "../components/Footer.astro";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <title>AI-driven Platform for Enterprises & Telcos | CreaLog</title>
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
   </head>
   <body>
-    <Navbar darkHero={true} />
+    <Navbar darkHero={darkHero} />
     <slot />
     <Footer />
   </body>

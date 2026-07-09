@@ -1,28 +1,51 @@
-<footer class="bg-[#f1f5fb] border-t border-[#dce5f0] font-['Plus_Jakarta_Sans',sans-serif]">
+<footer class="bg-[#f1f5fb] border-t border-[#dce5f0] font-['Poppins',Calibri,sans-serif]">
   <div class="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
-      <div class="col-span-2 lg:col-span-1 flex flex-col gap-4">
+    <div class="grid grid-cols-2 gap-10 lg:grid-cols-6">
+      <!-- Brand -->
+      <div class="col-span-2 flex flex-col gap-4">
         <a href="/"><img src="/crealog_logo.png" alt="CreaLog" class="h-8 w-auto" /></a>
-        <p class="text-[13px] text-[#6b7280] leading-relaxed max-w-[200px]">KI-gestützte Sprachlösungen für modernen Kundenkontakt.</p>
-        <p class="text-[12px] text-[#9ca3af] mt-auto">© 2026 CreaLog Software-Entwicklung und Beratung GmbH</p>
+        <p class="text-[13px] text-[#6b7280] leading-relaxed max-w-[220px]">KI-gestützte Sprachlösungen für modernen Kundenkontakt.</p>
       </div>
+
+      <!-- Plattform (telco-solutions/service-delivery-platform) -->
       <nav class="flex flex-col gap-3">
-        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">Lösungen</h6>
-        <a href="/cx-solutions" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">CX Solutions</a>
-        <a href="/in-solutions" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">IN Solutions</a>
-        <a href="/professional-services" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Professional Services</a>
+        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">Plattform</h6>
+        <a href="/telco-solutions/service-delivery-platform/sdp" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Service Delivery Platform</a>
+        <a href="/telco-solutions/service-delivery-platform/sip-application-server" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">SIP Application Server</a>
       </nav>
+
+      <!-- AI-Solutions (cx-solutions/bots-ai) -->
+      <nav class="flex flex-col gap-3">
+        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">AI-Solutions</h6>
+        <a href="/cx-solutions/bots-ai/voice-bots" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Voice-Bots</a>
+        <a href="/cx-solutions/bots-ai/chat-bots" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Chat-Bots</a>
+      </nav>
+
+      <!-- Ressourcen -->
+      <nav class="flex flex-col gap-3">
+        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">Ressourcen</h6>
+        <a href="/blog" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Blog</a>
+        <a href="/summit" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Summit</a>
+        <a href="/downloads" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Whitepaper &amp; Downloads</a>
+        <a href="/news" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">News &amp; Events</a>
+      </nav>
+
+      <!-- Unternehmen -->
       <nav class="flex flex-col gap-3">
         <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">Unternehmen</h6>
-        <a href="/about" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Über uns</a>
-        <a href="/kontakt" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Kontakt</a>
-        <a href="/blog" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Blog</a>
+        <a href="/about" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">About</a>
+        <a href="/#industries" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Industries</a>
+        <a href="/kontakt" class="text-[13px] text-[#4b5563] hover:text-[#004081] transition-colors duration-150">Kontakt</a>
       </nav>
-      <nav class="flex flex-col gap-3">
-        <h6 class="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9ca3af]">Rechtliches</h6>
-        <a href="/datenschutz" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Datenschutz</a>
-        <a href="/impressum" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Impressum</a>
-        <a href="/cookies" class="text-[13px] text-[#4b5563] hover:text-[#004990] transition-colors duration-150">Cookie-Richtlinie</a>
+    </div>
+
+    <!-- Bottom-Bar: Copyright + Rechtliches -->
+    <div class="mt-12 pt-6 border-t border-[#dce5f0] flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="text-[12px] text-[#9ca3af]">© 2026 CreaLog Software-Entwicklung und Beratung GmbH</p>
+      <nav class="flex flex-wrap items-center gap-x-6 gap-y-2">
+        <a href="/datenschutz" class="text-[12px] text-[#9ca3af] hover:text-[#004081] transition-colors duration-150">Datenschutz</a>
+        <a href="/impressum" class="text-[12px] text-[#9ca3af] hover:text-[#004081] transition-colors duration-150">Impressum</a>
+        <a href="/cookies" class="text-[12px] text-[#9ca3af] hover:text-[#004081] transition-colors duration-150">Cookie-Richtlinie</a>
       </nav>
     </div>
   </div>

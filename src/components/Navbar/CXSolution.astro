@@ -35,14 +35,14 @@ const ICONS = [
         {group.label && (
           <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-200">
             <span class="text-[13px] font-semibold text-gray-900">{group.label}</span>
-            <svg class="w-5 h-5 text-[#004990] flex-none" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
+            <svg class="w-5 h-5 text-[#004081] flex-none" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d={ICONS[i % ICONS.length]} />
             </svg>
           </div>
         )}
         <nav class="flex flex-col gap-3">
           {group.stories.map((story: any) => (
-            <a href={`/${story.full_slug}`} class="text-[13px] font-medium text-gray-700 hover:text-[#004990] transition-colors">
+            <a href={`/${story.full_slug}`} class="text-[13px] font-medium text-gray-700 hover:text-[#004081] transition-colors">
               {story.name}
             </a>
           ))}

@@ -106,7 +106,7 @@ function setTab(i: number) {
 
 <style scoped>
 .pt-section {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: "Poppins", Calibri, sans-serif;
   position: relative;
   overflow: hidden;
   background: #ffffff;
@@ -126,7 +126,7 @@ function setTab(i: number) {
   background: radial-gradient(
     ellipse 70% 70% at 50% 100%,
     rgba(37, 99, 235, 0.14) 0%,
-    rgba(0, 73, 144, 0.08) 42%,
+    rgba(0, 64, 129, 0.08) 42%,
     rgba(56, 168, 255, 0.04) 65%,
     transparent 82%
   );
@@ -298,7 +298,7 @@ function setTab(i: number) {
   border-bottom: none;
   box-shadow:
     0 0 0 1px rgba(255,255,255,0.6) inset,
-    0 32px 90px -24px rgba(0, 73, 144, 0.22),
+    0 32px 90px -24px rgba(0, 64, 129, 0.22),
     0 12px 40px rgba(15, 30, 48, 0.10);
   overflow: hidden;
   background: #f8fafc;

@@ -1,16 +1,24 @@
 @import "tailwindcss";
+
+/* Poppins – self-hosted (DSGVO-konform, kein Google-CDN-Call) */
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource/poppins/800.css";
+
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
   name: "crealog";
   default: true;
 
-  /* Brand Blue rgb(0,73,144) */
-  --color-primary: oklch(34% 0.14 264);
+  /* CreaLog Brand Blue #004081 */
+  --color-primary: #004081;
   --color-primary-content: oklch(98% 0 0);
 
-  /* Brand Amber rgb(252,176,64) */
-  --color-secondary: oklch(78% 0.16 73);
+  /* CreaLog Brand Yellow #edb32a */
+  --color-secondary: #edb32a;
   --color-secondary-content: oklch(17% 0.03 264);
 
   /* Base surfaces mit leichtem Blau-Unterton */
@@ -23,9 +31,17 @@
 }
 
 @theme {
-  /* Direkte Tailwind-Utilities: text-brand-blue, bg-brand-amber, etc. */
-  --color-brand-blue: rgb(0 73 144);
-  --color-brand-amber: rgb(252 176 64);
+  /* Poppins als globale Hauptschrift (font-sans + Default) */
+  --font-sans: "Poppins", Calibri, sans-serif;
+
+  /* CreaLog-Markenfarben — Direkte Tailwind-Utilities: text-brand-blue, bg-brand-amber, etc. */
+  --color-brand-blue: #004081;
+  --color-brand-amber: #edb32a;
+}
+
+/* Poppins als Basisschrift für das gesamte Dokument */
+:root {
+  font-family: "Poppins", Calibri, sans-serif;
 }
 
 /* Management Reel animations */
