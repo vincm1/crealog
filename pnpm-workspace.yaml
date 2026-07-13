@@ -1,0 +1,7 @@
+# pnpm project settings. Since pnpm 11 the `pnpm` field in package.json is no
+# longer read (https://pnpm.io/settings) — `onlyBuiltDependencies` must live
+# here. Allows esbuild/sharp to run their install/build scripts in CI instead
+# of being blocked (ERR_PNPM_IGNORED_BUILDS).
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
