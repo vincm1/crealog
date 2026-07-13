@@ -12,6 +12,8 @@ on:
       branch-id:
         required: true
         type: string
+  repository_dispatch:
+    types: [cms_update]
 
 env:
   DEPLOYMENT_FOLDER: dist
