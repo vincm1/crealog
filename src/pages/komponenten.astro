@@ -1,5 +1,6 @@
 ---
-// Komponenten-Übersicht — rendert jeden SubPage-Storyblok-Block mit Beispieldaten.
+// Komponenten-Übersicht — rendert jeden Storyblok-Block mit Beispieldaten.
+// Gruppiert nach Startseite (Landing-Blöcke) und Subpages (Solution-Blöcke).
 // Reine Entwickler-/Redaktions-Referenz, nicht in der Navigation verlinkt.
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
@@ -7,7 +8,89 @@ import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 const DEMO_IMG = "https://a.storyblok.com/f/293145431528152/dfeb36a1b4/demo-dashboard.png";
 const EXPERT_IMG = "https://a.storyblok.com/f/293145431528152/414x322/7144c2557a/michael_kloos.jpg";
 
-const sample = [
+// Blöcke der Startseite (Landing). Selbst-versorgende Blöcke (Management,
+// Solutions, Industries, Testimonials) rendern feste Inhalte und brauchen nur
+// den component-Key; feld-getriebene Blöcke bekommen Beispieldaten.
+const landing = [
+  {
+    id: "hero_block",
+    label: "Hero Block",
+    desc: "Vollflächiger Startseiten-Hero mit animiertem Voice-Network-Hintergrund und CTAs.",
+    blok: {
+      component: "hero_block",
+      badge_text: "AI-Powered Voice Solutions",
+      headline: "Die Zukunft des",
+      headline_accent: "Kundenkontakts",
+      subline:
+        "Intelligente Sprachlösungen, die Kundengespräche automatisieren – schneller, skalierbarer und natürlicher als je zuvor.",
+      cta_primary_text: "Jetzt starten",
+      cta_primary_href: "/kontakt",
+      cta_secondary_text: "Lösungen ansehen",
+      cta_secondary_href: "/loesungen",
+    },
+  },
+  {
+    id: "company_block",
+    label: "Company Block",
+    desc: "Zweispaltige Unternehmens-Sektion mit Logo, Kennzahlen und Fließtext.",
+    blok: {
+      component: "company_block",
+      eyebrow: "Über CreaLog",
+      title: "Sprachkommunikation neu",
+      title_accent: "gedacht. Seit 1993.",
+      body_text_1:
+        "CreaLog ist ein führender Anbieter von KI-gestützten Sprachlösungen für den professionellen Kundenkontakt. Mit mehr als 30 Jahren Erfahrung entwickeln wir Plattformen, die Kundengespräche automatisieren, analysieren und nachhaltig verbessern.",
+      body_text_2:
+        "Von mittelständischen Unternehmen bis hin zu DAX-Konzernen: Unsere Lösungen laufen on-premise, in der Cloud oder hybrid – immer DSGVO-konform und made in Germany.",
+      cta_text: "Mehr über CreaLog",
+      cta_href: "/about",
+    },
+  },
+  {
+    id: "management_block",
+    label: "Management Block",
+    desc: "Geschäftsführungs-Sektion mit Portrait-Karten und Zitaten (feste Inhalte).",
+    blok: { component: "management_block" },
+  },
+  {
+    id: "solutions_block",
+    label: "Solutions Block",
+    desc: "Lösungs-Showcase mit interaktiven Tabs (Vue-Island SolutionsTabsElegant).",
+    blok: { component: "solutions_block" },
+  },
+  {
+    id: "industries_block",
+    label: "Industries Block",
+    desc: "Branchen-Raster mit großer Feature-Kachel und Bild-Karten (feste Inhalte).",
+    blok: { component: "industries_block" },
+  },
+  {
+    id: "testimonials_block",
+    label: "Testimonials Block",
+    desc: "Kundenstimmen mit hervorgehobenem Zitat und drei kompakten Karten (feste Inhalte).",
+    blok: { component: "testimonials_block" },
+  },
+  {
+    id: "cta_block",
+    label: "CTA Block",
+    desc: "Dunkle Abschluss-CTA-Karte der Startseite mit Gradient-Glow und zwei Buttons.",
+    blok: {
+      component: "cta_block",
+      eyebrow: "Nächster Schritt",
+      headline: "Bereit für eine",
+      headline_accent: "elegantere Plattform?",
+      subline:
+        "Wenn Sie eine Voice- oder Service-Plattform brauchen, die sich präzise in Ihre Infrastruktur einfügt, sollten wir sprechen.",
+      cta_primary_text: "Über CreaLog",
+      cta_primary_href: "/about",
+      cta_secondary_text: "Plattform ansehen",
+      cta_secondary_href: "/telco-solutions/service-delivery-platform",
+    },
+  },
+];
+
+// Blöcke der Subpages (Solution-Seiten).
+const subpage = [
   {
     id: "product_hero",
     label: "Product Hero",
@@ -138,6 +221,23 @@ const sample = [
     },
   },
 ];
+
+const groups = [
+  {
+    id: "startseite",
+    kicker: "Startseite",
+    title: "Landing-Blöcke",
+    lead: "Die Blöcke der Startseite (Story „home“) – von Hero bis Abschluss-CTA.",
+    items: landing,
+  },
+  {
+    id: "subpages",
+    kicker: "Subpages",
+    title: "Solution-Blöcke",
+    lead: "Alle verfügbaren Storyblok-Blöcke für Subpages / Solution-Seiten.",
+    items: subpage,
+  },
+];
 ---
 
 <SolutionSubPage>
@@ -145,31 +245,49 @@ const sample = [
   <header class="ko-header">
     <div class="ko-header-inner">
       <span class="ko-kicker">Referenz</span>
-      <h1 class="ko-title">SubPage-Komponenten</h1>
+      <h1 class="ko-title">Komponenten-Bibliothek</h1>
       <p class="ko-lead">
-        Alle verfügbaren Storyblok-Blöcke für Subpages – mit Beispieldaten gerendert.
+        Alle verfügbaren Storyblok-Blöcke – Startseite und Subpages – mit Beispieldaten gerendert.
         Klicken Sie auf einen Block, um direkt dorthin zu springen.
       </p>
-      <nav class="ko-toc" aria-label="Komponenten">
-        {sample.map((s) => (
-          <a href={`#${s.id}`} class="ko-toc-link">{s.label}</a>
-        ))}
-      </nav>
+
+      {groups.map((g) => (
+        <div class="ko-toc-group">
+          <span class="ko-toc-heading">{g.kicker}</span>
+          <nav class="ko-toc" aria-label={g.kicker}>
+            {g.items.map((s) => (
+              <a href={`#${s.id}`} class="ko-toc-link">{s.label}</a>
+            ))}
+          </nav>
+        </div>
+      ))}
     </div>
   </header>
 
-  {sample.map((s) => (
+  {groups.map((g) => (
     <>
-      <div class="ko-marker" id={s.id}>
-        <div class="ko-marker-inner">
-          <code class="ko-code">{s.blok.component}</code>
-          <div class="ko-marker-text">
-            <span class="ko-marker-label">{s.label}</span>
-            <span class="ko-marker-desc">{s.desc}</span>
-          </div>
+      <section class="ko-group" id={g.id}>
+        <div class="ko-group-inner">
+          <span class="ko-group-kicker">{g.kicker}</span>
+          <h2 class="ko-group-title">{g.title}</h2>
+          <p class="ko-group-lead">{g.lead}</p>
         </div>
-      </div>
-      <StoryblokComponent blok={s.blok} />
+      </section>
+
+      {g.items.map((s) => (
+        <>
+          <div class="ko-marker" id={s.id}>
+            <div class="ko-marker-inner">
+              <code class="ko-code">{s.blok.component}</code>
+              <div class="ko-marker-text">
+                <span class="ko-marker-label">{s.label}</span>
+                <span class="ko-marker-desc">{s.desc}</span>
+              </div>
+            </div>
+          </div>
+          <StoryblokComponent blok={s.blok} />
+        </>
+      ))}
     </>
   ))}
 </SolutionSubPage>
@@ -206,11 +324,22 @@ const sample = [
     line-height: 1.7;
     color: rgba(200, 222, 245, 0.75);
   }
+  .ko-toc-group {
+    margin-top: 2rem;
+  }
+  .ko-toc-heading {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(150, 190, 230, 0.55);
+    margin-bottom: 0.75rem;
+  }
   .ko-toc {
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
-    margin-top: 2rem;
   }
   .ko-toc-link {
     font-size: 13px;
@@ -226,6 +355,41 @@ const sample = [
   .ko-toc-link:hover {
     background: rgba(56, 168, 255, 0.2);
     border-color: rgba(96, 184, 255, 0.6);
+  }
+
+  /* Gruppen-Trenner (Startseite / Subpages) */
+  .ko-group {
+    font-family: "Poppins", Calibri, sans-serif;
+    background: #0f2540;
+    color: #fff;
+    border-top: 1px solid rgba(96, 184, 255, 0.25);
+    scroll-margin-top: 1rem;
+  }
+  .ko-group-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 5vw, 3.5rem) clamp(1.5rem, 6vw, 4rem);
+  }
+  .ko-group-kicker {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #60b8ff;
+  }
+  .ko-group-title {
+    margin: 0.5rem 0 0;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+  .ko-group-lead {
+    margin: 0.75rem 0 0;
+    max-width: 56ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(200, 222, 245, 0.7);
   }
 
   /* Label-Streifen vor jeder Komponente */
