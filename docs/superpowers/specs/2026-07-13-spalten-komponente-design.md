@@ -30,7 +30,7 @@ weniger flexibel, kein Mehrwert.
 |---|---|---|---|
 | `columns` | Dropdown (Optionen `1`,`2`,`3`,`4`; Default `3`) | ja | Anzahl Spalten |
 | `badge` | Text | nein | Sektions-Eyebrow (via `SubPageBadge`) |
-| `title` | Text | nein | Sektions-Headline |
+| `title` | Text | **ja** | Sektions-Headline (Pflicht) |
 | `subtitle` | Textarea | nein | Sektions-Subline |
 | `items` | Blocks (eingeschränkt auf `column_item`) | ja | die Spalten |
 | `cta_text` | Text | nein | Sektions-Teaser unter dem Grid |
@@ -67,8 +67,8 @@ Wurzel-Element mit `{...storyblokEditable(blok)}`, scoped `<style>`, Font `"Popp
   - `3` → `sm:grid-cols-2 lg:grid-cols-3`
   - `4` → `sm:grid-cols-2 lg:grid-cols-4`
   - Fallback (unbekannt) → `3`-Verhalten.
-- Optionaler Header (`badge` → `SubPageBadge`, `title`, `subtitle`) — nur gerendert, wenn
-  mindestens ein Header-Feld gesetzt ist.
+- Header (`badge` → `SubPageBadge`, `title`, `subtitle`) wird **immer** gerendert.
+  `title` ist Pflicht; `badge` und `subtitle` erscheinen nur, wenn gesetzt.
 - `items` werden über `<StoryblokComponent blok={item} />` gerendert.
 - Optionaler Sektions-CTA unter dem Grid — nur wenn `cta_button_text` **und** `cta_link`
   gesetzt sind; `cta_text` optional darüber.
