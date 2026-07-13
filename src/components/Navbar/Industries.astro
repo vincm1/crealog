@@ -37,30 +37,32 @@ const industries = [
 ---
 
 <div class="grid grid-cols-2 gap-2">
-  {industries.map((ind) => (
-    <a
-      href={ind.href}
-      class="group/ind flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors"
-    >
-      <span class="relative flex-none w-14 h-14 rounded-lg overflow-hidden">
-        <img
-          src={ind.image}
-          alt={ind.title}
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover/ind:scale-105"
-          loading="lazy"
-        />
-        <span class="absolute inset-0 bg-[#0a1628]/25"></span>
-      </span>
-      <span class="flex flex-col">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-[#1d6bbf]">
-          {ind.eyebrow}
+  {
+    industries.map((ind) => (
+      <a
+        href={ind.href}
+        class="group/ind flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors"
+      >
+        <span class="relative flex-none w-14 h-14 rounded-lg overflow-hidden">
+          <img
+            src={ind.image}
+            alt={ind.title}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover/ind:scale-105"
+            loading="lazy"
+          />
+          <span class="absolute inset-0 bg-[#0a1628]/25" /> <p>test</p>
         </span>
-        <span class="text-[13px] font-semibold text-gray-900 group-hover/ind:text-[#004081] transition-colors">
-          {ind.title}
+        <span class="flex flex-col">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-[#1d6bbf]">
+            {ind.eyebrow}
+          </span>
+          <span class="text-[13px] font-semibold text-gray-900 group-hover/ind:text-[#004081] transition-colors">
+            {ind.title}
+          </span>
         </span>
-      </span>
-    </a>
-  ))}
+      </a>
+    ))
+  }
 
   <!-- Übersichts-Zelle füllt das 6. Feld -->
   <a
@@ -68,10 +70,14 @@ const industries = [
     class="group/all flex items-center justify-between gap-3 p-2.5 rounded-xl bg-gray-50 hover:bg-[#004081] transition-colors"
   >
     <span class="flex flex-col">
-      <span class="text-[10px] font-bold uppercase tracking-wider text-[#1d6bbf] group-hover/all:text-white/70">
+      <span
+        class="text-[10px] font-bold uppercase tracking-wider text-[#1d6bbf] group-hover/all:text-white/70"
+      >
         Überblick
       </span>
-      <span class="text-[13px] font-semibold text-gray-900 group-hover/all:text-white transition-colors">
+      <span
+        class="text-[13px] font-semibold text-gray-900 group-hover/all:text-white transition-colors"
+      >
         Alle Branchen
       </span>
     </span>
@@ -82,7 +88,10 @@ const industries = [
       stroke-width="2"
       stroke="currentColor"
     >
-      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
     </svg>
   </a>
 </div>
