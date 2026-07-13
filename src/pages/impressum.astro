@@ -1,18 +1,32 @@
 ---
-// Impressum — nutzt das gemeinsame LandingLayout (Navbar + Footer). Der
-// rechtliche Text ist 1:1 übernommen und darf inhaltlich nicht verändert
-// werden. darkHero={false}, damit die Navbar über dem hellen Hintergrund
-// von Anfang an weiß und sichtbar ist.
+// Impressum — bewusst ohne Navbar-/Footer-Komponenten, eigenständige Seite.
+// Der rechtliche Text ist 1:1 übernommen und darf inhaltlich nicht verändert
+// werden. app.css nur für Schrift (Poppins) und Grund-Reset.
+import "../assets/app.css";
 import LandingLayout from "../layouts/LandingLayout.astro";
 ---
 
-<LandingLayout
-  title="Impressum | CreaLog"
-  description="Impressum der CreaLog Software-Entwicklung und Beratung GmbH."
-  darkHero={false}
->
-  <main class="imprint">
-    <h1 class="imprint__title">Impressum</h1>
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta
+      name="description"
+      content="Impressum der CreaLog Software-Entwicklung und Beratung GmbH."
+    />
+    <title>Impressum | CreaLog</title>
+  </head>
+
+  <body>
+    <main class="imprint">
+      <a href="/" class="imprint__home">
+        <img src="/crealog_logo.png" alt="CreaLog" />
+      </a>
+
+      <h1 class="imprint__title">Impressum</h1>
 
       <section class="imprint__block">
         <p class="imprint__company">
@@ -103,17 +117,32 @@ import LandingLayout from "../layouts/LandingLayout.astro";
         </p>
       </section>
     </main>
-</LandingLayout>
+  </body>
+</html>
 
 <style>
+  html,
+  body {
+    margin: 0;
+    background: #fff;
+  }
+
   .imprint {
     max-width: 46rem;
-    /* Oben zusätzlicher Abstand, damit der Inhalt nicht unter der fixierten
-       Navbar (h-16) verschwindet. */
     margin: 0 auto;
-    padding: clamp(6rem, 6vw + 4rem, 9rem) 1.5rem clamp(4rem, 8vw, 6rem);
+    padding: clamp(2.5rem, 6vw, 5rem) 1.5rem clamp(4rem, 8vw, 6rem);
     font-family: "Poppins", Calibri, sans-serif;
     color: #23303f;
+  }
+
+  .imprint__home {
+    display: inline-block;
+    margin-bottom: clamp(2rem, 5vw, 3.25rem);
+  }
+  .imprint__home img {
+    height: 2rem;
+    width: auto;
+    display: block;
   }
 
   .imprint__title {
