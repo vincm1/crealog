@@ -7,6 +7,8 @@
 # `excludes` are relative to that publish directory; the values below mirror
 # IONOS' documented defaults. `runtime` is intentionally omitted (PHP-only).
 
+version: "2022-07-21"
+
 excludes:
   bootstrap:
     - logs
