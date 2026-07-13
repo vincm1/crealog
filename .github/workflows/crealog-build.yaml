@@ -39,7 +39,10 @@ jobs:
           STORYBLOK_DELIVERY_API_TOKEN: ${{ secrets.STORYBLOK_DELIVERY_API_TOKEN }}
         run: |
           npm install --global pnpm
-          pnpm install
+          # pnpm 11 no longer honors onlyBuiltDependencies (package.json or
+          # pnpm-workspace.yaml) here and blocks esbuild/sharp build scripts
+          # (ERR_PNPM_IGNORED_BUILDS). Allow build scripts to run in CI.
+          pnpm install --config.dangerouslyAllowAllBuilds=true
           pnpm build
 
       # Please do not touch the following action
