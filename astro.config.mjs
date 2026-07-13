@@ -40,6 +40,7 @@ export default defineConfig({
         cta_banner: "storyblok/cta/CtaBanner",
         intro_text: "storyblok/content/IntroText",
         expert_cta: "storyblok/cta/ExpertCta",
+        contact_cta: "storyblok/cta/ContactCta",
         product_tabs: "storyblok/content/ProductTabs",
         product_tab_item: "storyblok/content/ProductTabItem",
         columns: "storyblok/content/Columns",
