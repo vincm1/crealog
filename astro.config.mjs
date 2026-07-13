@@ -58,7 +58,7 @@ export default defineConfig({
       },
       // Gelöschte/unbekannte Blöcke crashen die Seite nicht, sondern werden ignoriert.
       enableFallbackComponent: true,
-      livePreview: false,
+      livePreview: true,
       apiOptions: {
         region: "eu",
       },

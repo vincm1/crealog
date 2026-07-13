@@ -3,25 +3,33 @@ import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import SolutionSubPage from "../layouts/SolutionSubPage.astro";
 
-export async function getStaticPaths() {
-  const storyblokApi = useStoryblokApi();
-  const stories = await storyblokApi.getAll("cdn/stories", {
-    version: "published",
-  });
+// SSR: Story pro Request anhand des Slugs laden (getStaticPaths wird unter
+// output: "server" ignoriert). Slugs mit eigener Route auslassen (index.astro
+// -> "home", komponenten.astro), damit keine doppelten Routen entstehen.
+const { slug } = Astro.params;
+const reserved = new Set(["home", "komponenten"]);
 
-  // Slugs mit eigener Route auslassen (index.astro -> "home", komponenten.astro),
-  // damit keine doppelten Routen entstehen.
-  const reserved = new Set(["home", "komponenten"]);
-
-  return stories
-    .filter((story: any) => !reserved.has(story.full_slug))
-    .map((story: any) => ({
-      params: { slug: story.full_slug },
-      props: { story },
-    }));
+if (!slug || reserved.has(slug)) {
+  return new Response(null, { status: 404 });
 }
 
-const { story } = Astro.props;
+const isPreview =
+  import.meta.env.DEV || Astro.url.searchParams.has("_storyblok");
+
+let story: any = null;
+try {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
+    version: isPreview ? "draft" : "published",
+  });
+  story = data.story;
+} catch {
+  // Story nicht gefunden oder Storyblok nicht erreichbar
+}
+
+if (!story) {
+  return new Response(null, { status: 404 });
+}
 ---
 
 <SolutionSubPage>
