@@ -1,0 +1,137 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import SubPageBadge from "../../components/SubPageBadge.astro";
+import { resolveStoryblokLink } from "../utils/link.js";
+
+const { blok } = Astro.props;
+
+const colClass: Record<string, string> = {
+  "1": "",
+  "2": "sm:grid-cols-2",
+  "3": "sm:grid-cols-2 lg:grid-cols-3",
+  "4": "sm:grid-cols-2 lg:grid-cols-4",
+};
+const cols = colClass[blok.columns] ?? "sm:grid-cols-2 lg:grid-cols-3";
+
+const { href: ctaHref, isExternal: ctaExternal } = resolveStoryblokLink(blok.cta_link);
+const showCta = Boolean(blok.cta_button_text && ctaHref);
+const ctaExtAttrs = ctaExternal ? { target: "_blank", rel: "noopener" } : {};
+---
+
+<section {...storyblokEditable(blok)} class="cols-section">
+  <div class="mx-auto max-w-6xl px-6 lg:px-10">
+
+    <div class="cols-header">
+      {blok.badge && <SubPageBadge text={blok.badge} />}
+      <h2 class="cols-title">{blok.title}</h2>
+      {blok.subtitle && <p class="cols-subtitle">{blok.subtitle}</p>}
+    </div>
+
+    <div class={`grid grid-cols-1 ${cols} gap-5`}>
+      {blok.items?.map((item: any) => (
+        <StoryblokComponent blok={item} />
+      ))}
+    </div>
+
+    {(blok.cta_text || showCta) && (
+      <div class="cols-cta">
+        {blok.cta_text && <p class="cols-cta-text">{blok.cta_text}</p>}
+        {showCta && (
+          <a href={ctaHref} class="cols-cta-btn" {...ctaExtAttrs}>
+            {blok.cta_button_text}
+            <svg class="cols-cta-arrow" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        )}
+      </div>
+    )}
+
+  </div>
+</section>
+
+<style>
+  .cols-section {
+    font-family: "Poppins", Calibri, sans-serif;
+    background: #ffffff;
+    padding: 6rem 0 7rem;
+    color: #0f1e30;
+  }
+
+  .cols-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .cols-title {
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #0a1628;
+    max-width: 22ch;
+  }
+
+  .cols-subtitle {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #64748b;
+    max-width: 54ch;
+  }
+
+  .cols-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .cols-cta-text {
+    margin: 0;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: #475569;
+    max-width: 52ch;
+  }
+
+  .cols-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 9999px;
+    background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 16px -4px rgba(37, 99, 235, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, gap 0.2s ease;
+  }
+
+  .cols-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px -6px rgba(37, 99, 235, 0.55);
+    gap: 0.7rem;
+  }
+
+  .cols-cta-arrow {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cols-cta-btn { transition: none; }
+    .cols-cta-btn:hover { transform: none; }
+  }
+</style>
