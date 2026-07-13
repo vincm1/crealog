@@ -31,11 +31,5 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3",
     "vite-plugin-mkcert": "^2.1.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
   }
 }
