@@ -1,0 +1,20 @@
+# IONOS Deploy Now – deployment configuration for the "crealog" project.
+# Referenced by .github/workflows/crealog-build.yaml
+#   (Store deployment content → config-file: .deploy-now/crealog/config.yaml)
+# Docs: https://docs.ionos.space/docs/deployment-configuration/
+#
+# The build publishes the Astro static output (env DEPLOYMENT_FOLDER: dist).
+# `excludes` are relative to that publish directory; the values below mirror
+# IONOS' documented defaults. `runtime` is intentionally omitted (PHP-only).
+
+excludes:
+  bootstrap:
+    - logs
+    - .deploy-now
+    - .git
+    - .github
+  recurring:
+    - logs
+    - .deploy-now
+    - .git
+    - .github
