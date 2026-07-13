@@ -220,6 +220,48 @@ const subpage = [
       cta_secondary_href: "/kontakt",
     },
   },
+  {
+    id: "columns",
+    label: "Columns (1–4 Spalter)",
+    desc: "Flexibler Spalten-Block (1–4) mit Headline/Subline/Text, optionalem Bild, Teaser+Button pro Spalte und optionalem Sektions-CTA.",
+    blok: {
+      component: "columns",
+      columns: "3",
+      badge: "Übersicht",
+      title: "Unsere Leistungen im Überblick",
+      subtitle: "Drei Spalten – eine mit Bild und Button, eine mit Bild, eine ohne Bild – plus Abschluss-CTA.",
+      items: [
+        {
+          component: "column_item",
+          image: { filename: DEMO_IMG, alt: "Demo" },
+          headline: "Mit Bild & Button",
+          subline: "Voice Bots",
+          text: "Automatisierte Anrufannahme rund um die Uhr – natürlich und effizient.",
+          teaser_text: "Mehr über unsere Voice-Lösungen erfahren.",
+          button_text: "Zur Landingpage",
+          link: { linktype: "url", url: "https://crealog.com" },
+        },
+        {
+          component: "column_item",
+          image: { filename: EXPERT_IMG, alt: "Demo" },
+          headline: "Nur mit Bild",
+          subline: "Beratung",
+          text: "Persönliche Experten-Beratung für Ihre Kommunikationsinfrastruktur.",
+        },
+        {
+          component: "column_item",
+          headline: "Ohne Bild",
+          subline: "Integration",
+          text: "Nahtlose Anbindung an CRM, ERP und bestehende Telefonie – DSGVO-konform.",
+          button_text: "Details ansehen",
+          link: { linktype: "story", cached_url: "loesungen" },
+        },
+      ],
+      cta_text: "Sie möchten alle Lösungen im Detail sehen?",
+      cta_button_text: "Alle Lösungen ansehen",
+      cta_link: { linktype: "story", cached_url: "loesungen" },
+    },
+  },
 ];
 
 const groups = [

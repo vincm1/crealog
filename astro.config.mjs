@@ -42,6 +42,8 @@ export default defineConfig({
         expert_cta: "storyblok/cta/ExpertCta",
         product_tabs: "storyblok/content/ProductTabs",
         product_tab_item: "storyblok/content/ProductTabItem",
+        columns: "storyblok/content/Columns",
+        column_item: "storyblok/content/ColumnItem",
         solution_references: "storyblok/references/SolutionReferences",
         solution_reference_item: "storyblok/references/SolutionReferenceItem",
         solution_banner: "storyblok/references/SolutionBanner",
