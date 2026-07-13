@@ -2,14 +2,19 @@
   "name": "crealog-website",
   "type": "module",
   "version": "0.0.1",
+  "packageManager": "pnpm@10.17.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "start": "node ./dist/server/entry.mjs",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/vercel": "^11.0.2",
+    "@astrojs/node": "^11.0.2",
     "@astrojs/vue": "^7.0.1",
     "@fontsource/poppins": "^5.2.7",
     "@iconify-json/heroicons": "^1.2.3",
@@ -31,5 +36,11 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3",
     "vite-plugin-mkcert": "^2.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild"
+    ]
   }
 }

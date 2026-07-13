@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import vue from "@astrojs/vue";
+import node from "@astrojs/node";
 import tailwindcss from "@tailwindcss/vite";
 import { storyblok } from "@storyblok/astro";
 import { loadEnv } from "vite";
@@ -8,6 +9,10 @@ import mkcert from "vite-plugin-mkcert";
 import icon from "astro-icon";
 
 const env = loadEnv("", process.cwd(), "STORYBLOK");
+
+// mkcert erzeugt lokale HTTPS-Zertifikate — nur im Dev sinnvoll.
+// Im Prod-Build (Scalingo, headless) würde es fehlschlagen/hängen.
+const isDev = process.env.NODE_ENV !== "production";
 
 // https://astro.build/config
 export default defineConfig({
@@ -61,7 +66,8 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss(), mkcert()],
+    plugins: [tailwindcss(), ...(isDev ? [mkcert()] : [])],
   },
-  output: "static",
+  output: "server",
+  adapter: node({ mode: "standalone" }),
 });
